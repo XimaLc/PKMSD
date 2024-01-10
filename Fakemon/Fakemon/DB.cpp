@@ -10,6 +10,41 @@ std::string DB::removeUnderscore(std::string _str)
 	return _str;
 }
 
+void DB::loadTypes()
+{
+	int id;
+	std::string name, weaks, neutrals, resists, immunes;
+
+	std::string string;
+	std::istringstream iss;
+
+	std::ifstream file("../Files/DB/Types.tsv", std::ios::in);
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			getline(file, string);
+			iss.clear();
+			if (string.find("//") == std::string::npos)
+			{
+				iss.str(string);
+				iss >> id >> name >> weaks >> neutrals >> resists >> immunes;
+				Pokemon* tmp = new Pokemon();
+				tmp->setId(id);
+				tmp->setName(removeUnderscore(name));
+
+
+
+				Pokemon::addPokemon(*tmp);
+
+				delete tmp;
+			}
+		}
+		file.close();
+	}
+}
+
+
 void DB::loadPokemons()
 {
 	std::string name;

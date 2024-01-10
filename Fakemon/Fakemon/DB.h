@@ -15,7 +15,9 @@ private:
 public:
 	std::string removeUnderscore(std::string _str);
 
+	void loadTypes();
 	void loadPokemons();
+
 
 
 	DB();
