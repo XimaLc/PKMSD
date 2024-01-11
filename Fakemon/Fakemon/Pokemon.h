@@ -1,4 +1,5 @@
 #pragma once
+#include "SFML/Graphics.hpp"
 #include "Type.h"
 #include <string>
 #include <vector>
@@ -12,6 +13,11 @@ private:
 	int typeId2;
 	int evolution_state;
 	std::map<std::string, int> stats;
+	bool isShiny;
+	std::string path;
+	
+	sf::Texture texture;
+	sf::Sprite sprite;
 
 	static std::vector<Pokemon> pokemons;
 public:
@@ -22,8 +28,15 @@ public:
 	inline void setName(std::string _name) { name = _name; }
 	inline void setEvolutionState(int _evolution_state) { evolution_state = _evolution_state; }
 	inline void setStats(std::map<std::string, int> _stats) { stats = _stats; }
-
+	
+	void setPath(std::string _path);
+	void setTexture();
 	void setTypes(int _typeName1, int _typeName2);
+
+	static void displayById(int id, bool _isShiny, sf::RenderWindow& window);
+	void display(sf::RenderWindow& window);
+
+	void changeIsShiny(bool _isShiny);
 
 	Pokemon();
 	Pokemon(int id, std::string _name, int _type1, int _type2, int _evolution_state, std::map<std::string, int> _stats);

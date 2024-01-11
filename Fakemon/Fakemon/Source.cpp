@@ -3,7 +3,12 @@
 
 int main()
 {
+	int x, y;
+
 	DB db;
+	
+	sf::Texture texture;
+	sf::Sprite;
 
 	sf::RenderWindow window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN");
 	while (window.isOpen())
@@ -17,6 +22,11 @@ int main()
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
 				window.close();
 		}
-		Pokemon::getPokemons();
+		
+		window.clear();
+		
+		
+
+		window.display();
 	}
 }

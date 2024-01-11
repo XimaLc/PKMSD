@@ -1,4 +1,8 @@
 #pragma once
+#include <iostream>
+#include <map>
+#include <vector>
+
 enum Type_relation { weak, neutral, resist, immune};
 
 class Type
