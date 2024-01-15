@@ -2,17 +2,17 @@
 
 sf::Font Button::font;
 
-Button::Button(double x, double y, double width, double height, sf::Color _color, std::string text, int font_size, bool updateAlpha, bool _locked) : color(_color)
+Button::Button(double x, double y, double width, double height, std::string text, int font_size, bool updateAlpha, bool _locked)
 {
 	this->buttonState = BUTTON_IDLE;
 	this->shape.setSize(sf::Vector2f(width, height));
 	this->shape.setPosition(sf::Vector2f(x, y));
+	color = sf::Color::White;
 	if (!_locked)
 	{
-		_color.a = 255;
-		this->shape.setFillColor(_color);
+		this->texture.loadFromFile("../Files/Textures/Pokemons/button.png");
 	}
-
+	this->shape.setTexture(&texture);
 	if (font.getInfo().family.empty())
 	{
 		if (!font.loadFromFile("../Files/Font/Pokemon.ttf"))
@@ -35,8 +35,6 @@ Button::Button(double x, double y, double width, double height, sf::Color _color
 	}
 	if (_locked) 
 	{
-		_color.a = 100;
-		this->shape.setFillColor(_color);
 		locked = true;
 	}
 }
@@ -94,14 +92,14 @@ void Button::update(const sf::Vector2f mousePos)
 		else if (this->shape.getGlobalBounds().contains(mousePos))
 		{
 			this->buttonState = BUTTON_HOVER;
-				this->text.setFillColor(sf::Color(132, 241, 215, 255));
+				this->text.setFillColor(sf::Color(184, 147, 1, 255));
 				color.a = 200;
 				this->shape.setFillColor(color);
 		}
 		else
 		{
 			this->buttonState = BUTTON_IDLE;
-				this->text.setFillColor(sf::Color(176, 169, 255, 255));
+				this->text.setFillColor(sf::Color(255, 204, 1, 255));
 				color.a = 255;
 				this->shape.setFillColor(color);
 		}
@@ -110,6 +108,7 @@ void Button::update(const sf::Vector2f mousePos)
 
 void Button::render(sf::RenderWindow* (target))
 {
+	this->shape.setTexture(&texture);
 	target->draw(this->shape);
 	target->draw(this->text);
 }

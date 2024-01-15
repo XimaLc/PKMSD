@@ -2,10 +2,10 @@
 
 Menu::Menu()
 {
-	this->bouttons["PSEUDO_BOUTTON"] = new Button(800, 470, 300, 80, sf::Color(54,95,172), "PSEUDO", 50);
-	this->bouttons["PASSWORD_BOUTTON"] = new Button(800, 600, 300, 80, sf::Color(54, 95, 172), "PASSWORD", 50);
-	this->bouttons["PLAY_BOUTTON"] = new Button(850, 750, 200, 80, sf::Color(54, 95, 172), "PLAY", 50);
-	this->bouttons["REGISTER_BOUTTON"] = new Button(1550, 950, 300, 80, sf::Color(54, 95, 172), "REGISTER", 50);
+	this->bouttons["PSEUDO_BOUTTON"] = new Button(800, 470, 300, 80, "PSEUDO", 50);
+	this->bouttons["PASSWORD_BOUTTON"] = new Button(800, 600, 300, 80, "PASSWORD", 50);
+	this->bouttons["PLAY_BOUTTON"] = new Button(850, 750, 200, 80, "PLAY", 50);
+	this->bouttons["REGISTER_BOUTTON"] = new Button(1550, 950, 300, 80, "REGISTER", 50);
 
 	if (fondTex.loadFromFile("../Files/Textures/Pokemons/fond.png"))
 	{
@@ -27,10 +27,10 @@ void Menu::UpdateMenu(sf::RenderWindow* _window)
 	for (auto& it : this->bouttons)
 		it.second->update(mousePos);
 
-	/*if (bouttons["GAME_BOUTTON"]->isPressed())
+	if (bouttons["PLAY_BOUTTON"]->isPressed())
 	{
 		StateManager::getInstance()->switchToGame();
-	}*/
+	}
 }
 
 void Menu::DrawMenu(sf::RenderWindow * _window)
