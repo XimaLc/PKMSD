@@ -4,7 +4,7 @@ void MainGameState::InitScene()
 {
 }
 
-void MainGameState::UpdateScene()
+void MainGameState::UpdateScene(sf::RenderWindow* _window)
 {
 }
 

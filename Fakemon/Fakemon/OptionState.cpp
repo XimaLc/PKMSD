@@ -5,7 +5,7 @@ void MainOptionState::InitScene()
 	
 }
 
-void MainOptionState::UpdateScene()
+void MainOptionState::UpdateScene(sf::RenderWindow* _window)
 {
 }
 

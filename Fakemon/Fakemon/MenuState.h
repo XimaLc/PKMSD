@@ -5,10 +5,10 @@ class MainMenuState : public MenuState
 {
 public:
 	void InitScene()override;
-	void UpdateScene()override;
+	void UpdateScene(sf::RenderWindow* _window)override;
 	void DrawScene(sf::RenderWindow* _window)override;
 
 private:
-	sf::CircleShape suu;
+
 };
 

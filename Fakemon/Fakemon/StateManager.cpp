@@ -3,9 +3,18 @@
 #include "MenuState.h"
 #include "OptionState.h"
 
+State* currentState = StateManager::currentState;
+
 StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN")
 {
 	switchToMenu();
+}
+
+StateManager* StateManager::getInstance()
+{
+	static StateManager* instance;
+
+	return instance;
 }
 
 void StateManager::switchToMenu()
@@ -16,7 +25,9 @@ void StateManager::switchToMenu()
 
 void StateManager::switchToGame()
 {
-	currentState = new MainGameState();
+	State* tmp = new MainGameState();
+
+	currentState = tmp;
 	currentState->InitScene();
 }
 
@@ -41,7 +52,7 @@ void StateManager::updateCurrentState()
 				window.close();
 		}
 
-		currentState->UpdateScene();
+		currentState->UpdateScene(&window);
 
 		window.clear();
 		currentState->DrawScene(&window);

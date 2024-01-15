@@ -1,0 +1,32 @@
+#pragma once
+#include "SFML/Graphics.hpp"
+#include <iostream>
+
+
+enum button_states { BUTTON_IDLE = 0, BUTTON_HOVER, BUTTON_PRESSED };
+
+class Button
+{
+private:
+	short unsigned buttonState;
+	static sf::Font font;
+	sf::Color color;
+public:
+	sf::RectangleShape shape;
+	sf::Text text;
+	bool locked = false;
+	Button(double x, double y, double width, double height,sf::Color _color, std::string text, int font_size = 25, bool updateAlpha = true, bool locked = false);
+	~Button();
+
+	// Accessors
+	const bool isPressed() const;
+
+	// Function
+	void setPosition(sf::Vector2f pos);
+	void setSize(sf::Vector2f size);
+	void setText(std::string string);
+	void setTextSize(int data);
+	void update(const sf::Vector2f mousePos);
+	void render(sf::RenderWindow* (target));
+};
+
