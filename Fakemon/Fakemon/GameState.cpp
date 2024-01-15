@@ -1,13 +1,14 @@
 #include "GameState.h"
 
-void MainGameState::InitScene()
+GameState::GameState()
 {
 }
 
-void MainGameState::UpdateScene(sf::RenderWindow* _window)
+void GameState::UpdateScene(sf::RenderWindow* _window)
 {
+	
 }
 
-void MainGameState::DrawScene(sf::RenderWindow* _window)
+void GameState::DrawScene(sf::RenderWindow* _window)
 {
 }

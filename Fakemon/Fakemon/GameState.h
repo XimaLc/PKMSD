@@ -1,10 +1,12 @@
 #pragma once
 #include "StateManager.h"
 
-class MainGameState : public GameState
+class GameState : public State
 {
 public:
-	void InitScene()override;
+	GameState();
+	~GameState() {}
+
 	void UpdateScene(sf::RenderWindow* _window)override;
 	void DrawScene(sf::RenderWindow* _window)override;
 };

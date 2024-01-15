@@ -2,8 +2,7 @@
 
 int main()
 {
-	StateManager state;
-	state.updateCurrentState();
+	stateManager->updateCurrentState();
 
 	return 0;
 

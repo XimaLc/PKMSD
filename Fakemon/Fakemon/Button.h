@@ -11,11 +11,12 @@ private:
 	short unsigned buttonState;
 	static sf::Font font;
 	sf::Color color;
+
 public:
 	sf::RectangleShape shape;
 	sf::Text text;
 	bool locked = false;
-	Button(double x, double y, double width, double height,sf::Color _color, std::string text, int font_size = 25, bool updateAlpha = true, bool locked = false);
+	Button(double x, double y, double width, double height,sf::Color _color, std::string text, int font_size = 25, bool updateAlpha = false, bool locked = false);
 	~Button();
 
 	// Accessors
