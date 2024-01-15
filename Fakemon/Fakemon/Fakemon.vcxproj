@@ -134,13 +134,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DB.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Pokemon.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Type.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DB.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="OptionState.h" />
     <ClInclude Include="Pokemon.h" />
+    <ClInclude Include="StateManager.h" />
     <ClInclude Include="Type.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
