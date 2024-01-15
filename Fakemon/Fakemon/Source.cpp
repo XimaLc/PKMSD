@@ -6,4 +6,5 @@ int main()
 	state.updateCurrentState();
 
 	return 0;
+
 }

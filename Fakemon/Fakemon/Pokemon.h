@@ -1,6 +1,5 @@
 #pragma once
 #include "SFML/Graphics.hpp"
-#include "Type.h"
 #include <string>
 #include <vector>
 #include <map>
@@ -15,7 +14,8 @@ private:
 	std::map<std::string, int> stats;
 	bool isShiny;
 	std::string path;
-	
+	std::vector<int> movePool;
+
 	sf::Texture texture;
 	sf::Sprite sprite;
 
@@ -28,7 +28,8 @@ public:
 	inline void setName(std::string _name) { name = _name; }
 	inline void setEvolutionState(int _evolution_state) { evolution_state = _evolution_state; }
 	inline void setStats(std::map<std::string, int> _stats) { stats = _stats; }
-	
+	inline void setMovePool(std::vector<int> _movePool) { movePool = _movePool; }
+
 	void setPath(std::string _path);
 	void setTexture();
 	void setTypes(int _typeName1, int _typeName2);
