@@ -1,9 +1,13 @@
 #include "Button.h"
+#include <time.h>
+#include "tools.h"
 
 sf::Font Button::font;
 
-Button::Button(double x, double y, double width, double height, std::string text, int font_size, bool updateAlpha, bool _locked)
+Button::Button(bool _modif, double x, double y, double width, double height, std::string text, int font_size, bool updateAlpha, bool _locked)
 {
+	timer1 = 0;
+	timer2 = 0;
 	this->buttonState = BUTTON_IDLE;
 	this->shape.setSize(sf::Vector2f(width, height));
 	this->shape.setPosition(sf::Vector2f(x, y));
@@ -37,6 +41,10 @@ Button::Button(double x, double y, double width, double height, std::string text
 	{
 		locked = true;
 	}
+	if (_modif)
+	{
+		modif = true;
+	}
 }
 
 Button::~Button()
@@ -54,7 +62,11 @@ const bool Button::isPressed() const
 void Button::setPosition(sf::Vector2f pos)
 {
 	this->shape.setPosition(pos);
-	this->text.setPosition(pos.x + 5.f, pos.y + 10.f);
+	this->text.setPosition
+	(
+		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - this->text.getLetterSpacing(),
+		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f - this->text.getLineSpacing()
+	);
 }
 
 void Button::setSize(sf::Vector2f size)
@@ -77,17 +89,26 @@ void Button::setTextSize(int data)
 }
 void Button::update(const sf::Vector2f mousePos)
 {
-	/* Update the state for hover and pressed */
-	// Idle
+	timer1 += GetTimeDelta();
 	if (!locked)
 	{
 		// Pressed
-		if ((this->shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) || locked)
+		if ((this->shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left)) && timer1 >= 0.1)
 		{
 			this->buttonState = BUTTON_PRESSED;
 				this->text.setFillColor(sf::Color(240, 131, 131, 255));
 				color.a = 100;
 				this->shape.setFillColor(color);
+
+			if(modif)
+			{
+				if (!isTextEntering)
+					isTextEntering = true;
+				else
+					isTextEntering = false;
+			}
+
+			timer1 = 0;	
 		}
 		else if (this->shape.getGlobalBounds().contains(mousePos))
 		{
@@ -103,6 +124,9 @@ void Button::update(const sf::Vector2f mousePos)
 				color.a = 255;
 				this->shape.setFillColor(color);
 		}
+
+		
+
 	}
 }
 
@@ -111,4 +135,91 @@ void Button::render(sf::RenderWindow* (target))
 	this->shape.setTexture(&texture);
 	target->draw(this->shape);
 	target->draw(this->text);
+}
+
+
+std::string Button::getText() const
+{
+	return this->text.getString();
+}
+
+void Button::handleTextInput(const sf::Event& event)
+{
+	timer2 += GetTimeDelta();
+		
+
+		if (isTextEntering)
+		{
+			color.a = 100;
+			this->shape.setFillColor(color);
+
+			if (timer2 >= 0.1)
+			{
+				timer2 = 0;
+
+				sf::Keyboard::Key pressedKey = sf::Keyboard::Unknown;
+				for (int i = sf::Keyboard::A; i <= sf::Keyboard::Numpad9; ++i)
+				{
+					if (sf::Keyboard::isKeyPressed(static_cast<sf::Keyboard::Key>(i)))
+					{
+						pressedKey = static_cast<sf::Keyboard::Key>(i);
+						break;
+					}
+				}
+
+				if (pressedKey != sf::Keyboard::Unknown)
+				{
+					if (pressedKey == sf::Keyboard::BackSpace && inputText.getSize() > 0)
+					{
+						inputText.erase(inputText.getSize() - 1);
+					}
+					else if (pressedKey >= sf::Keyboard::A && pressedKey <= sf::Keyboard::Z && inputText.getSize() < 15)
+					{
+						char unicodeChar = static_cast<char>('a' + (pressedKey - sf::Keyboard::A));
+						inputText += unicodeChar;
+					}
+					else if (pressedKey >= sf::Keyboard::Num0 && pressedKey <= sf::Keyboard::Num9 && inputText.getSize() < 15)
+					{
+						char unicodeChar = static_cast<char>('0' + (pressedKey - sf::Keyboard::Num0));
+						inputText += unicodeChar;
+					}
+					else if (pressedKey >= sf::Keyboard::Numpad0 && pressedKey <= sf::Keyboard::Numpad9 && inputText.getSize() < 15)
+					{
+						char unicodeChar = static_cast<char>('0' + (pressedKey - sf::Keyboard::Numpad0));
+						inputText += unicodeChar;
+					}
+					setText(inputText);
+
+					if (pressedKey == sf::Keyboard::Enter)
+					{
+						isTextEntering = false;;
+					}
+				}
+			}
+			
+		}
+
+	
+	/*static sf::Clock inputClock;
+
+	if (isTextEntering)
+	{
+		if (event.type == sf::Event::TextEntered)
+		{
+			if (inputClock.getElapsedTime().asMilliseconds() > 100)
+			{
+				inputClock.restart();
+
+				if (event.text.unicode == '\b' && inputText.getSize() > 0)
+				{
+					inputText.erase(inputText.getSize() - 1);
+				}
+				else if (event.text.unicode < 128 && inputText.getSize() < 15)
+				{
+					inputText += event.text.unicode;
+				}
+				setText(inputText);
+			}
+		}
+	}*/
 }
