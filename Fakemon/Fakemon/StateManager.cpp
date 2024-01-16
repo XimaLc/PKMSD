@@ -3,11 +3,12 @@
 #include "MenuState.h"
 #include "OptionState.h"
 
+#include "tools.h"
+
 StateManager* StateManager::m_instance = nullptr;
 
 StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN"), currentState(new MenuState())
 {
-	
 }
 
 StateManager* StateManager::getInstance()
@@ -47,7 +48,8 @@ void StateManager::updateCurrentState()
 {
 	while (window.isOpen())
 	{
-		sf::Event event;
+		restartClock();
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)

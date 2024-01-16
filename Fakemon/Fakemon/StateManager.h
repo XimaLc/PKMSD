@@ -33,6 +33,8 @@ public:
 	void displayCurrentState();
 
 	sf::RenderWindow window;
+
+	sf::Event event;
 	
 };
 

@@ -1,16 +1,30 @@
 #include "Menu.h"
+#include "StateManager.h"
 
 Menu::Menu()
 {
-	this->bouttons["PSEUDO_BOUTTON"] = new Button(750, 470, 400, 80, "PSEUDO", 50);
-	this->bouttons["PASSWORD_BOUTTON"] = new Button(750, 600, 400, 80, "PASSWORD", 50);
-	this->bouttons["PLAY_BOUTTON"] = new Button(850, 750, 200, 80, "PLAY", 50);
-	this->bouttons["REGISTER_BOUTTON"] = new Button(1500, 950, 400, 80, "REGISTER", 50);
+	this->bouttons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 50);
+	this->bouttons["PASSWORD_BOUTTON"] = new Button(true,750, 600, 400, 80, "PASSWORD", 50);
+	this->bouttons["LOGIN_BOUTTON"] = new Button(false,850, 750, 200, 80, "LOGIN", 50);
+	this->bouttons["REGISTER_BOUTTON"] = new Button(false,1500, 950, 300, 80, "REGISTER", 50);
+	this->bouttons["EXIT_BOUTTON"] = new Button(false, 100, 950, 200, 80, "EXIT", 50);
 
 	if (fondTex.loadFromFile("../Files/Textures/Pokemons/fond.png"))
 	{
 		fondSpr.setTexture(fondTex);
 		fondSpr.setPosition(0, 0);
+	}
+	if (fogTex.loadFromFile("../Files/Textures/Pokemons/smoge.png"))
+	{
+		fogSpr.setTexture(fogTex);
+		fogSpr.setPosition(0,300);
+		fogSpr.setScale(0.5, 0.5);
+	}
+	if (fogTex2.loadFromFile("../Files/Textures/Pokemons/smoge1.png"))
+	{
+		fogSpr2.setTexture(fogTex2);
+		fogSpr2.setPosition(-1920, 300);
+		fogSpr2.setScale(0.5, 0.5);
 	}
 	if (TitreTex.loadFromFile("../Files/Textures/Pokemons/FAKEMON.png"))
 	{
@@ -18,24 +32,93 @@ Menu::Menu()
 		TitreSpr.setPosition(580,80);
 		TitreSpr.setScale(0.7,0.7);
 	}
+
+
+	accountManager.loadFromFile();
+	login = LOGIN;
+	timer = 0;
 }
 
 void Menu::UpdateMenu(sf::RenderWindow* _window)
 {
+	timer += GetTimeDelta();
+
+	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetTimeDelta(), fogSpr.getPosition().y));
+	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetTimeDelta(), fogSpr2.getPosition().y));
+	if(fogSpr.getPosition().x > 1920)
+		fogSpr.setPosition(sf::Vector2f(-1920, fogSpr.getPosition().y));
+	else if(fogSpr2.getPosition().x > 1920)
+		fogSpr2.setPosition(sf::Vector2f(-1920, fogSpr2.getPosition().y));
+
 	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*_window).x), static_cast<float>(sf::Mouse::getPosition(*_window).y));
 
 	for (auto& it : this->bouttons)
 		it.second->update(mousePos);
 
-	if (bouttons["PLAY_BOUTTON"]->isPressed())
+	for (auto& it : this->bouttons)
+		it.second->handleTextInput(stateManager->event);
+
+	if (bouttons["EXIT_BOUTTON"]->isPressed() && timer >= 0.2f)
 	{
-		StateManager::getInstance()->switchToGame();
+		_window->close();
+	}
+
+	if(login == LOGIN)
+	{
+		accountManager.loadFromFile();
+
+		bouttons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
+		bouttons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
+
+		if (bouttons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
+		{
+			if (accountManager.authenticate(bouttons["PSEUDO_BOUTTON"]->getText(), bouttons["PASSWORD_BOUTTON"]->getText()))
+			{
+				std::cout << "Connexion reussie\n";
+				StateManager::getInstance()->switchToGame();
+			}
+			else
+			{
+				std::cout << "Echec de la connexion\n";
+			}
+			timer = 0;
+		}
+		else if (bouttons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
+		{
+			login = REGISTER;
+			timer = 0;
+		}
+	}
+	else if (login == REGISTER)
+	{
+		bouttons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(1550, 950));
+		bouttons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(800, 750));
+
+		if (bouttons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
+		{
+			if (accountManager.registerAccount(bouttons["PSEUDO_BOUTTON"]->getText(), bouttons["PASSWORD_BOUTTON"]->getText()))
+			{
+				std::cout << "Inscription reussie\n";
+				login = LOGIN;
+				accountManager.saveToFile();
+			}
+			else
+				std::cout << "Le nom d'utilisateur existe deja\n";
+			timer = 0;
+		}
+		if (bouttons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
+		{
+			login = LOGIN;
+			timer = 0;
+		}
 	}
 }
 
 void Menu::DrawMenu(sf::RenderWindow * _window)
 {
 	_window->draw(fondSpr);
+	_window->draw(fogSpr);
+	_window->draw(fogSpr2);
 	_window->draw(TitreSpr);
 	for (auto& it : this->bouttons)
 		it.second->render(_window);

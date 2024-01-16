@@ -17,7 +17,8 @@ public:
 	sf::Texture texture;
 	sf::Text text;
 	bool locked = false;
-	Button(double x, double y, double width, double height, std::string text, int font_size = 25, bool updateAlpha = false, bool locked = false);
+	bool modif = false;
+	Button(bool modif,double x, double y, double width, double height, std::string text, int font_size = 25, bool updateAlpha = false, bool locked = false);
 	~Button();
 
 	// Accessors
@@ -30,5 +31,14 @@ public:
 	void setTextSize(int data);
 	void update(const sf::Vector2f mousePos);
 	void render(sf::RenderWindow* (target));
+
+
+	std::string getText() const;
+
+	void handleTextInput(const sf::Event& event);
+	bool isTextEntering = false;
+	sf::String inputText;
+	float timer1;
+	float timer2;
 };
 
