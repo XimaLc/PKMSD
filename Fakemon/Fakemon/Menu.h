@@ -24,10 +24,17 @@ public:
 	sf::Sprite fogSpr2;
 	sf::Texture fogTex2;
 
+	sf::Text notif;
+	bool activNotif = false;
+	float timeNotif = 0;
+
 	AccountManager accountManager;
 
 	STATE_LOGIN login;
 
 	float timer;
+
+private:
+	static sf::Font fonts;
 };
 

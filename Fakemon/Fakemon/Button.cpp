@@ -28,6 +28,8 @@ Button::Button(bool _modif, double x, double y, double width, double height, std
 	this->text.setFont(font);
 	this->text.setString(text);
 	this->text.setCharacterSize(font_size);
+	this->text.setOutlineThickness(5);
+	this->text.setOutlineColor(sf::Color(11, 75, 137, 255));
 	this->text.setPosition
 	(
 		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - this->text.getLetterSpacing(),

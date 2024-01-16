@@ -1,6 +1,8 @@
 #include "Menu.h"
 #include "StateManager.h"
 
+sf::Font Menu::fonts;
+
 Menu::Menu()
 {
 	this->boutons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 30);
@@ -32,7 +34,20 @@ Menu::Menu()
 		TitreSpr.setPosition(580,80);
 		TitreSpr.setScale(0.7,0.7);
 	}
-
+	if (fonts.getInfo().family.empty())
+	{
+		if (!fonts.loadFromFile("../Files/Font/Pokemon.ttf"))
+		{
+			std::cerr << "Erreur lors du chargement de la police." << std::endl;
+		}
+	}
+	this->notif.setFont(fonts);
+	this->notif.setPosition(sf::Vector2f(20, 20));
+	this->notif.setCharacterSize(20);
+	this->notif.setFillColor(sf::Color(255, 204, 1, 255));
+	this->notif.setOutlineThickness(3);
+	this->notif.setOutlineColor(sf::Color(11, 75, 137, 255));
+	
 
 	accountManager.loadFromFile();
 	login = LOGIN;
@@ -63,6 +78,16 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		_window->close();
 	}
 
+	if (activNotif)
+	{
+		timeNotif += GetDeltaTime();
+		if (timeNotif >= 1)
+		{
+			activNotif = false;
+			timeNotif = 0;
+		}
+	}
+
 	if(login == LOGIN)
 	{
 		accountManager.loadFromFile();
@@ -79,7 +104,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			}
 			else
 			{
-				std::cout << "Echec de la connexion\n";
+				this->notif.setString(std::string("id unknow"));
+				activNotif = true;
 			}
 			timer = 0;
 		}
@@ -98,12 +124,16 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		{
 			if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
-				std::cout << "Inscription reussie\n";
+				this->notif.setString(std::string("Inscription reussie"));
+				activNotif = true;
 				login = LOGIN;
 				accountManager.saveToFile();
 			}
 			else
-				std::cout << "Le nom d'utilisateur existe deja\n";
+			{
+				this->notif.setString(std::string("Le nom d'utilisateur existe deja"));
+				activNotif = true;
+			}
 			timer = 0;
 		}
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
@@ -122,4 +152,6 @@ void Menu::drawMenu(sf::RenderWindow * _window)
 	_window->draw(TitreSpr);
 	for (auto& it : this->boutons)
 		it.second->render(_window);
+	if(activNotif)
+		_window->draw(notif);
 }
