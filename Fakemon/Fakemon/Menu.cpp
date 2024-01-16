@@ -2,10 +2,10 @@
 
 Menu::Menu()
 {
-	this->bouttons["PSEUDO_BOUTTON"] = new Button(800, 470, 300, 80, "PSEUDO", 50);
-	this->bouttons["PASSWORD_BOUTTON"] = new Button(800, 600, 300, 80, "PASSWORD", 50);
+	this->bouttons["PSEUDO_BOUTTON"] = new Button(750, 470, 400, 80, "PSEUDO", 50);
+	this->bouttons["PASSWORD_BOUTTON"] = new Button(750, 600, 400, 80, "PASSWORD", 50);
 	this->bouttons["PLAY_BOUTTON"] = new Button(850, 750, 200, 80, "PLAY", 50);
-	this->bouttons["REGISTER_BOUTTON"] = new Button(1550, 950, 300, 80, "REGISTER", 50);
+	this->bouttons["REGISTER_BOUTTON"] = new Button(1500, 950, 400, 80, "REGISTER", 50);
 
 	if (fondTex.loadFromFile("../Files/Textures/Pokemons/fond.png"))
 	{
