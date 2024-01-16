@@ -55,7 +55,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 	for (auto& it : this->boutons)
 		it.second->update(mousePos);
   
-	for (auto& it : this->bouttons)
+	for (auto& it : this->boutons)
 		it.second->handleTextInput(stateManager->event);
 
 	if (boutons["EXIT_BOUTTON"]->isPressed() && timer >= 0.2f)
@@ -67,12 +67,12 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 	{
 		accountManager.loadFromFile();
 
-		bouttons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
-		bouttons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
+		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
+		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
-		if (bouttons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
+		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (accountManager.authenticate(bouttons["PSEUDO_BOUTTON"]->getText(), bouttons["PASSWORD_BOUTTON"]->getText()))
+			if (accountManager.authenticate(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
 				std::cout << "Connexion reussie\n";
 				StateManager::getInstance()->switchToGame();
@@ -83,7 +83,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			}
 			timer = 0;
 		}
-		else if (bouttons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
+		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
 			login = REGISTER;
 			timer = 0;
@@ -91,12 +91,12 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 	}
 	else if (login == REGISTER)
 	{
-		bouttons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(1550, 950));
-		bouttons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(800, 750));
+		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(1550, 950));
+		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(800, 750));
 
-		if (bouttons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
+		if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (accountManager.registerAccount(bouttons["PSEUDO_BOUTTON"]->getText(), bouttons["PASSWORD_BOUTTON"]->getText()))
+			if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
 				std::cout << "Inscription reussie\n";
 				login = LOGIN;
@@ -106,7 +106,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 				std::cout << "Le nom d'utilisateur existe deja\n";
 			timer = 0;
 		}
-		if (bouttons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
+		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
 			login = LOGIN;
 			timer = 0;
