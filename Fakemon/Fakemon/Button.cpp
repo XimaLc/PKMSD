@@ -26,7 +26,7 @@ Button::Button(double x, double y, double width, double height, std::string text
 	this->text.setPosition
 	(
 		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - this->text.getLetterSpacing(),
-		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 1.5f - this->text.getLineSpacing()
+		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 2.f - this->text.getLineSpacing()
 	);
 	if (updateAlpha)
 	{
