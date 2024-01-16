@@ -4,11 +4,12 @@ GameState::GameState()
 {
 }
 
-void GameState::UpdateScene(sf::RenderWindow* _window)
+void GameState::updateScene(sf::RenderWindow* _window)
 {
-	
+	showdown.update();
 }
 
-void GameState::DrawScene(sf::RenderWindow* _window)
+void GameState::drawScene(sf::RenderWindow* _window)
 {
+	showdown.draw(_window);
 }
