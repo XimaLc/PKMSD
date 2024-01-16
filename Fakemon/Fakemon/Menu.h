@@ -5,10 +5,10 @@ class Menu
 {
 public:
 	Menu();
-	void UpdateMenu(sf::RenderWindow* _window);
-	void DrawMenu(sf::RenderWindow* _window);
+	void updateMenu(sf::RenderWindow* _window);
+	void drawMenu(sf::RenderWindow* _window);
 
-	std::map<std::string, Button*> bouttons;
+	std::map<std::string, Button*> boutons;
 	sf::Sprite fondSpr;
 	sf::Texture fondTex;
 	sf::Sprite TitreSpr;
