@@ -3,30 +3,30 @@
 
 Menu::Menu()
 {
-	this->boutons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 50);
-	this->boutons["PASSWORD_BOUTTON"] = new Button(true,750, 600, 400, 80, "PASSWORD", 50);
+	this->boutons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 30);
+	this->boutons["PASSWORD_BOUTTON"] = new Button(true,750, 600, 400, 80, "PASSWORD", 30);
 	this->boutons["LOGIN_BOUTTON"] = new Button(false,850, 750, 200, 80, "LOGIN", 50);
 	this->boutons["REGISTER_BOUTTON"] = new Button(false,1500, 950, 300, 80, "REGISTER", 50);
 	this->boutons["EXIT_BOUTTON"] = new Button(false, 100, 950, 200, 80, "EXIT", 50);
 
-	if (fondTex.loadFromFile("../Files/Textures/Pokemons/fond.png"))
+	if (fondTex.loadFromFile("../Files/Textures/fond.png"))
 	{
 		fondSpr.setTexture(fondTex);
 		fondSpr.setPosition(0, 0);
 	}
-	if (fogTex.loadFromFile("../Files/Textures/Pokemons/smoge.png"))
+	if (fogTex.loadFromFile("../Files/Textures/smoge.png"))
 	{
 		fogSpr.setTexture(fogTex);
 		fogSpr.setPosition(0,300);
 		fogSpr.setScale(0.5, 0.5);
 	}
-	if (fogTex2.loadFromFile("../Files/Textures/Pokemons/smoge1.png"))
+	if (fogTex2.loadFromFile("../Files/Textures/smoge1.png"))
 	{
 		fogSpr2.setTexture(fogTex2);
 		fogSpr2.setPosition(-1920, 300);
 		fogSpr2.setScale(0.5, 0.5);
 	}
-	if (TitreTex.loadFromFile("../Files/Textures/Pokemons/FAKEMON.png"))
+	if (TitreTex.loadFromFile("../Files/Textures/FAKEMON.png"))
 	{
 		TitreSpr.setTexture(TitreTex);
 		TitreSpr.setPosition(580,80);
@@ -56,7 +56,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		it.second->update(mousePos);
   
 	for (auto& it : this->boutons)
-		it.second->handleTextInput(stateManager->event);
+		it.second->handleTextInput();
 
 	if (boutons["EXIT_BOUTTON"]->isPressed() && timer >= 0.2f)
 	{
