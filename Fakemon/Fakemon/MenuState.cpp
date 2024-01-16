@@ -4,12 +4,12 @@ MenuState::MenuState() : menu()
 {
 }
 
-void MenuState::UpdateScene(sf::RenderWindow* _window)
+void MenuState::updateScene(sf::RenderWindow* _window)
 {
-	menu.UpdateMenu(_window);
+	menu.updateMenu(_window);
 }
 
-void MenuState::DrawScene(sf::RenderWindow* _window)
+void MenuState::drawScene(sf::RenderWindow* _window)
 {
-	menu.DrawMenu(_window);
+	menu.drawMenu(_window);
 }
