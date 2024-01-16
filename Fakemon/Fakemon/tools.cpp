@@ -7,7 +7,7 @@ void restartClock()
 {
 	sfTime = sfclock.restart();
 }
-float GetTimeDelta()
+float GetDeltaTime()
 {
 	return sfTime.asSeconds();
 }

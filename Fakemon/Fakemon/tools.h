@@ -13,7 +13,7 @@ using namespace std;
 enum Direction { DOWN, LEFT, RIGHT, UP, IDLE };
 
 void restartClock();
-float GetTimeDelta();
+float GetDeltaTime();
 
 int iRand(int min, int max);
 double frand(float min, float max);

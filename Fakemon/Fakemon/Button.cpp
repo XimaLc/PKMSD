@@ -89,7 +89,7 @@ void Button::setTextSize(int data)
 }
 void Button::update(const sf::Vector2f mousePos)
 {
-	timer1 += GetTimeDelta();
+	timer1 += GetDeltaTime();
 	if (!locked)
 	{
 		// Pressed
@@ -145,7 +145,7 @@ std::string Button::getText() const
 
 void Button::handleTextInput(const sf::Event& event)
 {
-	timer2 += GetTimeDelta();
+	timer2 += GetDeltaTime();
 		
 
 		if (isTextEntering)

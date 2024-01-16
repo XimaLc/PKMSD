@@ -41,10 +41,10 @@ Menu::Menu()
 
 void Menu::updateMenu(sf::RenderWindow* _window)
 {
-	timer += GetTimeDelta();
+	timer += GetDeltaTime();
 
-	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetTimeDelta(), fogSpr.getPosition().y));
-	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetTimeDelta(), fogSpr2.getPosition().y));
+	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetDeltaTime(), fogSpr.getPosition().y));
+	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetDeltaTime(), fogSpr2.getPosition().y));
 	if(fogSpr.getPosition().x > 1920)
 		fogSpr.setPosition(sf::Vector2f(-1920, fogSpr.getPosition().y));
 	else if(fogSpr2.getPosition().x > 1920)
