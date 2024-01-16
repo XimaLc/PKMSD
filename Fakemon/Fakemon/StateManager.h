@@ -10,8 +10,8 @@ public:
 	State() {}
 	~State() {}
 
-	virtual void UpdateScene(sf::RenderWindow* _window) = 0;
-	virtual void DrawScene(sf::RenderWindow* _window) = 0;
+	virtual void updateScene(sf::RenderWindow* _window) = 0;
+	virtual void drawScene(sf::RenderWindow* _window) = 0;
 
 };
 

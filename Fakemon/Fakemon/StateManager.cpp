@@ -59,10 +59,10 @@ void StateManager::updateCurrentState()
 				window.close();
 		}
 
-		currentState->UpdateScene(&window);
+		currentState->updateScene(&window);
 
 		window.clear();
-		currentState->DrawScene(&window);
+		currentState->drawScene(&window);
 		window.display();
 	}
 }

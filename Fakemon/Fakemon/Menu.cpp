@@ -3,11 +3,11 @@
 
 Menu::Menu()
 {
-	this->bouttons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 50);
-	this->bouttons["PASSWORD_BOUTTON"] = new Button(true,750, 600, 400, 80, "PASSWORD", 50);
-	this->bouttons["LOGIN_BOUTTON"] = new Button(false,850, 750, 200, 80, "LOGIN", 50);
-	this->bouttons["REGISTER_BOUTTON"] = new Button(false,1500, 950, 300, 80, "REGISTER", 50);
-	this->bouttons["EXIT_BOUTTON"] = new Button(false, 100, 950, 200, 80, "EXIT", 50);
+	this->boutons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 50);
+	this->boutons["PASSWORD_BOUTTON"] = new Button(true,750, 600, 400, 80, "PASSWORD", 50);
+	this->boutons["LOGIN_BOUTTON"] = new Button(false,850, 750, 200, 80, "LOGIN", 50);
+	this->boutons["REGISTER_BOUTTON"] = new Button(false,1500, 950, 300, 80, "REGISTER", 50);
+	this->boutons["EXIT_BOUTTON"] = new Button(false, 100, 950, 200, 80, "EXIT", 50);
 
 	if (fondTex.loadFromFile("../Files/Textures/Pokemons/fond.png"))
 	{
@@ -39,7 +39,7 @@ Menu::Menu()
 	timer = 0;
 }
 
-void Menu::UpdateMenu(sf::RenderWindow* _window)
+void Menu::updateMenu(sf::RenderWindow* _window)
 {
 	timer += GetTimeDelta();
 
@@ -52,13 +52,13 @@ void Menu::UpdateMenu(sf::RenderWindow* _window)
 
 	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*_window).x), static_cast<float>(sf::Mouse::getPosition(*_window).y));
 
-	for (auto& it : this->bouttons)
+	for (auto& it : this->boutons)
 		it.second->update(mousePos);
-
+  
 	for (auto& it : this->bouttons)
 		it.second->handleTextInput(stateManager->event);
 
-	if (bouttons["EXIT_BOUTTON"]->isPressed() && timer >= 0.2f)
+	if (boutons["EXIT_BOUTTON"]->isPressed() && timer >= 0.2f)
 	{
 		_window->close();
 	}
@@ -114,12 +114,12 @@ void Menu::UpdateMenu(sf::RenderWindow* _window)
 	}
 }
 
-void Menu::DrawMenu(sf::RenderWindow * _window)
+void Menu::drawMenu(sf::RenderWindow * _window)
 {
 	_window->draw(fondSpr);
 	_window->draw(fogSpr);
 	_window->draw(fogSpr2);
 	_window->draw(TitreSpr);
-	for (auto& it : this->bouttons)
+	for (auto& it : this->boutons)
 		it.second->render(_window);
 }
