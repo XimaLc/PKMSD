@@ -1,11 +1,13 @@
 #pragma once
 #include "StateManager.h"
 
-class MainOptionState : public OptionState
+class OptionState : public State
 {
 public:
-	void InitScene()override;
-	void UpdateScene()override;
+	OptionState();
+	~OptionState() {}
+
+	void UpdateScene(sf::RenderWindow* _window)override;
 	void DrawScene(sf::RenderWindow* _window)override;
 };
 
