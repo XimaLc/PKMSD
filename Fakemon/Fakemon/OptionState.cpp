@@ -1,14 +1,13 @@
 #include "OptionState.h"
 
-void MainOptionState::InitScene()
-{
-	
-}
-
-void MainOptionState::UpdateScene()
+OptionState::OptionState()
 {
 }
 
-void MainOptionState::DrawScene(sf::RenderWindow* _window)
+void OptionState::UpdateScene(sf::RenderWindow* _window)
+{
+}
+
+void OptionState::DrawScene(sf::RenderWindow* _window)
 {
 }

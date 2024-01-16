@@ -45,6 +45,12 @@
     <ClCompile Include="StateManager.cpp">
       <Filter>Fichiers sources\State</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DB.h">
@@ -67,6 +73,12 @@
     </ClInclude>
     <ClInclude Include="StateManager.h">
       <Filter>Fichiers d%27en-tête\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,26 +1,29 @@
 #pragma once
 #include "SFML/Graphics.hpp"
+#include "Button.h"
+
+#define stateManager StateManager::getInstance()
 
 class State
 {
 public:
-	virtual ~State() = default;
-	virtual void InitScene() = 0;
-	virtual void UpdateScene() = 0;
-	virtual void DrawScene(sf::RenderWindow* _window) = 0;
-};
+	State() {}
+	~State() {}
 
-class GameState : public State {};
-class MenuState : public State {};
-class OptionState : public State {};
+	virtual void UpdateScene(sf::RenderWindow* _window) = 0;
+	virtual void DrawScene(sf::RenderWindow* _window) = 0;
+
+};
 
 
 class StateManager
 {
 public:
+	static StateManager* m_instance;
 	StateManager();
+	State* currentState; 
 
-	State* currentState;
+	static StateManager* getInstance();
 
 	void switchToMenu();
 	void switchToGame();
@@ -29,7 +32,7 @@ public:
 	void updateCurrentState();
 	void displayCurrentState();
 
-public:
 	sf::RenderWindow window;
+	
 };
 
