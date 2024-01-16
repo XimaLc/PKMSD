@@ -32,12 +32,12 @@ void AccountManager::saveToFile()
         file.close();
     }
     else 
-        std::cerr << "Error load account file\n";
+        std::cerr << "Error load account file for save\n";
 }
 
 void AccountManager::loadFromFile()
 {
-    std::ifstream file("accounts.dat", std::ios::in | std::ios::binary);
+    std::ifstream file("account.dat", std::ios::in | std::ios::binary);
     if (file.is_open()) 
     {
         accounts.clear();
@@ -51,5 +51,5 @@ void AccountManager::loadFromFile()
         file.close();
     }
     else
-        std::cerr << "Error load account file\n";
+        std::cerr << "Error load account filefor load\n";
 }
