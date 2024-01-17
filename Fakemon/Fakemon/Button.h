@@ -3,12 +3,13 @@
 #include <iostream>
 
 
-enum button_states { BUTTON_IDLE = 0, BUTTON_HOVER, BUTTON_PRESSED };
+enum button_states { BUTTON_IDLE = 0, BUTTON_HOVER, BUTTON_PRESSED, BUTTON_SELECTED };
 
 class Button
 {
 private:
 	short unsigned buttonState;
+	short unsigned selectedState;
 	static sf::Font font;
 	sf::Color color;
 
@@ -35,8 +36,8 @@ public:
 
 	std::string getText() const;
 
-	void handleTextInput(const sf::Event& event);
-	bool isTextEntering = false;
+	void handleTextInput();
+
 	sf::String inputText;
 	float timer1;
 	float timer2;
