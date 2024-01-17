@@ -47,7 +47,12 @@ Menu::Menu()
 	this->notif.setFillColor(sf::Color(255, 204, 1, 255));
 	this->notif.setOutlineThickness(3);
 	this->notif.setOutlineColor(sf::Color(11, 75, 137, 255));
-	
+
+	if (transitionTexture.loadFromFile("../Files/Textures/transi.png"))
+	{
+		transitionSprite.setTexture(transitionTexture);
+	}
+	transitionSprite.setTextureRect(sf::IntRect(0,0,320,180));
 
 	accountManager.loadFromFile();
 	login = LOGIN;
@@ -57,6 +62,7 @@ Menu::Menu()
 void Menu::updateMenu(sf::RenderWindow* _window)
 {
 	timer += GetDeltaTime();
+	timerAnim += GetDeltaTime();
 
 	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetDeltaTime(), fogSpr.getPosition().y));
 	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetDeltaTime(), fogSpr2.getPosition().y));
@@ -112,6 +118,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		}
 		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
+			updateTransitionSprite();
 			login = REGISTER;
 			timer = 0;
 		}
@@ -157,4 +164,17 @@ void Menu::drawMenu(sf::RenderWindow * _window)
 		it.second->render(_window);
 	if(activNotif)
 		_window->draw(notif);
+	_window->draw(transitionSprite);
+}
+
+void Menu::updateTransitionSprite()
+{
+	int frameIndex = static_cast<int>(std::fmod(timerAnim, 1.0) * 40);
+
+	int rowIndex = frameIndex / 4;
+	int colIndex = frameIndex % 4;
+
+	sf::IntRect sourceRect(colIndex * 320, rowIndex * 180, 320, 180);
+
+	transitionSprite.setTextureRect(sourceRect);
 }

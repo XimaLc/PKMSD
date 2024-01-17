@@ -12,6 +12,8 @@ public:
 	void updateMenu(sf::RenderWindow* _window);
 	void drawMenu(sf::RenderWindow* _window);
 
+	void updateTransitionSprite();
+
 	std::map<std::string, Button*> boutons;
 
 	sf::Sprite fondSpr;
@@ -24,6 +26,9 @@ public:
 	sf::Sprite fogSpr2;
 	sf::Texture fogTex2;
 
+	sf::Sprite transitionSprite;
+	sf::Texture transitionTexture;
+
 	sf::Text notif;
 	bool activNotif = false;
 	float timeNotif = 0;
@@ -33,6 +38,7 @@ public:
 	STATE_LOGIN login;
 
 	float timer;
+	float timerAnim = 0;
 
 private:
 	static sf::Font fonts;
