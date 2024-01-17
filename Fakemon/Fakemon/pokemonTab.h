@@ -2,8 +2,6 @@
 #include "Pokemon.h"
 #include <SFML/Graphics.hpp>
 
-enum button_states { BUTTON_IDLE = 0, BUTTON_HOVER, BUTTON_PRESSED, BUTTON_SELECTED };
-
 class PokemonTab
 {
 private:
