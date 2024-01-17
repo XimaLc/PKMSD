@@ -1,5 +1,5 @@
 #include "Showdown.h"
-
+#include "GameState.h"
 Showdown::Showdown()
 {
 	this->boutons["teamCreate"] = new Button(false, 250, 280, 400, 80, "Creer une equipe", 30);
@@ -10,9 +10,18 @@ Showdown::Showdown()
 	this->boutons["quit"] = new Button(false, 100, 950, 400, 80, "Quitter", 30);
 }
 
-void Showdown::update()
-{	
+void Showdown::update(sf::RenderWindow* _window)
+{
+	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*_window).x), static_cast<float>(sf::Mouse::getPosition(*_window).y));
 
+	for (auto& it : this->boutons)
+		it.second->update(mousePos);
+
+	if(boutons["quit"]->isPressed())
+		StateManager::getInstance()->switchToMenu();
+
+	if (boutons["teamCreate"]->isPressed())
+		GameState::setState(teamBuilder);
 }
 
 void Showdown::draw(sf::RenderWindow * _window)

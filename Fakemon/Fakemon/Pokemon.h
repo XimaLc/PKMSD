@@ -21,8 +21,9 @@ public:
 	inline void setEvolutionState(int _evoState) { evolution_state = _evoState; }
 	inline void setStats(std::map<std::string, int> _stats) { stats = _stats; }
 	inline void setMovePool(std::vector<int> _movePool) { movePool = _movePool; }
-
 	void setTypes(int _type1, int _type2);
+
+	inline std::string getPath() { return path; }
 
 	Pokemon();
 	Pokemon(int _id, std::string _path, std::string _name, int _type1, int _type2, int _evoState, std::map<std::string, int> _stats, std::vector<int> _movePool);
