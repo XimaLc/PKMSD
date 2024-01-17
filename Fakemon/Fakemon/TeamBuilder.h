@@ -11,6 +11,8 @@ private:
 	std::vector<PokemonTab> tabs;
 	sf::RectangleShape shape;
 
+	int start;
+	int amount;
 	sf::Texture texture;
 
 	std::map<std::string, Button*> boutons;

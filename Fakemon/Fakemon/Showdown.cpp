@@ -2,12 +2,12 @@
 #include "GameState.h"
 Showdown::Showdown()
 {
-	this->boutons["teamCreate"] = new Button(250, 280, 400, 80, "Create team", 30);
-	this->boutons["teamEdit"] = new Button(250, 380, 400, 80, "Edit team", 30);
-	this->boutons["teamDelete"] = new Button(250, 480, 400, 80, "Delete team", 30);
-	this->boutons["fightRandom"] = new Button(1270, 280, 400, 80, "Random opponent", 30);
-	this->boutons["findFriend"] = new Button(1270, 380, 400, 80, "Search opponent", 30);
-	this->boutons["quit"] = new Button(100, 950, 400, 80, "Quit", 30);
+	this->boutons["teamCreate"] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Create team", 30);
+	this->boutons["teamEdit"] = new Button("../Files/Textures/button.png", 250, 380, 400, 80, "Edit team", 30);
+	this->boutons["teamDelete"] = new Button("../Files/Textures/button.png", 250, 480, 400, 80, "Delete team", 30);
+	this->boutons["fightRandom"] = new Button("../Files/Textures/button.png", 1270, 280, 400, 80, "Random opponent", 30);
+	this->boutons["findFriend"] = new Button("../Files/Textures/button.png", 1270, 380, 400, 80, "Search opponent", 30);
+	this->boutons["quit"] = new Button("../Files/Textures/button.png", 100, 950, 400, 80, "Quit", 30);
 }
 
 void Showdown::update(sf::RenderWindow* _window)

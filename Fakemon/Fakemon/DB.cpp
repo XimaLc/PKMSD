@@ -89,5 +89,6 @@ std::vector<Pokemon> DB::getPokemons(int _startId, int _amount)
 			}
 		}
 		file.close();
+		return res;
 	}
 }
