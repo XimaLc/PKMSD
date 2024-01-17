@@ -7,7 +7,7 @@
 
 StateManager* StateManager::m_instance = nullptr;
 
-StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN"), currentState(new MenuState())
+StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Fullscreen), currentState(new MenuState())
 {
 }
 

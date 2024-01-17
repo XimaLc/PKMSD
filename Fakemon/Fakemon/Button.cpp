@@ -4,7 +4,20 @@
 
 sf::Font Button::font;
 
-Button::Button(bool _modif, double x, double y, double width, double height, std::string text, int font_size, bool updateAlpha, bool _locked)
+Button::Button(std::string path, double x, double y, double width, double height)
+{
+	this->selectedState = BUTTON_IDLE;
+	this->buttonState = BUTTON_IDLE;
+	this->shape.setSize(sf::Vector2f(width, height));
+	this->shape.setPosition(sf::Vector2f(x, y));
+	color = sf::Color::White;
+
+	this->texture.loadFromFile(path);
+
+	this->shape.setTexture(&texture);
+}
+
+Button::Button(double x, double y, double width, double height, std::string text, int font_size, bool _modif, bool updateAlpha, bool _locked)
 {
 	timer1 = 0;
 	timer2 = 0;

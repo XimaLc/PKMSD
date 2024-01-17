@@ -6,8 +6,15 @@ class PokemonTab
 {
 private:
 	Pokemon pokemon;
-	sf::Sprite sprite;
-	sf::Texture texture;
+	sf::Sprite type1Sprite;
+	sf::Sprite type2Sprite;
+	sf::Sprite pokemonSprite;
+	sf::Text text;
+
+
+	sf::Texture typeTexture;
+	sf::Texture pokemonTexture;
+	sf::Font font;
 public:
 	PokemonTab();
 	PokemonTab(Pokemon _pokemon);
