@@ -42,7 +42,7 @@ Menu::Menu()
 		}
 	}
 	this->notif.setFont(fonts);
-	this->notif.setPosition(sf::Vector2f(20, 20));
+	this->notif.setPosition(sf::Vector2f(850, 430));
 	this->notif.setCharacterSize(20);
 	this->notif.setFillColor(sf::Color(255, 204, 1, 255));
 	this->notif.setOutlineThickness(3);
@@ -104,7 +104,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			}
 			else
 			{
-				this->notif.setString(std::string("id unknow"));
+				this->notif.setPosition(sf::Vector2f(890, 430));
+				this->notif.setString(std::string("ID unknow"));
 				activNotif = true;
 			}
 			timer = 0;
@@ -124,6 +125,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		{
 			if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
+				this->notif.setPosition(sf::Vector2f(860, 430));
 				this->notif.setString(std::string("Inscription reussie"));
 				activNotif = true;
 				login = LOGIN;
@@ -131,6 +133,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			}
 			else
 			{
+				this->notif.setPosition(sf::Vector2f(790, 430));
 				this->notif.setString(std::string("Le nom d'utilisateur existe deja"));
 				activNotif = true;
 			}

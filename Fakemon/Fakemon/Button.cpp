@@ -82,8 +82,8 @@ void Button::setText(std::string string)
 	this->text.setString(string);	
 	this->text.setPosition
 	(
-		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - this->text.getLetterSpacing(),
-		this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 1.5f - this->text.getLineSpacing()
+		this->shape.getPosition().x + (this->shape.getGlobalBounds().width / 2.f) - this->text.getGlobalBounds().width / 2.f - this->text.getLetterSpacing(), this->text.getPosition().y
+		/*this->shape.getPosition().y + (this->shape.getGlobalBounds().height / 2.f) - this->text.getGlobalBounds().height / 1.5f - this->text.getLineSpacing()*/
 	);
 }
 void Button::setTextSize(int data)
