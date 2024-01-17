@@ -17,11 +17,12 @@ void Showdown::update(sf::RenderWindow* _window)
 	for (auto& it : this->boutons)
 		it.second->update(mousePos);
 
-	if(boutons["quit"]->isPressed())
-		StateManager::getInstance()->switchToMenu();
 
 	if (boutons["teamCreate"]->isPressed())
 		GameState::setState(teamBuilder);
+
+	if(boutons["quit"]->isPressed())
+		StateManager::getInstance()->switchToMenu();
 }
 
 void Showdown::draw(sf::RenderWindow * _window)

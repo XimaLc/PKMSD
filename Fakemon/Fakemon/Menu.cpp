@@ -47,7 +47,12 @@ Menu::Menu()
 	this->notif.setFillColor(sf::Color(255, 204, 1, 255));
 	this->notif.setOutlineThickness(3);
 	this->notif.setOutlineColor(sf::Color(11, 75, 137, 255));
-	
+
+	if (transitionTexture.loadFromFile("../Files/Textures/transi.png"))
+	{
+		transitionSprite.setTexture(transitionTexture);
+	}
+	transitionSprite.setTextureRect(sf::IntRect(0,0,320,180));
 
 	accountManager.loadFromFile();
 	login = LOGIN;
@@ -57,6 +62,7 @@ Menu::Menu()
 void Menu::updateMenu(sf::RenderWindow* _window)
 {
 	timer += GetDeltaTime();
+	
 
 	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetDeltaTime(), fogSpr.getPosition().y));
 	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetDeltaTime(), fogSpr2.getPosition().y));
@@ -92,6 +98,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 	{
 		accountManager.loadFromFile();
 
+		
+
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
@@ -100,7 +108,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			if (accountManager.authenticate(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
 				std::cout << "Connexion reussie\n";
-				StateManager::getInstance()->switchToGame();
+				verifAccount = true;
 			}
 			else
 			{
@@ -112,6 +120,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		}
 		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
+			
+
 			login = REGISTER;
 			timer = 0;
 		}
@@ -145,6 +155,35 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			timer = 0;
 		}
 	}
+
+	if(verifAccount == true)
+	{
+		timerAnim += GetDeltaTime();
+
+		if (timerAnim > 0.03)
+		{
+			frameX++;
+			if (frameX > 3)
+			{
+				frameX = 0;
+				frameY++;
+			}
+			timerAnim = 0.0f;
+		}
+		sourceRect.top = frameY * 180;
+		sourceRect.left = frameX * 320;
+		sourceRect.width = 320;
+		sourceRect.height = 180;
+		transitionSprite.setTextureRect(sourceRect);
+		transitionSprite.setScale(sf::Vector2f(6, 6));
+		if (frameY >= 9)
+		{
+			frameY = 0;
+			frameX = 0;
+			verifAccount = false;
+			StateManager::getInstance()->switchToGame();
+		}
+	}
 }
 
 void Menu::drawMenu(sf::RenderWindow * _window)
@@ -157,4 +196,8 @@ void Menu::drawMenu(sf::RenderWindow * _window)
 		it.second->render(_window);
 	if(activNotif)
 		_window->draw(notif);
+	if (verifAccount == true)
+		_window->draw(transitionSprite);
 }
+
+
