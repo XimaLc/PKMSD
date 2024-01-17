@@ -125,7 +125,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		{
 			if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
-				this->notif.setPosition(sf::Vector2f(870, 430));
+				this->notif.setPosition(sf::Vector2f(860, 430));
 				this->notif.setString(std::string("Inscription reussie"));
 				activNotif = true;
 				login = LOGIN;
