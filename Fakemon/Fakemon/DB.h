@@ -17,5 +17,6 @@ public:
 
 	static Pokemon getPokemonById(int _id);
 	static std::vector<Pokemon> getPokemons(int _startId, int _amount);
+	static std::vector<Pokemon> getSelectablePokemons(int _startId, int _amount);
 };
 
