@@ -142,10 +142,12 @@
     <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="PokemonTab.cpp" />
     <ClCompile Include="Safari.cpp" />
     <ClCompile Include="Showdown.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="TeamBuilder.cpp" />
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +160,11 @@
     <ClInclude Include="OptionState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pokemon.h" />
+    <ClInclude Include="PokemonTab.h" />
     <ClInclude Include="Safari.h" />
     <ClInclude Include="Showdown.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="TeamBuilder.h" />
     <ClInclude Include="tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

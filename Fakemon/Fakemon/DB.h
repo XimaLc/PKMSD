@@ -11,11 +11,11 @@ class DB
 private:
 
 public:
-	std::string removeUnderscore(std::string _str);
-	std::vector<int> stringToVectorInt(std::string str);
+	static std::string removeUnderscore(std::string _str);
+	static std::vector<int> stringToVectorInt(std::string str);
 
 
-	Pokemon getPokemonById(int _id);
-	std::vector<Pokemon> getPokemons(int _startId, int _amount);
+	static Pokemon getPokemonById(int _id);
+	static std::vector<Pokemon> getPokemons(int _startId, int _amount);
 };
 

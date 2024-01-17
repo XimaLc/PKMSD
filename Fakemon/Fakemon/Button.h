@@ -19,7 +19,8 @@ public:
 	sf::Text text;
 	bool locked = false;
 	bool modif = false;
-	Button(bool modif,double x, double y, double width, double height, std::string text, int font_size = 25, bool updateAlpha = false, bool locked = false);
+	Button(std::string path, double x, double y, double witdh, double height);
+	Button(double x, double y, double width, double height, std::string text, int font_size = 25, bool modif = false, bool updateAlpha = false, bool locked = false);
 	~Button();
 
 	// Accessors
