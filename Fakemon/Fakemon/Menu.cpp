@@ -5,11 +5,11 @@ sf::Font Menu::fonts;
 
 Menu::Menu()
 {
-	this->boutons["PSEUDO_BOUTTON"] = new Button(true,750, 470, 400, 80, "PSEUDO", 30);
-	this->boutons["PASSWORD_BOUTTON"] = new Button(true,750, 600, 400, 80, "PASSWORD", 30);
-	this->boutons["LOGIN_BOUTTON"] = new Button(false,850, 750, 200, 80, "LOGIN", 50);
-	this->boutons["REGISTER_BOUTTON"] = new Button(false,1500, 950, 300, 80, "REGISTER", 50);
-	this->boutons["EXIT_BOUTTON"] = new Button(false, 100, 950, 200, 80, "EXIT", 50);
+	this->boutons["PSEUDO_BOUTTON"] = new Button(750, 470, 400, 80, "PSEUDO", 30, true);
+	this->boutons["PASSWORD_BOUTTON"] = new Button(750, 600, 400, 80, "PASSWORD", 30, true);
+	this->boutons["LOGIN_BOUTTON"] = new Button(850, 750, 200, 80, "LOGIN", 50);
+	this->boutons["REGISTER_BOUTTON"] = new Button(1500, 950, 300, 80, "REGISTER", 50);
+	this->boutons["EXIT_BOUTTON"] = new Button(100, 950, 200, 80, "EXIT", 50);
 
 	if (fondTex.loadFromFile("../Files/Textures/fond.png"))
 	{
