@@ -12,7 +12,7 @@ TeamBuilder::TeamBuilder()
 
 	PokemonTab tmp;
 	int x{0};
-	pokemons = DB::getPokemons(start, amount);
+	pokemons = DB::getSelectablePokemons(start, amount);
 	start += amount;
 
 	for (auto i : pokemons)
@@ -36,11 +36,14 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 	for (auto& it : this->boutons)
 		it.second->update(mousePos);
 
+	for (auto& it : this->tabs)
+		it.update(mousePos);
+
 	if (boutons["droite"]->isPressed())
 	{
-		pokemons = DB::getPokemons(start, amount);
+		pokemons = DB::getSelectablePokemons(start, amount);
 		start += amount;
-		if (start > 171)
+		if (start > 151)
 			start = 1;
 		PokemonTab tmp;
 		tabs.clear();
@@ -57,9 +60,9 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 	if (boutons["gauche"]->isPressed())
 	{
 		start -= amount;
-		if (start < 1)
-			start = 171;
-		pokemons = DB::getPokemons(start, amount);
+		if (start <= 1)
+			start = 142;
+		pokemons = DB::getSelectablePokemons(start, amount);
 
 		PokemonTab tmp;
 		tabs.clear();
