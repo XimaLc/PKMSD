@@ -128,26 +128,6 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 	}
 	else if (login == REGISTER)
 	{
-		timerAnim += GetDeltaTime();
-
-		if (timerAnim > 0.05)
-		{
-			frameX++;
-			if (frameX > 3)
-			{
-				frameX = 0;
-				frameY++;
-			}
-			timerAnim = 0.0f;
-		}
-		sourceRect.top = frameY * 180;
-		sourceRect.left = frameX * 320;
-		sourceRect.width = 320;
-		sourceRect.height = 180;
-		transitionSprite.setTextureRect(sourceRect);
-		transitionSprite.setScale(sf::Vector2f(6, 6));
-
-
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(1550, 950));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(800, 750));
 
@@ -196,7 +176,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		sourceRect.height = 180;
 		transitionSprite.setTextureRect(sourceRect);
 		transitionSprite.setScale(sf::Vector2f(6, 6));
-		if (frameY >= 10)
+		if (frameY >= 9)
 		{
 			frameY = 0;
 			frameX = 0;
