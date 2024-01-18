@@ -1,6 +1,7 @@
 #pragma once
 #include "StateManager.h"
 #include "Player.h"
+#include "PokemonSafari.h"
 
 class Overworld
 {
@@ -9,6 +10,7 @@ private:
 	sf::Texture fondTxt;
 	sf::View viewOverworld;
 	Player player;
+	vector<PokemonSafari> wildPokemons;
 public:
 	Overworld();
 	~Overworld();

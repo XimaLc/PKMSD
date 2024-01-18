@@ -144,6 +144,7 @@
     <ClCompile Include="Overworld.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="PokemonSafari.cpp" />
     <ClCompile Include="PokemonTab.cpp" />
     <ClCompile Include="Safari.cpp" />
     <ClCompile Include="Shop.cpp" />
@@ -165,6 +166,7 @@
     <ClInclude Include="Overworld.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pokemon.h" />
+    <ClInclude Include="PokemonSafari.h" />
     <ClInclude Include="PokemonTab.h" />
     <ClInclude Include="Safari.h" />
     <ClInclude Include="Shop.h" />
