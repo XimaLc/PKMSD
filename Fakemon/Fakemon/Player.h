@@ -1,5 +1,6 @@
 #pragma once
-#include <iostream>
+#include "tools.h"
+
 class Player
 {
 private:

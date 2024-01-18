@@ -6,9 +6,14 @@
 #include "SFML/Graphics.hpp"
 #include "SFML/Audio.hpp"
 
-
 using namespace sf;
 using namespace std;
+
+#define Key(x) sf::Keyboard::isKeyPressed(sf::Keyboard::x)
+#define Mouse(x) sf::Mouse::isButtonPressed(sf::Mouse::x)
+#define TexturePath "..//Files//Textures//"
+#define FontsPath "..//Files//Font//"
+#define DBPath "..//Files//DB//"
 
 enum Direction { DOWN, LEFT, RIGHT, UP, IDLE };
 

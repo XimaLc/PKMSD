@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Button.h"
+#include "tools.h"
 
 #define stateManager StateManager::getInstance()
 
