@@ -15,7 +15,7 @@ using namespace std;
 #define FontsPath "..//Files//Font//"
 #define DBPath "..//Files//DB//"
 
-enum Direction { DOWN, LEFT, RIGHT, UP, IDLE };
+enum Direction { DOWN, UP, LEFT, RIGHT, IDLE };
 
 void restartClock();
 float GetDeltaTime();

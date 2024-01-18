@@ -1,5 +1,6 @@
 #pragma once
 #include "StateManager.h"
+#include "Player.h"
 
 class Overworld
 {
@@ -7,6 +8,7 @@ private:
 	sf::Sprite fondSpr;
 	sf::Texture fondTxt;
 	sf::View viewOverworld;
+	Player player;
 public:
 	Overworld();
 	~Overworld();

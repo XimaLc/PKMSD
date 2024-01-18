@@ -15,10 +15,11 @@ Overworld::~Overworld()
 
 void Overworld::update(sf::RenderWindow* _window)
 {
-	
+	player.update(_window);
 }
 
 void Overworld::draw(sf::RenderWindow* _window)
 {
 	_window->draw(fondSpr);
+	player.draw(_window);
 }

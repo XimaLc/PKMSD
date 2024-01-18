@@ -4,8 +4,20 @@
 class Player
 {
 private:
-	std::string name;
+	sf::Sprite spr;
+	sf::Texture txt;
+	sf::IntRect rect;
+	sf::Vector2f pos;
+	Direction dir;
+	int frameX;
+	float animTime;
 
 public:
+	Player();
+	~Player();
+
+	void playerAnim();
+	void update(sf::RenderWindow* _window);
+	void draw(sf::RenderWindow* _window);
 };
 
