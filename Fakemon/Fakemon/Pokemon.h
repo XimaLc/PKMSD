@@ -12,6 +12,7 @@ protected:
 	int evolution_state;
 	std::map<std::string, int> stats;
 	std::vector<int> movePool;
+	bool shiny;
 public:
 	inline void setId(int _id) { id = _id; }
 	inline void setPath(std::string _path) { path = _path; }
@@ -29,6 +30,7 @@ public:
 	inline int getEvolutionState() { return evolution_state; }
 	inline std::map<std::string, int> getStats() { return stats; }
 	inline std::vector<int> getMovePool() { return movePool; }
+	inline bool getSiny() { return shiny; }
 	Pokemon();
 	Pokemon(int _id, std::string _path, std::string _name, int _type1, int _type2, int _evoState, std::map<std::string, int> _stats, std::vector<int> _movePool);
 };

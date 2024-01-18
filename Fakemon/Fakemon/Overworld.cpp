@@ -23,7 +23,12 @@ void Overworld::update(sf::RenderWindow* _window)
 	if (spawnTimer > 2.f && wildPokemons.size() < 10)
 	{
 		spawnTimer = 0.f;
-		wildPokemons.push_back(DB::getPokemonById(iRand(0, 148)));
+		wildPokemons.push_back(DB::getPokemonById(iRand(1, 148)));
+	}
+
+	for (auto& it : wildPokemons)
+	{
+		it.update(seek(&it, player.getPos()));
 	}
 }
 

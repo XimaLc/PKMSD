@@ -16,6 +16,8 @@ public:
 	Player();
 	~Player();
 
+	inline sf::Vector2f getPos() { return pos; }
+
 	void playerAnim();
 	void update(sf::RenderWindow* _window);
 	void draw(sf::RenderWindow* _window);

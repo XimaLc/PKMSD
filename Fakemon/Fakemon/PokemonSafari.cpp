@@ -15,16 +15,20 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	evolution_state = _pokemon.getEvolutionState();
 	stats = _pokemon.getStats();
 	movePool = _pokemon.getMovePool();
+	shiny = _pokemon.getSiny();
 
 	pos = { fRand(40.f, 1880.f), fRand(40.f, 1020.f) };
 	velocity = { 0.f, 0.f };
 	masse = 0.1f;
 	max_force = 50.f;
-	vit_max = 200.f;
-	txt.loadFromFile(TexturePath"Pokemons/Base/" + path + ".png");
+	vit_max = 100.f;
+	if (shiny)
+		txt.loadFromFile(TexturePath"Pokemons/Shiny/" + path + ".png");
+	else
+		txt.loadFromFile(TexturePath"Pokemons/Base/" + path + ".png");
 	spr.setTexture(txt);
 	spr.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
-	spr.setScale(0.1f, 0.1f);
+	spr.setScale(0.15f, 0.15f);
 }
 
 PokemonSafari::~PokemonSafari()
@@ -35,6 +39,7 @@ void PokemonSafari::update(sf::Vector2f _steering)
 {
 	acceleration = _steering / masse;
 	velocity = Truncate(velocity + acceleration * GetDeltaTime(), vit_max);
+	pos += velocity * GetDeltaTime();
 }
 
 void PokemonSafari::draw(sf::RenderWindow* _window)

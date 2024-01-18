@@ -46,6 +46,7 @@ void StateManager::switchToOption()
 
 void StateManager::updateCurrentState()
 {
+	srand(time(NULL));
 	while (window.isOpen())
 	{
 		restartClock();
