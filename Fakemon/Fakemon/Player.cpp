@@ -11,7 +11,7 @@ Player::Player()
 	spr.setTexture(txt);
 	spr.setTextureRect(rect); 
 	spr.setOrigin({ 8.f, 10.f });
-	spr.setScale({ 2.f, 2.f });
+	spr.setScale({ 3.f, 3.f });
 }
 
 Player::~Player()
