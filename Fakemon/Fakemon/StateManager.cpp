@@ -2,13 +2,14 @@
 #include "GameState.h"
 #include "MenuState.h"
 #include "OptionState.h"
-
+#include "Client.h"
 #include "tools.h"
 
 StateManager* StateManager::m_instance = nullptr;
 
 StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Fullscreen), currentState(new MenuState())
 {
+	Client client();
 }
 
 StateManager* StateManager::getInstance()

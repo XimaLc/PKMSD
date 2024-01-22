@@ -31,6 +31,12 @@
     <Filter Include="Fichiers d%27en-tête\Objets">
       <UniqueIdentifier>{14041df3-ed39-4d78-9aa2-1c09084d38fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Network">
+      <UniqueIdentifier>{2d3427da-8889-4304-86c3-fa4edd366f4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Network">
+      <UniqueIdentifier>{28f29e6d-032e-47e1-bab0-e30e25ec1f96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -81,6 +87,9 @@
     <ClCompile Include="PokemonTab.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
+    <ClCompile Include="Client.cpp">
+      <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -127,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="PokemonTab.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="Client.h">
+      <Filter>Fichiers d%27en-tête\Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
