@@ -6,6 +6,8 @@ Overworld::Overworld()
 	fondSpr.setPosition({ -1920.f, -1080.f });
 	fondSpr.setTextureRect({ 0, 0, 3840, 2160 });
 	fondSpr.setTexture(fondTxt);
+	viewOverworld.setSize({ 1920.f, 1080.f });
+	viewOverworld.setCenter({ 0.f, 0.f });
 	spawnTimer = 0.f;
 }
 
@@ -18,7 +20,7 @@ void Overworld::update(sf::RenderWindow* _window)
 {
 	spawnTimer += GetDeltaTime();
 
-	player.update(_window);
+	player.update(_window, &viewOverworld);
 
 	if (spawnTimer > 2.f && wildPokemons.size() < 10)
 	{
@@ -28,12 +30,14 @@ void Overworld::update(sf::RenderWindow* _window)
 
 	for (auto& it : wildPokemons)
 	{
-		it.update(seek(&it, player.getPos()));
+		//it.update(seek(&it, player.getPos()));
 	}
 }
 
 void Overworld::draw(sf::RenderWindow* _window)
 {
+	_window->setView(viewOverworld);
+
 	_window->draw(fondSpr);
 
 	for (auto i : wildPokemons)

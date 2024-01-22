@@ -17,7 +17,7 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	movePool = _pokemon.getMovePool();
 	shiny = _pokemon.getSiny();
 
-	pos = { fRand(40.f, 1880.f), fRand(40.f, 1020.f) };
+	pos = { fRand(-1880.f, 1880.f), fRand(-1040.f, 1040.f) };
 	velocity = { 0.f, 0.f };
 	masse = 0.1f;
 	max_force = 50.f;

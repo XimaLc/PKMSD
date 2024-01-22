@@ -5,7 +5,7 @@ Player::Player()
 	frameX = 1;
 	animTime = 0.f;
 	dir = DOWN;
-	pos = { 100.f, 100.f };
+	pos = { 0.f, 0.f };
 	txt.loadFromFile(TexturePath"Red.png");
 	rect = { 16, 0, 16 ,20 };
 	spr.setTexture(txt);
@@ -42,35 +42,59 @@ void Player::playerAnim()
 	rect.left = frameX * 16;
 }
 
-void Player::update(sf::RenderWindow* _window)
+void Player::update(sf::RenderWindow* _window, sf::View* _view)
 {
 	if (Key(Z))
 	{
 		pos.y -= 200.f * GetDeltaTime();
+		if (pos.y >= -540.f && pos.y <= 540.f)
+			_view->move({ 0.f, -200.f * GetDeltaTime() });
 		dir = UP;
 		if (Key(LShift))
+		{
 			pos.y -= 100.f * GetDeltaTime();
+			if (pos.y >= -540.f && pos.y <= 540.f)
+				_view->move({ 0.f, -100.f * GetDeltaTime() });
+		}
 	}
 	if (Key(S))
 	{
 		pos.y += 200.f * GetDeltaTime();
+		if (pos.y >= -540.f && pos.y <= 540.f)
+			_view->move({ 0.f, 200.f * GetDeltaTime() });
 		dir = DOWN;
 		if (Key(LShift))
+		{
 			pos.y += 100.f * GetDeltaTime();
+			if (pos.y >= -540.f && pos.y <= 540.f)
+				_view->move({ 0.f, 100.f * GetDeltaTime() });
+		}
 	}
 	if (Key(Q))
 	{
 		pos.x -= 200.f * GetDeltaTime();
+		if (pos.x >= -960.f && pos.x <= 960.f)
+			_view->move({ -200.f * GetDeltaTime(), 0.f });
 		dir = LEFT;
 		if (Key(LShift))
+		{
 			pos.x -= 100.f * GetDeltaTime();
+			if (pos.x >= -960.f && pos.x <= 960.f)
+				_view->move({ -100.f * GetDeltaTime(), 0.f });
+		}
 	}
 	if (Key(D))
 	{
 		pos.x += 200.f * GetDeltaTime();
+		if (pos.x >= -960.f && pos.x <= 960.f)
+			_view->move({ 200.f * GetDeltaTime(), 0.f });
 		dir = RIGHT;
 		if (Key(LShift))
+		{
 			pos.x += 100.f * GetDeltaTime();
+			if (pos.x >= -960.f && pos.x <= 960.f)
+				_view->move({ 100.f * GetDeltaTime(), 0.f });
+		}
 	}
 
 	if (!Key(Z) && !Key(S) && !Key(Q) && !Key(D))

@@ -19,7 +19,7 @@ public:
 	inline sf::Vector2f getPos() { return pos; }
 
 	void playerAnim();
-	void update(sf::RenderWindow* _window);
+	void update(sf::RenderWindow* _window, sf::View* _view);
 	void draw(sf::RenderWindow* _window);
 };
 
