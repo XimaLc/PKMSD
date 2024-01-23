@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "Button.h"
+#include "Client.h"
 
 #define stateManager StateManager::getInstance()
 
@@ -35,6 +36,9 @@ public:
 	sf::RenderWindow window;
 
 	sf::Event event;
+
+private:
+	Client client;
 	
 };
 

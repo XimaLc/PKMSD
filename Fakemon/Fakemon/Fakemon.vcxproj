@@ -133,7 +133,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AccountManager.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Client.cpp" />
     <ClCompile Include="DB.cpp" />
@@ -152,7 +151,6 @@
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AccountManager.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="DB.h" />

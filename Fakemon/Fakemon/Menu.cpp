@@ -1,9 +1,9 @@
 #include "Menu.h"
-#include "StateManager.h"
+#include "Client.h"
 
 sf::Font Menu::fonts;
 
-Menu::Menu()
+Menu::Menu(Client& _client) : client(_client)
 {
 	this->boutons["PSEUDO_BOUTTON"] = new Button("../Files/Textures/button.png", 750, 470, 400, 80, "PSEUDO", 30, true);
 	this->boutons["PASSWORD_BOUTTON"] = new Button("../Files/Textures/button.png", 750, 600, 400, 80, "PASSWORD", 30, true);
@@ -54,7 +54,6 @@ Menu::Menu()
 	}
 	transitionSprite.setTextureRect(sf::IntRect(0,0,320,180));
 
-	accountManager.loadFromFile();
 	login = LOGIN;
 	timer = 0;
 }
@@ -96,16 +95,33 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 	if(login == LOGIN)
 	{
-		accountManager.loadFromFile();
-
-		
-
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (accountManager.authenticate(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
+			sf::Packet usernamePacket;
+			sf::Packet passwordPacket;
+			sf::Packet resultPacket;
+
+			// Send username
+			username = boutons["PSEUDO_BOUTTON"]->getText();
+			usernamePacket << username;
+			if (client.socket.send(usernamePacket) != sf::Socket::Done)
+				std::cerr << "Failed to send username\n";
+
+			// Send password
+			password = boutons["PASSWORD_BOUTTON"]->getText();
+			passwordPacket << password;
+			if (client.socket.send(passwordPacket) != sf::Socket::Done)
+				std::cerr << "Failed to send password\n";
+
+			// Receive authentication result
+			if (client.socket.receive(resultPacket) != sf::Socket::Done)
+				std::cerr << "Failed to receive authentication result\n";
+			resultPacket >> isAuthenticated;
+
+			if (isAuthenticated)
 			{
 				std::cout << "Connexion reussie\n";
 				verifAccount = true;
@@ -116,17 +132,20 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 				this->notif.setString(std::string("ID unknow"));
 				activNotif = true;
 			}
+
+			usernamePacket.clear();
+			passwordPacket.clear();
+			resultPacket.clear();
+			
 			timer = 0;
 		}
 		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			
-
 			login = REGISTER;
 			timer = 0;
 		}
 	}
-	else if (login == REGISTER)
+	/*else if (login == REGISTER)
 	{
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(1550, 950));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(800, 750));
@@ -154,7 +173,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			login = LOGIN;
 			timer = 0;
 		}
-	}
+	}*/
 
 	if(verifAccount == true)
 	{
@@ -181,6 +200,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			frameY = 0;
 			frameX = 0;
 			verifAccount = false;
+			isAuthenticated = false;
 			StateManager::getInstance()->switchToGame();
 		}
 	}
