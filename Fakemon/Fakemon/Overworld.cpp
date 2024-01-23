@@ -9,6 +9,7 @@ Overworld::Overworld()
 	viewOverworld.setSize({ 1920.f, 1080.f });
 	viewOverworld.setCenter({ 0.f, 0.f });
 	spawnTimer = 0.f;
+
 }
 
 Overworld::~Overworld()
