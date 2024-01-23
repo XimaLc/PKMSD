@@ -13,43 +13,48 @@ Server::Server()
 void Server::handleClient(sf::TcpSocket& clientSocket) 
 {
     // Receive username
-    sf::Packet usernamePacket;
-    if (clientSocket.receive(usernamePacket) != sf::Socket::Done) {
+    if (clientSocket.receive(usernamePacket) == sf::Socket::Done) 
+        std::cerr << "receive username succesfull\n";
+    else
         std::cerr << "Failed to receive username\n";
-        return;
-    }
-    std::string username;
     usernamePacket >> username;
 
     // Receive password
-    sf::Packet passwordPacket;
-    if (clientSocket.receive(passwordPacket) != sf::Socket::Done) {
+    if (clientSocket.receive(passwordPacket) == sf::Socket::Done) 
+        std::cerr << "receive password succesfull\n";
+    else
         std::cerr << "Failed to receive password\n";
-        return;
-    }
-    std::string password;
     passwordPacket >> password;
 
     // Authenticate
-    bool isAuthenticated = accountManager.authenticate(username, password);
+   isAuthenticated = accountManager.authenticate(username, password);
 
     // Send authentication result to client
-    sf::Packet resultPacket;
     resultPacket << isAuthenticated;
-    if (clientSocket.send(resultPacket) != sf::Socket::Done) {
+    if (clientSocket.send(resultPacket) == sf::Socket::Done) 
+        std::cerr << "send authentication succesfull\n";
+    else
         std::cerr << "Failed to send authentication result\n";
-    }
+
+    std::cout << "-----------------------\n";
+
 }
+
+
 
 void Server::run() 
 {
     std::cout << "Server is listening on port 8888...\n";
 
-    while (true) {
+    while (true) 
+    {
         sf::TcpSocket client;
-        if (listener.accept(client) == sf::Socket::Done) {
+
+        if (listener.accept(client) == sf::Socket::Done) 
+        {
             std::cout << "Client connected\n";
             handleClient(client);
         }
+       
     }
 }

@@ -61,7 +61,6 @@ Menu::Menu(Client& _client) : client(_client)
 void Menu::updateMenu(sf::RenderWindow* _window)
 {
 	timer += GetDeltaTime();
-	
 
 	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetDeltaTime(), fogSpr.getPosition().y));
 	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetDeltaTime(), fogSpr2.getPosition().y));
@@ -95,31 +94,36 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 	if(login == LOGIN)
 	{
+
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			sf::Packet usernamePacket;
-			sf::Packet passwordPacket;
-			sf::Packet resultPacket;
-
 			// Send username
 			username = boutons["PSEUDO_BOUTTON"]->getText();
 			usernamePacket << username;
-			if (client.socket.send(usernamePacket) != sf::Socket::Done)
+			if (client.socket.send(usernamePacket) == sf::Socket::Done)
+				std::cerr << "send username succesfull\n";
+			else
 				std::cerr << "Failed to send username\n";
 
 			// Send password
 			password = boutons["PASSWORD_BOUTTON"]->getText();
 			passwordPacket << password;
-			if (client.socket.send(passwordPacket) != sf::Socket::Done)
+			if (client.socket.send(passwordPacket) == sf::Socket::Done)
+				std::cerr << "send password succesfull\n";
+			else
 				std::cerr << "Failed to send password\n";
 
 			// Receive authentication result
-			if (client.socket.receive(resultPacket) != sf::Socket::Done)
+			if (client.socket.receive(resultPacket) == sf::Socket::Done)
+				std::cerr << "receive authentication succesfull\n";
+			else
 				std::cerr << "Failed to receive authentication result\n";
 			resultPacket >> isAuthenticated;
+
+			std::cout << "-----------------------\n";
 
 			if (isAuthenticated)
 			{
@@ -128,6 +132,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			}
 			else
 			{
+				std::cout << "Connexion echouer\n";
 				this->notif.setPosition(sf::Vector2f(890, 430));
 				this->notif.setString(std::string("ID unknow"));
 				activNotif = true;

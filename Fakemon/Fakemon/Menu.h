@@ -49,8 +49,12 @@ private:
 	Client& client;
 
 
-	bool isAuthenticated = false;
+	
 	std::string username;
 	std::string password;
+	bool isAuthenticated = false;
+	sf::Packet usernamePacket;
+	sf::Packet passwordPacket;
+	sf::Packet resultPacket;
 };
 
