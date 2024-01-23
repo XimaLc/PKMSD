@@ -2,7 +2,7 @@
 
 Server::Server() 
 {
-    if (listener.listen(8888) != sf::Socket::Done) 
+    if (listener.listen(8888, sf::IpAddress::Any) != sf::Socket::Done)
     {
         std::cerr << "Failed to bind to port 8888\n";
     }

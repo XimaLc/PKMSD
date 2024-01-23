@@ -2,7 +2,7 @@
 
 Client::Client()
 {
-    if (socket.connect("127.0.0.1", 8888) != sf::Socket::Done)
+    if (socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
     {
         std::cerr << "Failed to connect to server\n";
     }
