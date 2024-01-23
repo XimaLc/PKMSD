@@ -140,6 +140,7 @@
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Overworld.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="MenuState.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="OptionState.h" />
     <ClInclude Include="Overworld.h" />
     <ClInclude Include="Player.h" />

@@ -93,6 +93,9 @@
     <ClCompile Include="PokemonSafari.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -151,6 +154,9 @@
     </ClInclude>
     <ClInclude Include="PokemonSafari.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -44,7 +44,7 @@ void Player::playerAnim()
 
 void Player::update(sf::RenderWindow* _window, sf::View* _view)
 {
-	if (Key(Z))
+	if (Key(Z) && pos.y >= - 945.f)
 	{
 		pos.y -= 200.f * GetDeltaTime();
 		if (pos.y >= -540.f && pos.y <= 540.f)
@@ -57,7 +57,7 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view)
 				_view->move({ 0.f, -100.f * GetDeltaTime() });
 		}
 	}
-	if (Key(S))
+	if (Key(S) && pos.y <= 920.f)
 	{
 		pos.y += 200.f * GetDeltaTime();
 		if (pos.y >= -540.f && pos.y <= 540.f)
@@ -70,7 +70,7 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view)
 				_view->move({ 0.f, 100.f * GetDeltaTime() });
 		}
 	}
-	if (Key(Q))
+	if (Key(Q) && pos.x >= -1810.f)
 	{
 		pos.x -= 200.f * GetDeltaTime();
 		if (pos.x >= -960.f && pos.x <= 960.f)
@@ -83,7 +83,7 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view)
 				_view->move({ -100.f * GetDeltaTime(), 0.f });
 		}
 	}
-	if (Key(D))
+	if (Key(D) && pos.x <= 1810.f)
 	{
 		pos.x += 200.f * GetDeltaTime();
 		if (pos.x >= -960.f && pos.x <= 960.f)

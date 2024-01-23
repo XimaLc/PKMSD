@@ -9,7 +9,14 @@ Overworld::Overworld()
 	viewOverworld.setSize({ 1920.f, 1080.f });
 	viewOverworld.setCenter({ 0.f, 0.f });
 	spawnTimer = 0.f;
-
+	obstacleTxt.loadFromFile(TexturePath"tree.png");
+	for (int j = 0; j < 2; j++)
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			obstacles.push_back(Obstacle({ -1202.f + 608.f * i, -315.f + 630.f * j }, { 32.f, 45.f }, obstacleTxt));
+		}
+	}
 }
 
 Overworld::~Overworld()
@@ -40,6 +47,11 @@ void Overworld::draw(sf::RenderWindow* _window)
 	_window->setView(viewOverworld);
 
 	_window->draw(fondSpr);
+
+	for (auto tree : obstacles)
+	{
+		tree.draw(_window, obstacleTxt);
+	}
 
 	for (auto i : wildPokemons)
 		i.draw(_window);
