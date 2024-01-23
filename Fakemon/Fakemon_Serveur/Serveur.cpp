@@ -53,6 +53,9 @@ void Server::run()
         if (listener.accept(client) == sf::Socket::Done) 
         {
             std::cout << "Client connected\n";
+            /*
+            client.setBlocking(false);
+            */
             handleClient(client);
         }
        
