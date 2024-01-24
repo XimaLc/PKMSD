@@ -85,6 +85,11 @@ sf::Vector2f DivideVector2f(sf::Vector2f a, float b)
 	return divideVector2;
 }
 
+float DotProduct(sf::Vector2f a, sf::Vector2f b)
+{
+	return b.x * a.x + b.y * a.y;
+}
+
 float GetNorme(sf::Vector2f a)
 {
 	return sqrt(a.x * a.x + a.y * a.y);
@@ -93,6 +98,21 @@ float GetNorme(sf::Vector2f a)
 sf::Vector2f Normalize(sf::Vector2f v)
 {
 	return DivideVector2f(v, GetNorme(v));
+}
+
+float GetSignedAngleBetween(sf::Vector2f a, sf::Vector2f b)
+{
+	return atan2(a.x * b.y - a.y * b.x, a.x * b.x + a.y * b.y);
+}
+
+float GetAngleBetween(sf::Vector2f a, sf::Vector2f b)
+{
+	return fabs(GetSignedAngleBetween(a, b));
+}
+
+float GetAngle(sf::Vector2f a, sf::Vector2f b)
+{
+	return atan2(a.x * b.y - a.y * b.x, DotProduct(a, b));
 }
 
 sf::Vector2f Truncate(const sf::Vector2f& v, float max)

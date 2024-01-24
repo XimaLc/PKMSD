@@ -22,6 +22,7 @@ public:
 
 	void playerAnim();
 	void update(sf::RenderWindow* _window, sf::View* _view, vector<Obstacle> _obs);
+	void movePlayer(sf::View* _view, vector<Obstacle> _obs);
 	void draw(sf::RenderWindow* _window);
 };
 

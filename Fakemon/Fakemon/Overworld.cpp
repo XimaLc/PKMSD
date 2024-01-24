@@ -38,7 +38,7 @@ void Overworld::update(sf::RenderWindow* _window)
 
 	for (auto& it : wildPokemons)
 	{
-		//it.update(seek(&it, player.getPos()));
+		it.update(seek(&it, player.getPos()));
 	}
 }
 
@@ -57,6 +57,12 @@ void Overworld::draw(sf::RenderWindow* _window)
 		i.draw(_window);
 
 	player.draw(_window);
+
+	for (auto tree : obstacles)
+	{
+		if (tree.getPos().y + tree.getSpr().getGlobalBounds().height / 2 > player.getPos().y)
+			tree.draw(_window, obstacleTxt);
+	}
 }
 
 sf::Vector2f Overworld::seek(PokemonSafari* agent, sf::Vector2f _targetPos)
@@ -92,6 +98,19 @@ sf::Vector2f Overworld::evasion(PokemonSafari* agent, sf::Vector2f _targetPos, s
 sf::Vector2f Overworld::arrival(PokemonSafari* agent, sf::Vector2f _targetPos)
 {
 	float dist = GetNorme(_targetPos - agent->getPos());
+
+	return sf::Vector2f();
+}
+
+sf::Vector2f Overworld::obstacleAvoidance(PokemonSafari* agent, vector<Obstacle> _obstacles)
+{
+	for (auto obs : _obstacles)
+	{
+		if (Rectangle_Collision(agent->getCollisionDetector()->getGlobalBounds(), ObstacleRect))
+		{
+
+		}
+	}
 
 	return sf::Vector2f();
 }

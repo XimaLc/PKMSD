@@ -44,62 +44,107 @@ void Player::playerAnim()
 
 void Player::update(sf::RenderWindow* _window, sf::View* _view, vector<Obstacle> _obs)
 {
+	movePlayer(_view, _obs);
+
+	playerAnim();
+}
+
+void Player::movePlayer(sf::View* _view, vector<Obstacle> _obs)
+{
 	canMove = true;
 	for (auto obs : _obs)
 	{
-		if (Rectangle_Collision(spr.getGlobalBounds(), obs.getSpr().getGlobalBounds()))
+		if (Rectangle_Collision({ spr.getGlobalBounds().left, spr.getGlobalBounds().top - (200.f * GetDeltaTime()),
+			spr.getGlobalBounds().width, 1 }, ObstacleRect))
 			canMove = false;
 	}
-	if (Key(Z) && pos.y >= - 945.f && canMove)
+	if (Key(Z) && pos.y >= -945.f)
 	{
-		pos.y -= 200.f * GetDeltaTime();
-		if (pos.y >= -540.f && pos.y <= 540.f)
-			_view->move({ 0.f, -200.f * GetDeltaTime() });
 		dir = UP;
-		if (Key(LShift))
+		if (canMove)
 		{
-			pos.y -= 100.f * GetDeltaTime();
+			pos.y -= 200.f * GetDeltaTime();
 			if (pos.y >= -540.f && pos.y <= 540.f)
-				_view->move({ 0.f, -100.f * GetDeltaTime() });
+				_view->move({ 0.f, -200.f * GetDeltaTime() });
+
+			if (Key(LShift))
+			{
+				pos.y -= 100.f * GetDeltaTime();
+				if (pos.y >= -540.f && pos.y <= 540.f)
+					_view->move({ 0.f, -100.f * GetDeltaTime() });
+			}
 		}
 	}
-	if (Key(S) && pos.y <= 920.f && canMove)
+	canMove = true;
+	for (auto obs : _obs)
 	{
-		pos.y += 200.f * GetDeltaTime();
-		if (pos.y >= -540.f && pos.y <= 540.f)
-			_view->move({ 0.f, 200.f * GetDeltaTime() });
+		if (Rectangle_Collision({ spr.getGlobalBounds().left, spr.getGlobalBounds().top + spr.getGlobalBounds().height + (200.f * GetDeltaTime()),
+			spr.getGlobalBounds().width, 1 }, ObstacleRect))
+			canMove = false;
+	}
+	if (Key(S) && pos.y <= 920.f)
+	{
 		dir = DOWN;
-		if (Key(LShift))
+		if (canMove)
 		{
-			pos.y += 100.f * GetDeltaTime();
+			pos.y += 200.f * GetDeltaTime();
 			if (pos.y >= -540.f && pos.y <= 540.f)
-				_view->move({ 0.f, 100.f * GetDeltaTime() });
+				_view->move({ 0.f, 200.f * GetDeltaTime() });
+
+			if (Key(LShift))
+			{
+				pos.y += 100.f * GetDeltaTime();
+				if (pos.y >= -540.f && pos.y <= 540.f)
+					_view->move({ 0.f, 100.f * GetDeltaTime() });
+			}
 		}
 	}
-	if (Key(Q) && pos.x >= -1810.f && canMove)
+	canMove = true;
+	for (auto obs : _obs)
 	{
-		pos.x -= 200.f * GetDeltaTime();
-		if (pos.x >= -960.f && pos.x <= 960.f)
-			_view->move({ -200.f * GetDeltaTime(), 0.f });
+		if (Rectangle_Collision({ spr.getGlobalBounds().left - (200.f * GetDeltaTime()), spr.getGlobalBounds().top,
+			1, spr.getGlobalBounds().height }, ObstacleRect))
+			canMove = false;
+	}
+	if (Key(Q) && pos.x >= -1810.f)
+	{
 		dir = LEFT;
-		if (Key(LShift))
+		if (canMove)
 		{
-			pos.x -= 100.f * GetDeltaTime();
+			pos.x -= 200.f * GetDeltaTime();
 			if (pos.x >= -960.f && pos.x <= 960.f)
-				_view->move({ -100.f * GetDeltaTime(), 0.f });
+				_view->move({ -200.f * GetDeltaTime(), 0.f });
+
+			if (Key(LShift))
+			{
+				pos.x -= 100.f * GetDeltaTime();
+				if (pos.x >= -960.f && pos.x <= 960.f)
+					_view->move({ -100.f * GetDeltaTime(), 0.f });
+			}
 		}
 	}
-	if (Key(D) && pos.x <= 1810.f && canMove)
+	canMove = true;
+	for (auto obs : _obs)
 	{
-		pos.x += 200.f * GetDeltaTime();
-		if (pos.x >= -960.f && pos.x <= 960.f)
-			_view->move({ 200.f * GetDeltaTime(), 0.f });
+		if (Rectangle_Collision({ spr.getGlobalBounds().left + spr.getGlobalBounds().width + (200.f * GetDeltaTime()), spr.getGlobalBounds().top,
+			1, spr.getGlobalBounds().height }, ObstacleRect))
+			canMove = false;
+	}
+	if (Key(D) && pos.x <= 1810.f)
+	{
 		dir = RIGHT;
-		if (Key(LShift))
+		if (canMove)
 		{
-			pos.x += 100.f * GetDeltaTime();
+			pos.x += 200.f * GetDeltaTime();
 			if (pos.x >= -960.f && pos.x <= 960.f)
-				_view->move({ 100.f * GetDeltaTime(), 0.f });
+				_view->move({ 200.f * GetDeltaTime(), 0.f });
+
+			if (Key(LShift))
+			{
+				pos.x += 100.f * GetDeltaTime();
+				if (pos.x >= -960.f && pos.x <= 960.f)
+					_view->move({ 100.f * GetDeltaTime(), 0.f });
+			}
 		}
 	}
 
@@ -111,8 +156,6 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view, vector<Obstacle>
 			rect.top -= 80;
 		animTime = 0;
 	}
-
-	playerAnim();
 }
 
 void Player::draw(sf::RenderWindow* _window)

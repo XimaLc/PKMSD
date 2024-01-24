@@ -1,6 +1,8 @@
 #pragma once
 #include "tools.h"
 
+#define ObstacleRect { obs.getSpr().getGlobalBounds().left, obs.getSpr().getGlobalBounds().top + obs.getSpr().getGlobalBounds().height / 2, obs.getSpr().getGlobalBounds().width, (obs.getSpr().getGlobalBounds().height / 2) - 25 }
+
 class Obstacle
 {
 private:

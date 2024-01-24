@@ -13,6 +13,7 @@ private:
 	float vit_max;
 	sf::Sprite spr;
 	sf::Texture txt;
+	sf::RectangleShape collisionDetector;
 
 public:
 	PokemonSafari();
@@ -28,6 +29,7 @@ public:
 	inline float getVitMax() { return vit_max; }
 	inline sf::Sprite* getSpr() { return &spr; }
 	inline sf::Texture* getTxt() { return &txt; }
+	inline sf::RectangleShape* getCollisionDetector() { return &collisionDetector; }
 
 	inline void setPos(sf::Vector2f _pos) { pos = _pos; }
 	inline void setVelocity(sf::Vector2f _velocity) { velocity = _velocity; }

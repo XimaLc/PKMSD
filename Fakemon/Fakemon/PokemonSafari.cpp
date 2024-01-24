@@ -29,6 +29,10 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	spr.setTexture(txt);
 	spr.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
 	spr.setScale(0.15f, 0.15f);
+
+	collisionDetector.setSize({ 400.f, spr.getGlobalBounds().height });
+	collisionDetector.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
+	collisionDetector.setFillColor({ 255, 0, 0, 50 });
 }
 
 PokemonSafari::~PokemonSafari()
@@ -47,4 +51,7 @@ void PokemonSafari::draw(sf::RenderWindow* _window)
 	spr.setTexture(txt);
 	spr.setPosition(pos);
 	_window->draw(spr);
+	collisionDetector.setPosition(pos);
+	collisionDetector.setRotation(GetAngle({ 1.0f, 0.f }, velocity) * RAD2DEG);
+	_window->draw(collisionDetector);
 }
