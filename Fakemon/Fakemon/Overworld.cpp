@@ -28,7 +28,7 @@ void Overworld::update(sf::RenderWindow* _window)
 {
 	spawnTimer += GetDeltaTime();
 
-	player.update(_window, &viewOverworld);
+	player.update(_window, &viewOverworld, obstacles);
 
 	if (spawnTimer > 2.f && wildPokemons.size() < 10)
 	{

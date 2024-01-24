@@ -1,5 +1,6 @@
 #pragma once
 #include "tools.h"
+#include "Obstacle.h"
 
 class Player
 {
@@ -11,6 +12,7 @@ private:
 	Direction dir;
 	int frameX;
 	float animTime;
+	bool canMove;
 
 public:
 	Player();
@@ -19,7 +21,7 @@ public:
 	inline sf::Vector2f getPos() { return pos; }
 
 	void playerAnim();
-	void update(sf::RenderWindow* _window, sf::View* _view);
+	void update(sf::RenderWindow* _window, sf::View* _view, vector<Obstacle> _obs);
 	void draw(sf::RenderWindow* _window);
 };
 

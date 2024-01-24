@@ -42,9 +42,15 @@ void Player::playerAnim()
 	rect.left = frameX * 16;
 }
 
-void Player::update(sf::RenderWindow* _window, sf::View* _view)
+void Player::update(sf::RenderWindow* _window, sf::View* _view, vector<Obstacle> _obs)
 {
-	if (Key(Z) && pos.y >= - 945.f)
+	canMove = true;
+	for (auto obs : _obs)
+	{
+		if (Rectangle_Collision(spr.getGlobalBounds(), obs.getSpr().getGlobalBounds()))
+			canMove = false;
+	}
+	if (Key(Z) && pos.y >= - 945.f && canMove)
 	{
 		pos.y -= 200.f * GetDeltaTime();
 		if (pos.y >= -540.f && pos.y <= 540.f)
@@ -57,7 +63,7 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view)
 				_view->move({ 0.f, -100.f * GetDeltaTime() });
 		}
 	}
-	if (Key(S) && pos.y <= 920.f)
+	if (Key(S) && pos.y <= 920.f && canMove)
 	{
 		pos.y += 200.f * GetDeltaTime();
 		if (pos.y >= -540.f && pos.y <= 540.f)
@@ -70,7 +76,7 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view)
 				_view->move({ 0.f, 100.f * GetDeltaTime() });
 		}
 	}
-	if (Key(Q) && pos.x >= -1810.f)
+	if (Key(Q) && pos.x >= -1810.f && canMove)
 	{
 		pos.x -= 200.f * GetDeltaTime();
 		if (pos.x >= -960.f && pos.x <= 960.f)
@@ -83,7 +89,7 @@ void Player::update(sf::RenderWindow* _window, sf::View* _view)
 				_view->move({ -100.f * GetDeltaTime(), 0.f });
 		}
 	}
-	if (Key(D) && pos.x <= 1810.f)
+	if (Key(D) && pos.x <= 1810.f && canMove)
 	{
 		pos.x += 200.f * GetDeltaTime();
 		if (pos.x >= -960.f && pos.x <= 960.f)
