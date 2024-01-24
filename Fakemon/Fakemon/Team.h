@@ -6,9 +6,12 @@ class Team
 {
 private:
 	std::string name;
-	Pokemon team[6];
+	std::vector<Pokemon> team;
 
 public:
+	Team();
+
 	inline void addPokemon(Pokemon _p, int i) { team[i] = _p; }
+	inline std::vector<Pokemon> getPokemons() { return team; }
 };
 

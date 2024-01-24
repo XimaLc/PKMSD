@@ -84,6 +84,9 @@
     <ClCompile Include="Team.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
+    <ClCompile Include="TeamSlot.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -132,6 +135,9 @@
       <Filter>Fichiers d%27en-tête\Objets</Filter>
     </ClInclude>
     <ClInclude Include="Team.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="TeamSlot.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
     </ClInclude>
   </ItemGroup>

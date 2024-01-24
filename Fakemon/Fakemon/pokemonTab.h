@@ -14,6 +14,7 @@ private:
 	sf::Sprite type2Sprite;
 	sf::Sprite pokemonSprite;
 	sf::Text text;
+	sf::Text statsText;
 	sf::RectangleShape shape;
 	sf::Color color;
 

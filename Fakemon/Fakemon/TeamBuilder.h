@@ -4,20 +4,23 @@
 #include "PokemonTab.h"
 #include "Button.h"
 #include "Team.h"
+#include "TeamSlot.h"
 
 class TeamBuilder
 {
 private:
+	sf::RectangleShape shape;
 	std::vector<Pokemon> pokemons;
 	std::vector<PokemonTab> tabs;
-	sf::RectangleShape shape;
+	std::vector<TeamSlot> slot;
 
 	Team team;
+
 
 	int start;
 	int amount;
 
-	int teamIndex;
+	int currentTeamIndex;
 
 	sf::Texture texture;
 

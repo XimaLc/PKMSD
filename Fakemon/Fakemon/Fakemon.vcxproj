@@ -149,6 +149,7 @@
     <ClCompile Include="StateManager.cpp" />
     <ClCompile Include="Team.cpp" />
     <ClCompile Include="TeamBuilder.cpp" />
+    <ClCompile Include="TeamSlot.cpp" />
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +168,7 @@
     <ClInclude Include="StateManager.h" />
     <ClInclude Include="Team.h" />
     <ClInclude Include="TeamBuilder.h" />
+    <ClInclude Include="TeamSlot.h" />
     <ClInclude Include="tools.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

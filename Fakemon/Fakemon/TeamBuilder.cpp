@@ -2,7 +2,7 @@
 
 TeamBuilder::TeamBuilder()
 {
-	teamIndex = 1;
+	currentTeamIndex = 0;
 	start = 1;
 	amount = 10;
 	this->boutons["gauche"] = new Button("../Files/Textures/gauche.png", 10, 1025, 44.5, 44.5);
@@ -11,16 +11,25 @@ TeamBuilder::TeamBuilder()
 	shape.setFillColor(sf::Color(211, 211, 211));
 	shape.setSize({ 1920, 1080 });
 
-	PokemonTab tmp;
+	PokemonTab tmpPT;
+	TeamSlot tmpTS;
 	int x{0};
 	pokemons = DB::getSelectablePokemons(start, amount);
 	start += amount;
 
 	for (auto i : pokemons)
 	{
-		tmp = PokemonTab(i);
-		tmp.setPosition({ 25.f, x*100.f });
-		tabs.push_back(tmp);
+		tmpPT = PokemonTab(i);
+		tmpPT.setPosition({ 25.f, x*100.f });
+		tabs.push_back(tmpPT);
+		x++;
+	}
+
+	x = 0;
+	for (auto i : team.getPokemons())
+	{
+		tmpTS = TeamSlot();
+		tmpTS.setPos({ 25.f, 1025 + (x * 100.f) });
 		x++;
 	}
 }
@@ -37,14 +46,18 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 	for (auto& it : this->boutons)
 		it.second->update(mousePos);
 
+
+
 	for (auto& it : this->tabs)
 	{
 		it.update(mousePos);
 		if (it.isPressed())
 		{
-			team.addPokemon(it.getPokemon(), teamIndex);
-			if (teamIndex < 5)
-				teamIndex++;
+			team.addPokemon(it.getPokemon(), currentTeamIndex);
+			if (currentTeamIndex < 5)
+				currentTeamIndex++;
+			else
+				currentTeamIndex = 0;
 		}
 	}
 
