@@ -37,7 +37,13 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		it.second->update(mousePos);
 
 	for (auto& it : this->tabs)
+	{
 		it.update(mousePos);
+		if (it.isPressed())
+		{
+			it.displayPokemon();
+		}
+	}
 
 	if (boutons["droite"]->isPressed())
 	{

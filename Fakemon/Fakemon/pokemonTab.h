@@ -1,6 +1,10 @@
 #pragma once
 #include "Pokemon.h"
+#include "tools.h"
+
 #include <SFML/Graphics.hpp>
+
+enum states { tabIDLE = 0, tabHOVER, tabPRESSED };
 
 class PokemonTab
 {
@@ -11,10 +15,15 @@ private:
 	sf::Sprite pokemonSprite;
 	sf::Text text;
 	sf::RectangleShape shape;
+	sf::Color color;
 
 	sf::Texture typeTexture;
 	sf::Texture pokemonTexture;
 	sf::Font font;
+
+	float timer;
+	short unsigned buttonState;
+	short unsigned selectedState;
 public:
 	PokemonTab();
 	PokemonTab(Pokemon _pokemon);
@@ -24,5 +33,7 @@ public:
 	void setPosition(sf::Vector2f _pos);
 	void update(const sf::Vector2f mousePos);
 	void draw(sf::RenderWindow* _window);
+
+	void displayPokemon();
 };
 
