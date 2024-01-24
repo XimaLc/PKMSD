@@ -88,8 +88,3 @@ void PokemonTab::draw(sf::RenderWindow* _window)
 	_window->draw(type1Sprite);
 	_window->draw(type2Sprite);
 }
-
-void PokemonTab::displayPokemon()
-{
-	std::cout << pokemon.getName() << std::endl;
-}

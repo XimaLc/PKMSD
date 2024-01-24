@@ -34,6 +34,6 @@ public:
 	void update(const sf::Vector2f mousePos);
 	void draw(sf::RenderWindow* _window);
 
-	void displayPokemon();
+	inline Pokemon getPokemon() { return pokemon; }
 };
 

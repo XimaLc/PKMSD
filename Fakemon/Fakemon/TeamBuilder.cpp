@@ -2,6 +2,7 @@
 
 TeamBuilder::TeamBuilder()
 {
+	teamIndex = 1;
 	start = 1;
 	amount = 10;
 	this->boutons["gauche"] = new Button("../Files/Textures/gauche.png", 10, 1025, 44.5, 44.5);
@@ -41,7 +42,9 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		it.update(mousePos);
 		if (it.isPressed())
 		{
-			it.displayPokemon();
+			team.addPokemon(it.getPokemon(), teamIndex);
+			if (teamIndex < 5)
+				teamIndex++;
 		}
 	}
 

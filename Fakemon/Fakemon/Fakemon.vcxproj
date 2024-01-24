@@ -147,6 +147,7 @@
     <ClCompile Include="Showdown.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="Team.cpp" />
     <ClCompile Include="TeamBuilder.cpp" />
     <ClCompile Include="tools.cpp" />
   </ItemGroup>
@@ -164,6 +165,7 @@
     <ClInclude Include="Safari.h" />
     <ClInclude Include="Showdown.h" />
     <ClInclude Include="StateManager.h" />
+    <ClInclude Include="Team.h" />
     <ClInclude Include="TeamBuilder.h" />
     <ClInclude Include="tools.h" />
   </ItemGroup>

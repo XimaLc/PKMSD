@@ -3,6 +3,7 @@
 #include "DB.h"
 #include "PokemonTab.h"
 #include "Button.h"
+#include "Team.h"
 
 class TeamBuilder
 {
@@ -11,8 +12,13 @@ private:
 	std::vector<PokemonTab> tabs;
 	sf::RectangleShape shape;
 
+	Team team;
+
 	int start;
 	int amount;
+
+	int teamIndex;
+
 	sf::Texture texture;
 
 	std::map<std::string, Button*> boutons;
