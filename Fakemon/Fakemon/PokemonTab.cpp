@@ -4,12 +4,14 @@ PokemonTab::PokemonTab() {}
 
 PokemonTab::PokemonTab(Pokemon _pokemon)
 {
+	pokemon = _pokemon;
+
 	color = sf::Color::Red;
 
 	shape.setSize({ 1000, 90 });
 	shape.setFillColor(color);
 
-	pokemonTexture.loadFromFile("../Files/Textures/Pokemons/Base/" + _pokemon.getPath() + ".png");
+	pokemonTexture = DB::getTexture(pokemon.getPath());
 	typeTexture.loadFromFile("../Files/Textures/Types.png");
 
 	font.loadFromFile("../Files/Font/Pokemon.ttf");
@@ -37,7 +39,7 @@ PokemonTab::PokemonTab(Pokemon _pokemon)
 	statsText.setFillColor(sf::Color::Black);
 	statsText.setCharacterSize(20);
 
-	pokemon = _pokemon;
+	
 
 }
 
@@ -66,7 +68,6 @@ void PokemonTab::update(const sf::Vector2f mousePos)
 
 	if (this->shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && timer >= 0.1)
 	{
-		this->text.setFillColor(sf::Color(240, 131, 131, 255));
 		color.a = 100;
 		this->shape.setFillColor(color);
 
@@ -77,14 +78,12 @@ void PokemonTab::update(const sf::Vector2f mousePos)
 	else if (this->shape.getGlobalBounds().contains(mousePos))
 	{
 		this->buttonState = tabHOVER;
-		this->text.setFillColor(sf::Color(184, 147, 1, 255));
 		color.a = 200;
 		this->shape.setFillColor(color);
 	}
 	else
 	{
-		this->buttonState = tabIDLE;
-		this->text.setFillColor(sf::Color(255, 204, 1, 255));
+		this->buttonState = tabIDLE;;
 		color.a = 255;
 		this->shape.setFillColor(color);
 	}

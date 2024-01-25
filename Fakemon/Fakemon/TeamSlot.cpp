@@ -9,8 +9,10 @@ TeamSlot::TeamSlot()
 
 void TeamSlot::setPokemon(Pokemon _p)
 {
+	if (pokemon.getPath() != "")
+		texture = DB::getTexture(pokemon.getPath());
+	
 	pokemon = _p;
-	texture.loadFromFile("../Files/Textures/Pokemons/Base/" + pokemon.getPath() + ".png");
 }
 
 void TeamSlot::update(const sf::Vector2f mousePos)
@@ -38,6 +40,15 @@ void TeamSlot::update(const sf::Vector2f mousePos)
 		color.a = 255;
 		this->shape.setFillColor(color);
 	}
+}
+
+const bool TeamSlot::isPressed() const
+{
+	if (state == slotPRESSED)
+	{
+		return true;
+	}
+	return false;
 }
 
 void TeamSlot::setPos(sf::Vector2f _pos)

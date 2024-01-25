@@ -2,6 +2,7 @@
 
 TeamBuilder::TeamBuilder()
 {
+	editTeam = false;
 	currentTeamIndex = 0;
 	start = 1;
 	amount = 10;
@@ -14,21 +15,14 @@ TeamBuilder::TeamBuilder()
 	PokemonTab tmpPT;
 	TeamSlot tmpTS;
 	int x{0};
-	pokemons = DB::getSelectablePokemons(start, amount);
-	start += amount;
 
-	for (auto i : pokemons)
-	{
-		tmpPT = PokemonTab(i);
-		tmpPT.setPosition({ 25.f, x*100.f });
-		tabs.push_back(tmpPT);
-		x++;
-	}
+	loadPokemon();
 
 	x = 0;
 	for (auto i : team.getPokemons())
 	{
 		tmpTS = TeamSlot();
+		tmpTS.setTeamIndex(x);
 		tmpTS.setPos({ 1030 + (x * 145.f), 10.f });
 		slots.push_back(tmpTS);
 		x++;
@@ -37,6 +31,22 @@ TeamBuilder::TeamBuilder()
 
 TeamBuilder::~TeamBuilder()
 {
+}
+
+void TeamBuilder::loadPokemon()
+{
+	pokemons = DB::getSelectablePokemons(start, amount);
+
+	PokemonTab tmp;
+	tabs.clear();
+	int x{ 0 };
+	for (auto i : pokemons)
+	{
+		tmp = PokemonTab(i);
+		tmp.setPosition({ 25.f, x * 100.f });
+		tabs.push_back(tmp);
+		x++;
+	}
 }
 
 void TeamBuilder::update(sf::RenderWindow* _window)
@@ -52,56 +62,42 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		if (it.isPressed())
 		{
 			team.addPokemon(it.getPokemon(), currentTeamIndex);
-			if (currentTeamIndex < 5)
-				currentTeamIndex++;
-			else
-				currentTeamIndex = 0;
 		}
 	}
 
 	int x{ 0 };
 	for (auto& it : this->slots)
 	{
+		if (it.isPressed())
+		{
+			currentTeamIndex = it.getTeamIndex();
+			pb.changePokemon(&team.getPokemons()[x]);
+		}
+
 		it.setPokemon(team.getPokemons()[x]);
+		pb.changePokemon(&team.getPokemons()[x]);
+
+			
 		it.update(mousePos);
 		x++;
 	}
 
 	if (boutons["droite"]->isPressed())
 	{
-		pokemons = DB::getSelectablePokemons(start, amount);
 		start += amount;
-		if (start > 151)
+		if (start > 151) 
 			start = 1;
-		PokemonTab tmp;
-		tabs.clear();
-		int x{ 0 };
-		for (auto i : pokemons)
-		{
-			tmp = PokemonTab(i);
-			tmp.setPosition({ 25.f, x * 100.f });
-			tabs.push_back(tmp);
-			x++;
-		}
+		
+		loadPokemon();
 	}
 	
 	if (boutons["gauche"]->isPressed())
 	{
 		start -= amount;
-		if (start <= 1)
+		if (start <= 0)
 			start = 142;
-		pokemons = DB::getSelectablePokemons(start, amount);
 
-		PokemonTab tmp;
-		tabs.clear();
-		int x{ 0 };
-		for (auto i : pokemons)
-		{
-			tmp = PokemonTab(i);
-			tmp.setPosition({ 25.f, x * 100.f });
-			tabs.push_back(tmp);
-			x++;
-		}
+		loadPokemon();
 	}
 }
 
@@ -117,4 +113,6 @@ void TeamBuilder::draw(sf::RenderWindow* _window)
 
 	for (auto i : slots)
 		i.draw(_window);
+
+	pb.draw(_window);
 }

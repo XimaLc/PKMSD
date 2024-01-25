@@ -1,5 +1,12 @@
 #include "DB.h"
 
+std::map<std::string, sf::Texture> DB::pokemonTextures;
+
+DB::DB()
+{
+	loadTextures();
+}
+
 std::string DB::removeUnderscore(std::string _str)
 {
 	for (int i = 0; i < _str.length(); i++)
@@ -133,5 +140,33 @@ std::vector<Pokemon> DB::getSelectablePokemons(int _startId, int _amount)
 		}
 		file.close();
 		return res;
+	}
+}
+
+void DB::loadTextures()
+{
+	std::string name, path, movePool;
+	int id, evolution_state, type1, type2;
+	std::map<std::string, int> stats;
+	bool isSelectable;
+
+	std::string string;
+	std::istringstream iss;
+
+	std::ifstream file("../Files/DB/Pokemons.tsv", std::ios::in);
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			getline(file, string);
+			iss.clear();
+			if (string.find("//") == std::string::npos)
+			{
+				iss.str(string);
+				iss >> id >> path >> name >> type1 >> type2 >> evolution_state >> stats["hp"] >> stats["atk"] >> stats["def"] >> stats["spA"] >> stats["spD"] >> stats["spd"] >> stats["bst"] >> isSelectable >> movePool;
+				pokemonTextures[path].loadFromFile("../Files/Textures/Pokemons/Base/" + path + ".png");
+			}
+		}
+		file.close();
 	}
 }

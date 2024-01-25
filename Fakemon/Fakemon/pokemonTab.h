@@ -1,6 +1,7 @@
 #pragma once
 #include "Pokemon.h"
 #include "tools.h"
+#include "DB.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -10,9 +11,11 @@ class PokemonTab
 {
 private:
 	Pokemon pokemon;
+
 	sf::Sprite type1Sprite;
 	sf::Sprite type2Sprite;
 	sf::Sprite pokemonSprite;
+
 	sf::Text text;
 	sf::Text statsText;
 	sf::RectangleShape shape;
@@ -20,6 +23,7 @@ private:
 
 	sf::Texture typeTexture;
 	sf::Texture pokemonTexture;
+
 	sf::Font font;
 
 	float timer;
