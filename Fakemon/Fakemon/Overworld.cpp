@@ -39,6 +39,7 @@ void Overworld::update(sf::RenderWindow* _window)
 	for (auto& it : wildPokemons)
 	{
 		it.update(seek(&it, player.getPos()));
+		it.update(obstacleAvoidance(&it, obstacles));
 	}
 }
 
@@ -108,7 +109,7 @@ sf::Vector2f Overworld::obstacleAvoidance(PokemonSafari* agent, vector<Obstacle>
 	{
 		if (Rectangle_Collision(agent->getCollisionDetector()->getGlobalBounds(), ObstacleRect))
 		{
-
+			return flee(agent, obs.getPos());
 		}
 	}
 
