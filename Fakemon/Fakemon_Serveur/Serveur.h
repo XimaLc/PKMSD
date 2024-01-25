@@ -7,8 +7,8 @@
 
 enum packetType
 {
-    NEW_CONNECTION,
-    ON_CONNECTION_ADD_OTHER_PLAYER,
+    LOGIN,
+    REGISTER,
     UPDATE_POSITION,
     CLIENT_DISCONNECTED
 };
@@ -23,22 +23,14 @@ public:
 private:
     void handleClient();
 
-    sf::TcpSocket* socket;
     sf::TcpListener listener;
     sf::SocketSelector selector;
     AcountManager accountManager; 
 
-    int id;
-    float timeout;
-    
-
-    std::vector<Server*> Clients;
-
     sf::Packet sendPacket;
     sf::Packet receivePacket;
-    std::string username;
-    std::string password;
-    bool isAuthenticated;
-
+    
+    bool done = false;
+    int clientsNbr = 0;
 };
 

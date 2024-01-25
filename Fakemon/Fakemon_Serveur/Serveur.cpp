@@ -1,6 +1,16 @@
 #include "Serveur.h"
 
-
+struct sClient
+{
+    sf::TcpSocket* socket;
+    int id;
+    std::string username;
+    std::string password;
+    float timeout;
+    bool isAuthenticated = false;
+};
+typedef struct sClients sClients;
+ std::vector<sClient*>Clients;
 
 Server::Server() 
 {
@@ -11,15 +21,11 @@ Server::Server()
 
     selector.add(listener);
 
-    accountManager.loadFromFile();
-
+    accountManager.loadFromFile();  
 }
 
 void Server::handleClient() 
-{
-    bool done = false;
-    int clientsNbr = 0;
-
+{ 
     while (!done)
     {
         restartClock();
@@ -33,7 +39,7 @@ void Server::handleClient()
             restartClock();
             if (selector.isReady(listener))
             {
-                Server* client = new Server();
+                sClient* client = new sClient();
                 client->socket = new TcpSocket();
                 listener.accept(*client->socket);
                 selector.add(*client->socket);
@@ -56,11 +62,11 @@ void Server::handleClient()
                 else
                     std::cerr << "Failed to receive password\n";
 
-                client->isAuthenticated = accountManager.authenticate(username, password);
+                client->isAuthenticated = accountManager.authenticate(client->username, client->password);
 
                 sendPacket << client->isAuthenticated;
                 if (client->socket->send(sendPacket) == sf::Socket::Done)
-                    std::cerr << "send authentication succesfull\n";
+                    std::cerr << "send authentication succesfull\n"<<client->isAuthenticated;
                 else
                     std::cerr << "Failed to send authentication result\n";
 
