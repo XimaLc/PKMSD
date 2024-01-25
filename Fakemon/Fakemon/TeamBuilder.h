@@ -12,7 +12,7 @@ private:
 	sf::RectangleShape shape;
 	std::vector<Pokemon> pokemons;
 	std::vector<PokemonTab> tabs;
-	std::vector<TeamSlot> slot;
+	std::vector<TeamSlot> slots;
 
 	Team team;
 

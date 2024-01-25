@@ -29,7 +29,8 @@ TeamBuilder::TeamBuilder()
 	for (auto i : team.getPokemons())
 	{
 		tmpTS = TeamSlot();
-		tmpTS.setPos({ 25.f, 1025 + (x * 100.f) });
+		tmpTS.setPos({ 1030 + (x * 145.f), 10.f });
+		slots.push_back(tmpTS);
 		x++;
 	}
 }
@@ -38,15 +39,12 @@ TeamBuilder::~TeamBuilder()
 {
 }
 
-
 void TeamBuilder::update(sf::RenderWindow* _window)
 {
 	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*_window).x), static_cast<float>(sf::Mouse::getPosition(*_window).y));
 
 	for (auto& it : this->boutons)
 		it.second->update(mousePos);
-
-
 
 	for (auto& it : this->tabs)
 	{
@@ -59,6 +57,14 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 			else
 				currentTeamIndex = 0;
 		}
+	}
+
+	int x{ 0 };
+	for (auto& it : this->slots)
+	{
+		it.setPokemon(team.getPokemons()[x]);
+		it.update(mousePos);
+		x++;
 	}
 
 	if (boutons["droite"]->isPressed())
@@ -102,9 +108,13 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 void TeamBuilder::draw(sf::RenderWindow* _window)
 {
 	_window->draw(shape);
+
 	for (auto i : tabs)
 		i.draw(_window);
 
 	for (auto i : boutons)
 		i.second->render(_window);
+
+	for (auto i : slots)
+		i.draw(_window);
 }
