@@ -7,6 +7,7 @@ class Obstacle
 {
 private:
 	sf::Vector2f pos;
+	sf::Vector2f center;
 	sf::Vector2f size;
 	sf::Sprite spr;
 	
@@ -17,6 +18,7 @@ public:
 	~Obstacle();
 
 	sf::Vector2f getPos() { return pos; }
+	sf::Vector2f getCenter() { return center; }
 	sf::Vector2f getSize() { return size; }
 	sf::Sprite getSpr() { return spr; }
 

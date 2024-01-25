@@ -30,7 +30,7 @@ void Overworld::update(sf::RenderWindow* _window)
 
 	player.update(_window, &viewOverworld, obstacles);
 
-	if (spawnTimer > 2.f && wildPokemons.size() < 10)
+	if (spawnTimer > 2.f && wildPokemons.size() < 1)
 	{
 		spawnTimer = 0.f;
 		wildPokemons.push_back(DB::getPokemonById(iRand(1, 148)));
@@ -107,9 +107,9 @@ sf::Vector2f Overworld::obstacleAvoidance(PokemonSafari* agent, vector<Obstacle>
 {
 	for (auto obs : _obstacles)
 	{
-		if (Rectangle_Collision(agent->getCollisionDetector()->getGlobalBounds(), ObstacleRect))
+		if (Rectangle_Collision(agent->getCollisionDetector()->getGlobalBounds(),  ObstacleRect))
 		{
-			return flee(agent, obs.getPos());
+			return flee(agent, obs.getCenter());
 		}
 	}
 

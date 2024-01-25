@@ -21,7 +21,7 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	velocity = { 0.f, 0.f };
 	masse = 0.1f;
 	max_force = 50.f;
-	vit_max = 100.f;
+	vit_max = 50.f;
 	if (shiny)
 		txt.loadFromFile(TexturePath"Pokemons/Shiny/" + path + ".png");
 	else
@@ -30,7 +30,7 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	spr.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
 	spr.setScale(0.15f, 0.15f);
 
-	collisionDetector.setSize({ 400.f, spr.getGlobalBounds().height });
+	collisionDetector.setSize({ 300.f, spr.getGlobalBounds().height });
 	collisionDetector.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
 	collisionDetector.setFillColor({ 255, 0, 0, 50 });
 }

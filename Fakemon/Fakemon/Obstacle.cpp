@@ -9,6 +9,7 @@ Obstacle::Obstacle(sf::Vector2f _pos, sf::Vector2f _size, sf::Texture _txt) : po
 	spr.setPosition(pos);
 	spr.setTexture(_txt);
 	spr.setScale({ 3.f, 3.f });
+	center = { spr.getGlobalBounds().left + spr.getGlobalBounds().width / 2, spr.getGlobalBounds().top + 70.f };
 }
 
 Obstacle::~Obstacle()
