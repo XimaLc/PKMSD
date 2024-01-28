@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "Pokemon.h"
 #include "DB.h"
 
 class PokemonBuilder
@@ -19,6 +18,8 @@ private:
 
 	sf::Font font;
 	sf::Text pkmName;
+
+	std::vector<Move> movePool;
 
 	std::map < std::string, sf::Text> statsTexts;
 public:

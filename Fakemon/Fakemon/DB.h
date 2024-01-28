@@ -3,6 +3,7 @@
 #include <sstream>
 #include <SFML/graphics.hpp>
 
+#include "Move.h"
 #include "Pokemon.h"
 
 enum Types { Steel = 1, Fighting, Dragon, Water, Electric, Fairy, Fire, Ice, Bug, Normal, Grass, Poison, Psychic, Rock, Ground, Ghost, Dark, Flying};
@@ -21,6 +22,10 @@ public:
 	static Pokemon getPokemonById(int _id);
 	static std::vector<Pokemon> getPokemons(int _startId, int _amount);
 	static std::vector<Pokemon> getSelectablePokemons(int _startId, int _amount);
+
+	static Move getMoveById(int _id);
+	static std::vector<Move> getMoves(int _startId, int _amount);
+	static std::vector<Move> getMovePool(std::vector<int> _movePool);
 
 	static void loadTextures();
 

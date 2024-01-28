@@ -59,6 +59,8 @@ void PokemonBuilder::changePokemon(Pokemon* _p)
 		statsTexts["spA"].setString("Spe ATK : " + std::to_string(pokemon->getStat("spA")));
 		statsTexts["spD"].setString("Spe DEF : " + std::to_string(pokemon->getStat("spD")));
 		statsTexts["spd"].setString("Spd : " + std::to_string(pokemon->getStat("spd")));
+	
+		movePool = DB::getMovePool(pokemon->getMovePool());
 	}
 	else
 	{
@@ -78,7 +80,6 @@ void PokemonBuilder::changePokemon(Pokemon* _p)
 
 void PokemonBuilder::draw(sf::RenderWindow* _window)
 {
-	
 	type1Sprite.setTexture(typeTexture);
 	type2Sprite.setTexture(typeTexture);
 	pkmName.setFont(font);
