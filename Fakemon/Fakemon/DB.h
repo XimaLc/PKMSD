@@ -3,7 +3,6 @@
 #include <sstream>
 #include <SFML/graphics.hpp>
 
-#include "Move.h"
 #include "Pokemon.h"
 
 enum Types { Steel = 1, Fighting, Dragon, Water, Electric, Fairy, Fire, Ice, Bug, Normal, Grass, Poison, Psychic, Rock, Ground, Ghost, Dark, Flying};

@@ -38,6 +38,25 @@ PokemonBuilder::PokemonBuilder()
 
 	statsTexts["spd"].setPosition(1050, 650);
 	statsTexts["spd"].setFillColor(sf::Color::Black);
+
+	int x{ 0 };
+	MoveSlot tmpMs;
+	for (auto i : pokemon->getMoves())
+	{
+		tmpMs = MoveSlot();
+		tmpMs.setIndex(x);
+		tmpMs.setPosition(1300, 350 + (x * 125));
+		moveSlots.push_back(tmpMs);
+		x++;
+	}
+}
+
+void PokemonBuilder::update(const sf::Vector2f mousePos)
+{
+	for (auto i : moveSlots)
+	{
+		i.update(mousePos);
+	}
 }
 
 void PokemonBuilder::changePokemon(Pokemon* _p)
@@ -102,6 +121,9 @@ void PokemonBuilder::draw(sf::RenderWindow* _window)
 		_window->draw(i.second);
 	}
 
-
+	for (auto i : moveSlots)
+	{
+		i.draw(_window);
+	}
 
 }

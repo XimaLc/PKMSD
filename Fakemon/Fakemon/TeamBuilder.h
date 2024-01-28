@@ -1,10 +1,11 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+
 #include "PokemonTab.h"
 #include "Button.h"
 #include "Team.h"
 #include "TeamSlot.h"
 #include "PokemonBuilder.h"
+#include "MoveSlot.h"
 
 class TeamBuilder
 {

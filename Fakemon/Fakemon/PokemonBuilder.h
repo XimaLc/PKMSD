@@ -1,10 +1,12 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "DB.h"
+#include "MoveSlot.h"
 
 class PokemonBuilder
 {
 private:
+	std::vector<MoveSlot> moveSlots;
+
 	Pokemon* pokemon;
 
 	sf::Texture* pkmTexture;
@@ -25,6 +27,7 @@ private:
 public:
 	PokemonBuilder();
 
+	void update(const sf::Vector2f mousePos);
 	void changePokemon(Pokemon* _p);
 	void draw(sf::RenderWindow * _window);
 };

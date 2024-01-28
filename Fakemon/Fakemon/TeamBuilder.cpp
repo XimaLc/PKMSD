@@ -81,6 +81,8 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		x++;
 	}
 
+	pb.update(mousePos);
+
 	if (boutons["droite"]->isPressed())
 	{
 		start += amount;
