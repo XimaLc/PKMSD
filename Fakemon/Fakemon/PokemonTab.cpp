@@ -1,6 +1,8 @@
 #include "PokemonTab.h"
 
-PokemonTab::PokemonTab() {}
+PokemonTab::PokemonTab() {
+	pokemonTexture = nullptr;
+}
 
 PokemonTab::PokemonTab(Pokemon _pokemon)
 {
@@ -12,6 +14,7 @@ PokemonTab::PokemonTab(Pokemon _pokemon)
 	shape.setFillColor(color);
 
 	pokemonTexture = DB::getTexture(pokemon.getPath());
+	//pokemonTexture.loadFromFile("../Files/Textures/Pokemons/Base/" + pokemon.getPath() + ".png");
 	typeTexture.loadFromFile("../Files/Textures/Types.png");
 
 	font.loadFromFile("../Files/Font/Pokemon.ttf");
@@ -91,7 +94,7 @@ void PokemonTab::update(const sf::Vector2f mousePos)
 
 void PokemonTab::draw(sf::RenderWindow* _window)
 {
-	pokemonSprite.setTexture(pokemonTexture);
+	pokemonSprite.setTexture(*pokemonTexture);
 	type1Sprite.setTexture(typeTexture);
 	type2Sprite.setTexture(typeTexture);
 	text.setFont(font);

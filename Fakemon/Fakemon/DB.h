@@ -22,8 +22,8 @@ public:
 	static std::vector<Pokemon> getPokemons(int _startId, int _amount);
 	static std::vector<Pokemon> getSelectablePokemons(int _startId, int _amount);
 
-	void loadTextures();
+	static void loadTextures();
 
-	static sf::Texture& getTexture(std::string path) { return pokemonTextures[path]; }
+	static sf::Texture* getTexture(std::string path) { return &pokemonTextures[path]; }
 };
 

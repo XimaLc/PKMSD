@@ -2,11 +2,6 @@
 
 std::map<std::string, sf::Texture> DB::pokemonTextures;
 
-DB::DB()
-{
-	loadTextures();
-}
-
 std::string DB::removeUnderscore(std::string _str)
 {
 	for (int i = 0; i < _str.length(); i++)

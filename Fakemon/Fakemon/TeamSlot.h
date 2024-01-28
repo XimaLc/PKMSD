@@ -11,10 +11,11 @@ class TeamSlot
 private:
 	Pokemon pokemon;
 	sf::Sprite sprite;
-	sf::Texture texture;
+	sf::Texture* texture;
+
 	int teamIndex;
 
-	sf::RectangleShape shape;
+	sf::RectangleShape slotShape;
 	sf::Color color;
 	float timer;
 	int state;

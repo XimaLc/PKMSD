@@ -15,6 +15,9 @@ PokemonBuilder::PokemonBuilder()
 	shape.setPosition(1030.f, 160.f);
 
 	pkmSprite.setPosition(1035, 165);
+	pkmSprite.setScale(0.2, 0.2);
+
+
 	type1Sprite.setPosition(1280, 230);
 	type2Sprite.setPosition(1520, 230);
 
@@ -38,7 +41,7 @@ void PokemonBuilder::changePokemon(Pokemon* _p)
 
 void PokemonBuilder::draw(sf::RenderWindow* _window)
 {
-	pkmSprite.setTexture(pkmTexture);
+	pkmSprite.setTexture(*pkmTexture);
 	type1Sprite.setTexture(typeTexture);
 	type2Sprite.setTexture(typeTexture);
 	pkmName.setFont(font);

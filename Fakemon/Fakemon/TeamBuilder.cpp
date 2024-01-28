@@ -111,8 +111,8 @@ void TeamBuilder::draw(sf::RenderWindow* _window)
 	for (auto i : boutons)
 		i.second->render(_window);
 
-	for (auto i : slots)
-		i.draw(_window);
+	//for (auto i : slots) veut plus s'afficher : Violation d'acces
+	//	i.draw(_window);
 
 	pb.draw(_window);
 }

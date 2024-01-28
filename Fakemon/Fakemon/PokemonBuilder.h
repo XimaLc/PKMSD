@@ -8,7 +8,7 @@ class PokemonBuilder
 private:
 	Pokemon* pokemon;
 
-	sf::Texture pkmTexture;
+	sf::Texture* pkmTexture;
 	sf::Texture typeTexture;
 
 	sf::Sprite pkmSprite;

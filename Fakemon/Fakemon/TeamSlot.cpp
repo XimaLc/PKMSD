@@ -2,8 +2,8 @@
 
 TeamSlot::TeamSlot()
 {
-	shape.setFillColor(sf::Color::Green);
-	shape.setSize({ 140.f,140.f });
+	slotShape.setFillColor(sf::Color::Green);
+	slotShape.setSize({ 140.f,140.f });
 	sprite.setScale({ 0.15, 0.15 });
 }
 
@@ -19,26 +19,26 @@ void TeamSlot::update(const sf::Vector2f mousePos)
 {
 	timer += GetDeltaTime();
 
-	if (this->shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && timer >= 0.1)
+	if (this->slotShape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && timer >= 0.1)
 	{
 		color.a = 100;
-		this->shape.setFillColor(color);
+		this->slotShape.setFillColor(color);
 
 		this->state = slotPRESSED;
 
 		timer = 0;
 	}
-	else if (this->shape.getGlobalBounds().contains(mousePos))
+	else if (this->slotShape.getGlobalBounds().contains(mousePos))
 	{
 		this->state = slotHOVER;
 		color.a = 200;
-		this->shape.setFillColor(color);
+		this->slotShape.setFillColor(color);
 	}
 	else
 	{
 		this->state = slotIDLE;
 		color.a = 255;
-		this->shape.setFillColor(color);
+		this->slotShape.setFillColor(color);
 	}
 }
 
@@ -53,13 +53,13 @@ const bool TeamSlot::isPressed() const
 
 void TeamSlot::setPos(sf::Vector2f _pos)
 {
-	shape.setPosition(_pos);
+	slotShape.setPosition(_pos);
 	sprite.setPosition(_pos.x + 5, _pos.y + 5);
 }
 
 void TeamSlot::draw(sf::RenderWindow* _window)
 {
-	sprite.setTexture(texture);
-	_window->draw(shape);
+	sprite.setTexture(*texture);
+	_window->draw(slotShape);
 	_window->draw(sprite);
 }

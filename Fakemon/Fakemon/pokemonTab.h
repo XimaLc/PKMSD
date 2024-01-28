@@ -22,7 +22,7 @@ private:
 	sf::Color color;
 
 	sf::Texture typeTexture;
-	sf::Texture pokemonTexture;
+	sf::Texture* pokemonTexture;
 
 	sf::Font font;
 
