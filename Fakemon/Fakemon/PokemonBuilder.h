@@ -19,6 +19,8 @@ private:
 
 	sf::Font font;
 	sf::Text pkmName;
+
+	std::map < std::string, sf::Text> statsTexts;
 public:
 	PokemonBuilder();
 

@@ -26,6 +26,7 @@ public:
 	inline std::string getPath() { return path; }
 	inline std::string getName() { return name; }
 	inline std::map<std::string, int> getStats() { return stats; }
+	inline int getStat(std::string _stat) { return stats[_stat]; }
 	inline int getType1() { return type1; }
 	inline int getType2() { return type2; }
 	Pokemon();

@@ -74,10 +74,9 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 			pb.changePokemon(&team.getPokemons()[x]);
 		}
 
+		pb.changePokemon(&team.getPokemons()[currentTeamIndex]);
 		it.setPokemon(team.getPokemons()[x]);
-		pb.changePokemon(&team.getPokemons()[x]);
 
-			
 		it.update(mousePos);
 		x++;
 	}
@@ -111,8 +110,8 @@ void TeamBuilder::draw(sf::RenderWindow* _window)
 	for (auto i : boutons)
 		i.second->render(_window);
 
-	//for (auto i : slots) veut plus s'afficher : Violation d'acces
-	//	i.draw(_window);
+	for (auto i : slots)
+		i.draw(_window);
 
 	pb.draw(_window);
 }

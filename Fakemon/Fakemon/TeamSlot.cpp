@@ -4,6 +4,7 @@ TeamSlot::TeamSlot()
 {
 	slotShape.setFillColor(sf::Color::Green);
 	slotShape.setSize({ 140.f,140.f });
+
 	sprite.setScale({ 0.15, 0.15 });
 }
 
@@ -11,6 +12,9 @@ void TeamSlot::setPokemon(Pokemon _p)
 {
 	if (pokemon.getPath() != "")
 		texture = DB::getTexture(pokemon.getPath());
+	else
+		texture = nullptr;
+
 	
 	pokemon = _p;
 }
@@ -59,7 +63,10 @@ void TeamSlot::setPos(sf::Vector2f _pos)
 
 void TeamSlot::draw(sf::RenderWindow* _window)
 {
-	sprite.setTexture(*texture);
 	_window->draw(slotShape);
-	_window->draw(sprite);
+	if (texture != nullptr)
+	{
+		sprite.setTexture(*texture);
+		_window->draw(sprite);
+	}
 }
