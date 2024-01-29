@@ -21,7 +21,6 @@ class StateManager
 {
 public:
 	static StateManager* m_instance;
-	StateManager();
 	State* currentState; 
 
 	static StateManager* getInstance();
@@ -38,6 +37,7 @@ public:
 	sf::Event event;
 
 private:
+	StateManager();
 	Client client;
 	
 };

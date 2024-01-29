@@ -1,10 +1,13 @@
 #include "Serveur.h"
 
+Server server;
 
 int main() 
 {
-    Server server;
-    server.run();
+    std::cout << "Server is starting \n";
 
-    return 0;
+    server.Init();
+
+    server.Update();
+
 }

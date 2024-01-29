@@ -9,5 +9,13 @@ public:
     void run();
 
     sf::TcpSocket socket;
+
+    enum packetType
+    {
+        PSEUDO,
+        PASSWORD,
+        UPDATE_POSITION,
+        CLIENT_DISCONNECTED
+    };
 };
 

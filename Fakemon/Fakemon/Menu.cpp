@@ -100,6 +100,11 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
+			if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
+			{
+				std::cerr << "Failed to connect to server\n";
+			}
+
 			// Send username
 			username = boutons["PSEUDO_BOUTTON"]->getText();
 			usernamePacket << username;
@@ -136,6 +141,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 				this->notif.setPosition(sf::Vector2f(890, 430));
 				this->notif.setString(std::string("ID unknow"));
 				activNotif = true;
+				client.socket.disconnect();
 			}
 
 			usernamePacket.clear();

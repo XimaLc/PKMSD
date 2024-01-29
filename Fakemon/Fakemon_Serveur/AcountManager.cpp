@@ -50,7 +50,7 @@ void AcountManager::loadFromFile()
         }
         file.close();
 
-        std::cout << "data load...\n";
+        std::cout << "data load...\n\n";
     }
     else
         std::cerr << "Error load account filefor load\n";

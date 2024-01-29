@@ -5,32 +5,50 @@
 #include <thread>
 #include <vector>
 
-enum packetType
-{
-    LOGIN,
-    REGISTER,
-    UPDATE_POSITION,
-    CLIENT_DISCONNECTED
-};
-typedef enum packetType packetType;
+
 
 class Server 
 {
 public:
-    Server();
-    void run();
+    void Init();
+    void Update();
+    
+    void TCP();
 
 private:
-    void handleClient();
-
     sf::TcpListener listener;
     sf::SocketSelector selector;
-    AcountManager accountManager; 
+    std::vector <std::unique_ptr< sf::TcpSocket >> clients;
+
+    AcountManager accountManager;
+
+    bool connected;
+    int tcp_port;
+    bool server_started;
+
+    struct Player
+    {
+        sf::IpAddress ip;
+        int id;
+        std::string username;
+        std::string password;
+        float timeout;
+        bool isAuthenticated = false;
+    };
+    std::vector <std::unique_ptr< Player >> Players;
 
     sf::Packet sendPacket;
     sf::Packet receivePacket;
     
     bool done = false;
     int clientsNbr = 0;
+
+    enum packetType
+    {
+        PSEUDO,
+        PASSWORD,
+        UPDATE_POSITION,
+        CLIENT_DISCONNECTED
+    };
 };
 

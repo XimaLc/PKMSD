@@ -1,115 +1,119 @@
 #include "Serveur.h"
 
-struct sClient
-{
-    sf::TcpSocket* socket;
-    int id;
-    std::string username;
-    std::string password;
-    float timeout;
-    bool isAuthenticated = false;
-};
-typedef struct sClients sClients;
- std::vector<sClient*>Clients;
+void Server::Init()
+{    
+    accountManager.loadFromFile();
+  
+    listener.listen(8888, sf::IpAddress::Any);
+    listener.setBlocking(false);
+    selector.add(listener);		
 
-Server::Server() 
-{
-    if (listener.listen(8888, sf::IpAddress::Any) == sf::Socket::Done)
-        std::cout << "Serveur en ligne" << std::endl;
-    else
-        std::cerr << "Failed to bind to port 8888\n";
-
-    selector.add(listener);
-
-    accountManager.loadFromFile();  
+    srand(static_cast<unsigned>(time(NULL)));
 }
 
-void Server::handleClient() 
-{ 
-    while (!done)
+void Server::Update()
+{
+    while (!done)	
+    {
+        TCP();		
+    }
+
+}
+
+void Server::TCP()
+{
+    restartClock();
+    for (int i = 0; i < Players.size(); i++)
+    {
+        Players[i]->timeout += GetDeltaTime();
+    }
+
+    if (selector.wait())
     {
         restartClock();
-        for (int i = 0; i < Clients.size(); i++)
+        if (selector.isReady(listener))
         {
-            Clients[i]->timeout += GetDeltaTime();
-        }
+            auto clientSocket = std::make_unique<sf::TcpSocket>();
+            listener.accept(*clientSocket);
+            selector.add(*clientSocket);
 
-        if (selector.wait())
-        {
-            restartClock();
-            if (selector.isReady(listener))
+            auto newPlayer = std::make_unique<Player>();
+            newPlayer->id = clientsNbr;
+
+            if (clientSocket->receive(receivePacket) == sf::Socket::Done)
             {
-                sClient* client = new sClient();
-                client->socket = new TcpSocket();
-                listener.accept(*client->socket);
-                selector.add(*client->socket);
-                client->id = clientsNbr;
-                client->timeout = 0.f;
+                receivePacket >> newPlayer->username;
+                std::cerr << "receive username succesfull\n";
+            }
+            else
+                std::cerr << "Failed to receive username\n";
 
-                if (client->socket->receive(receivePacket) == sf::Socket::Done)
-                {
-                    receivePacket >> client->username;
-                    std::cerr << "receive username succesfull\n";
-                }
-                else
-                    std::cerr << "Failed to receive username\n";
+            if (clientSocket->receive(receivePacket) == sf::Socket::Done)
+            {
+                receivePacket >> newPlayer->password;
+                std::cerr << "receive password succesfull\n";
+            }
+            else
+                std::cerr << "Failed to receive password\n";
 
-                if (client->socket->receive(receivePacket) == sf::Socket::Done)
-                {
-                    receivePacket >> client->password;
-                    std::cerr << "receive password succesfull\n";
-                }
-                else
-                    std::cerr << "Failed to receive password\n";
+            newPlayer->isAuthenticated = accountManager.authenticate(newPlayer->username, newPlayer->password);
 
-                client->isAuthenticated = accountManager.authenticate(client->username, client->password);
+            sendPacket << packetType::AUTHENTICATE << newPlayer->isAuthenticated;
+            if (clientSocket->send(sendPacket) == sf::Socket::Done)
+                std::cerr << "send authentication succesfull\n" << newPlayer->isAuthenticated<<std::endl;
+            else
+                std::cerr << "Failed to send authentication result\n";
 
-                sendPacket << client->isAuthenticated;
-                if (client->socket->send(sendPacket) == sf::Socket::Done)
-                    std::cerr << "send authentication succesfull\n"<<client->isAuthenticated;
-                else
-                    std::cerr << "Failed to send authentication result\n";
-
-                Clients.push_back(client);
+            if (newPlayer->isAuthenticated)
+            {
+                Players.push_back(std::move(newPlayer));
+                clients.push_back(std::move(clientSocket));
                 clientsNbr++;
-
-                for (int j = 0; j < Clients.size(); j++)
-                {
-
-                    if (Clients[j]->id != client->id)
-                    {
-
-                    }
-                }
             }
             else
             {
-
+                selector.remove(*clientSocket);
             }
-            for (int i = 0; i < Clients.size(); i++)
+
+           /* for (int j = 0; j < Players.size(); j++)
             {
-                if (GetDeltaTime() < 1.0f)
-                    Clients[i]->timeout += GetDeltaTime();
-                if (Clients[i]->timeout > 1.0f)
-                {
-                    cout << Clients[i]->username << " is disconnected" << endl;
 
-                    sendPacket << packetType::CLIENT_DISCONNECTED << Clients[i]->id;
-                    for (int j = 0; j < Clients.size(); j++)
-                    {
-                        Clients[j]->socket->send(sendPacket);
-                    }
-                    selector.remove(*Clients[i]->socket);
-                    Clients.erase(Clients.begin() + i);
+                if (Players[j]->id != newPlayer->id)
+                {
+
                 }
-            }
+            }*/
+
+            sendPacket.clear();
+            receivePacket.clear();
         }
+        else
+        {
+            
+        }
+
+        /*for (int i = 0; i < clients.size(); i++)
+        {   
+            if (GetDeltaTime() < 1.0f)
+                Players[i]->timeout += GetDeltaTime();
+            if (Players[i]->timeout > 1.0f)
+            {
+                cout << Players[i]->username << " is disconnected" << endl;
+
+                sendPacket << packetType::CLIENT_DISCONNECTED << Players[i]->id;
+                for (int j = 0; j < clients.size(); j++)
+                {
+                    clients[j]->send(sendPacket);
+                }
+
+                selector.remove(*clients[i]);
+                clients[i]->disconnect();
+                clients.erase(clients.begin() + i);
+                Players.erase(Players.begin() + i);
+            }
+        }*/
+
     }
 }
 
 
-
-void Server::run() 
-{
-       handleClient();
-}
