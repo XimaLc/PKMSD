@@ -14,7 +14,6 @@ PokemonTab::PokemonTab(Pokemon _pokemon)
 	shape.setFillColor(color);
 
 	pokemonTexture = DB::getTexture(pokemon.getPath());
-	//pokemonTexture.loadFromFile("../Files/Textures/Pokemons/Base/" + pokemon.getPath() + ".png");
 	typeTexture.loadFromFile("../Files/Textures/Types.png");
 
 	font.loadFromFile("../Files/Font/Pokemon.ttf");

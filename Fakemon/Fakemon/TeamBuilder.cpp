@@ -81,7 +81,12 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		x++;
 	}
 
-	pb.update(mousePos);
+	for (auto& it : this->pb.getMoveSlots())
+	{
+		it.update(mousePos);
+		if (it.isPressed())
+			std::cout << "TTT" << std::endl;
+	}
 
 	if (boutons["droite"]->isPressed())
 	{

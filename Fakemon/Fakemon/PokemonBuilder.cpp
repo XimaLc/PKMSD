@@ -51,12 +51,20 @@ PokemonBuilder::PokemonBuilder()
 	}
 }
 
-void PokemonBuilder::update(const sf::Vector2f mousePos)
+bool PokemonBuilder::isMoveSlotPressed()
 {
 	for (auto i : moveSlots)
 	{
-		i.update(mousePos);
+		if (i.isPressed())
+			return true;
 	}
+
+	return false;
+}
+
+void PokemonBuilder::update(const sf::Vector2f mousePos)
+{
+
 }
 
 void PokemonBuilder::changePokemon(Pokemon* _p)
