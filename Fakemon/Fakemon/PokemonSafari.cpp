@@ -30,9 +30,11 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	spr.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
 	spr.setScale(0.15f, 0.15f);
 
-	collisionDetector.setSize({ 300.f, spr.getGlobalBounds().height });
-	collisionDetector.setOrigin(spr.getGlobalBounds().width / 2, spr.getGlobalBounds().height / 2);
+	collisionDetector.setSize({ 100.f, spr.getGlobalBounds().height });
+	collisionDetector.setOrigin(0.f, spr.getGlobalBounds().height / 2);
 	collisionDetector.setFillColor({ 255, 0, 0, 50 });
+
+	steering = iRand(1, 4);
 }
 
 PokemonSafari::~PokemonSafari()
@@ -44,6 +46,8 @@ void PokemonSafari::update(sf::Vector2f _steering)
 	acceleration = _steering / masse;
 	velocity = Truncate(velocity + acceleration * GetDeltaTime(), vit_max);
 	pos += velocity * GetDeltaTime();
+	collisionDetector.setPosition(pos);
+	collisionDetector.setRotation(GetAngle({ 1.0f, 0.f }, velocity) * RAD2DEG);
 }
 
 void PokemonSafari::draw(sf::RenderWindow* _window)
@@ -51,7 +55,5 @@ void PokemonSafari::draw(sf::RenderWindow* _window)
 	spr.setTexture(txt);
 	spr.setPosition(pos);
 	_window->draw(spr);
-	collisionDetector.setPosition(pos);
-	collisionDetector.setRotation(GetAngle({ 1.0f, 0.f }, velocity) * RAD2DEG);
-	_window->draw(collisionDetector);
+	//_window->draw(collisionDetector);
 }

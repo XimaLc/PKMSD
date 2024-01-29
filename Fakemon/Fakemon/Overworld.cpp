@@ -30,7 +30,7 @@ void Overworld::update(sf::RenderWindow* _window)
 
 	player.update(_window, &viewOverworld, obstacles);
 
-	if (spawnTimer > 2.f && wildPokemons.size() < 1)
+	if (spawnTimer > 2.f && wildPokemons.size() < 5)
 	{
 		spawnTimer = 0.f;
 		wildPokemons.push_back(DB::getPokemonById(iRand(1, 148)));
@@ -38,8 +38,36 @@ void Overworld::update(sf::RenderWindow* _window)
 
 	for (auto& it : wildPokemons)
 	{
+		/*if (it.getSteering() == 1)
+		{
+			if (GetDistance(player.getPos(), it.getPos()) <= 300.f)
+			{
+				it.update(seek(&it, player.getPos()));
+				it.update(obstacleAvoidance(&it, obstacles));
+				it.update(wander(&it));
+			}
+		}
+		else if (it.getSteering() == 2)
+		{
+			if (GetDistance(player.getPos(), it.getPos()) <= 300.f)
+			{
+				it.update(flee(&it, player.getPos()));
+				it.update(obstacleAvoidance(&it, obstacles));
+				it.update(wander(&it));
+			}
+		}
+		else if (it.getSteering() == 3)
+		{
+
+		}*/
 		it.update(seek(&it, player.getPos()));
 		it.update(obstacleAvoidance(&it, obstacles));
+		it.update(wander(&it));
+		for (auto it2 : wildPokemons)
+		{
+			if (GetDistance(it.getPos(), it2.getPos()) <= 75.f && it.getPos() != it2.getPos())
+				it.update(flee(&it, it2.getPos()));
+		}
 	}
 }
 
@@ -107,11 +135,33 @@ sf::Vector2f Overworld::obstacleAvoidance(PokemonSafari* agent, vector<Obstacle>
 {
 	for (auto obs : _obstacles)
 	{
-		if (Rectangle_Collision(agent->getCollisionDetector()->getGlobalBounds(),  ObstacleRect))
+		if (Rectangle_Collision(agent->getCollisionDetector()->getGlobalBounds(), ObstacleRect))
 		{
-			return flee(agent, obs.getCenter());
+			sf::Vector2f avoidance_force = (agent->getPos() + Normalize(agent->getVelocity()) * 100.f) - obs.getCenter();
+			avoidance_force = Normalize(avoidance_force) * 100.f;
+			return avoidance_force;
 		}
 	}
 
 	return sf::Vector2f();
+}
+
+sf::Vector2f Overworld::wander(PokemonSafari* agent)
+{
+	sf::Vector2f circleCenter;
+	circleCenter = Normalize(agent->getVelocity() * 100.f);
+
+	sf::Vector2f displacement;
+	displacement = sf::Vector2f(0.f, 1.f) * 10.f;
+
+	float mWanderAngle = fRand(-10.f, 10.f);
+
+	float length = GetNorme(displacement);
+	displacement.x = cos(mWanderAngle) * length;
+	displacement.y = sin(mWanderAngle) * length;
+
+	
+	sf::Vector2f wanderForce;
+	wanderForce = circleCenter + displacement;
+	return wanderForce;
 }

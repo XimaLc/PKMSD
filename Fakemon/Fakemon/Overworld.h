@@ -29,5 +29,6 @@ public:
 	sf::Vector2f evasion(PokemonSafari* agent, sf::Vector2f _targetPos, sf::Vector2f _targetVel);
 	sf::Vector2f arrival(PokemonSafari* agent, sf::Vector2f _targetPos);
 	sf::Vector2f obstacleAvoidance(PokemonSafari* agent, vector<Obstacle> _obstacles);
+	sf::Vector2f wander(PokemonSafari* agent);
 };
 

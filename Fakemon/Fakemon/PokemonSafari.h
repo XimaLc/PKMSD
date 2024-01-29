@@ -14,6 +14,7 @@ private:
 	sf::Sprite spr;
 	sf::Texture txt;
 	sf::RectangleShape collisionDetector;
+	int steering;
 
 public:
 	PokemonSafari();
@@ -30,6 +31,7 @@ public:
 	inline sf::Sprite* getSpr() { return &spr; }
 	inline sf::Texture* getTxt() { return &txt; }
 	inline sf::RectangleShape* getCollisionDetector() { return &collisionDetector; }
+	inline int getSteering() { return steering; }
 
 	inline void setPos(sf::Vector2f _pos) { pos = _pos; }
 	inline void setVelocity(sf::Vector2f _velocity) { velocity = _velocity; }
