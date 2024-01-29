@@ -47,7 +47,7 @@ private:
     {
         PSEUDO,
         PASSWORD,
-        UPDATE_POSITION,
+        AUTHENTICATE,
         CLIENT_DISCONNECTED
     };
 };
