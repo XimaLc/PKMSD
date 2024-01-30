@@ -29,4 +29,9 @@ Pokemon::Pokemon(int _id, std::string _path, std::string _name, int _type1, int 
 	evolution_state = _evoState;
 	stats = _stats;
 	movePool = _movePool;
+	int tmp = iRand(1, 4096);
+	if ( tmp == 1)
+		shiny = true;
+	else
+		shiny = false;
 }

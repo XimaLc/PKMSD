@@ -7,7 +7,8 @@
 
 StateManager* StateManager::m_instance = nullptr;
 
-StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Default), currentState(new MenuState())
+
+StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Close), currentState(new MenuState())
 {
 }
 
@@ -46,6 +47,7 @@ void StateManager::switchToOption()
 
 void StateManager::updateCurrentState()
 {
+	srand(time(NULL));
 	while (window.isOpen())
 	{
 		restartClock();

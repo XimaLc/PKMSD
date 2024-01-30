@@ -4,19 +4,24 @@ int GameState::state;
 
 GameState::GameState()
 {
+	state = safariMode;
 }
 
 void GameState::updateScene(sf::RenderWindow* _window)
 {
-	if(state == menu)
+	if (state == safariMode)
+		safari.update(_window);
+	else if(state == menu)
 		showdown.update(_window);
-	if (state == teamBuilder)
+	else if (state == teamBuilder)
 		tb.update(_window);
 }
 
 void GameState::drawScene(sf::RenderWindow* _window)
 {
-	if (state == menu)
+	if (state == safariMode)
+		safari.draw(_window);
+	else if (state == menu)
 		showdown.draw(_window);
 	else if (state == teamBuilder)
 		tb.draw(_window);
