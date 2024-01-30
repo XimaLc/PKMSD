@@ -34,8 +34,6 @@ public:
 	inline int getType1() { return type1; }
 	inline int getType2() { return type2; }
 	inline int getEvolutionState() { return evolution_state; }
-	inline std::map<std::string, int> getStats() { return stats; }
-	inline std::vector<int> getMovePool() { return movePool; }
 	inline bool getSiny() { return shiny; }
 	inline std::vector<Move> getMoves() { return moves; }
 	Pokemon();
