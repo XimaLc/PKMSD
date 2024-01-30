@@ -59,7 +59,7 @@ void TeamBuilder::loadMove(Pokemon pokemon)
 	int x{ 0 };
 	for (auto i : moves)
 	{
-		tmp = MoveTab(pokemon.getMoves()[currentTeamIndex]);
+		tmp = MoveTab(i);
 		tmp.setPosition({ 25.f, x * 100.f });
 		moveTabs.push_back(tmp);
 		x++;
