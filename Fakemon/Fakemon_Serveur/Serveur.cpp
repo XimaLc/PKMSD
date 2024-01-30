@@ -45,8 +45,6 @@ void Server::TCP()
                 int pType;
                 receivePacket >> pType >> newPlayer->username >> newPlayer->password;
 
-
-
                 if (pType == packetType::LOGIN)
                 {
                     newPlayer->isAuthenticated = accountManager.authenticate(newPlayer->username, newPlayer->password);
@@ -77,10 +75,7 @@ void Server::TCP()
                     else
                         std::cerr << "Failed to send register result\n";
 
-                    if (newPlayer->isRegister)
-                        selector.remove(*clientSocket);
-                    else
-                        selector.remove(*clientSocket);
+                    selector.remove(*clientSocket);
                 }
 
                 sendPacket.clear();
