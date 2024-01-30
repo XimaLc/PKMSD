@@ -64,7 +64,10 @@ bool PokemonBuilder::isMoveSlotPressed()
 
 void PokemonBuilder::update(const sf::Vector2f mousePos)
 {
-
+	for (auto& it : moveSlots)
+	{
+		it.update(mousePos);
+	}
 }
 
 void PokemonBuilder::changePokemon(Pokemon* _p)

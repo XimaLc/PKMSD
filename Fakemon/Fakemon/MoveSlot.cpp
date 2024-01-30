@@ -34,7 +34,7 @@ void MoveSlot::update(const sf::Vector2f mousePos)
 	else if (this->moveShape.getGlobalBounds().contains(mousePos))
 	{
 		this->state = moveslotHOVER;
-  		color.a = 150;
+		color.a = 200;
 		this->moveShape.setFillColor(color);
 	}
 	else
