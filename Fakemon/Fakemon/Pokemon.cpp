@@ -6,10 +6,21 @@ void Pokemon::setTypes(int _type1, int _type2)
 	type2 = _type2;
 }
 
-Pokemon::Pokemon() {}
+Pokemon::Pokemon() 
+{
+	moves.push_back(Move());
+	moves.push_back(Move());
+	moves.push_back(Move());
+	moves.push_back(Move());
+}
 
 Pokemon::Pokemon(int _id, std::string _path, std::string _name, int _type1, int _type2, int _evoState, std::map<std::string, int> _stats, std::vector<int> _movePool)
 {
+	moves.push_back(Move());
+	moves.push_back(Move());
+	moves.push_back(Move());
+	moves.push_back(Move());
+
 	id = _id; 
 	path = _path;
 	name = _name;

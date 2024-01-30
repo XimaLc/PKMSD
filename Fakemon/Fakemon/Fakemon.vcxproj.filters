@@ -69,9 +69,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
-    <ClCompile Include="DB.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
     <ClCompile Include="Button.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
@@ -79,6 +76,24 @@
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
     <ClCompile Include="PokemonTab.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="Team.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="TeamSlot.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="PokemonBuilder.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="DB.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveSlot.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -119,13 +134,28 @@
     <ClInclude Include="Pokemon.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
     </ClInclude>
-    <ClInclude Include="DB.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
     <ClInclude Include="Button.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
     </ClInclude>
     <ClInclude Include="PokemonTab.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="Team.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="TeamSlot.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonBuilder.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="DB.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveSlot.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
     </ClInclude>
   </ItemGroup>
