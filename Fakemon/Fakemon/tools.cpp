@@ -16,7 +16,7 @@ int iRand(int min, int max)
 { 
 	return rand() % (max - min) + min;
 }
-double frand(float min, float max)
+float fRand(float min, float max)
 {
 	return ((rand() / (double)RAND_MAX) * ((double)max - (double)min) + (double)min);
 }
@@ -66,4 +66,61 @@ Vector3f vec3f_lerp(Vector3f a, Vector3f b, float t)
 	tmp.y = (1 - t) * a.y + t * b.y;
 	tmp.z = (1 - t) * a.z + t * b.z;
 	return tmp;
+}
+
+float GetDistance(sf::Vector2f a_, sf::Vector2f b_)
+{
+	return sqrt((b_.x - a_.x) * (b_.x - a_.x) + (b_.y - a_.y) * (b_.y - a_.y));
+}
+
+sf::Vector2f SubstractVector2f(sf::Vector2f a, sf::Vector2f b)
+{
+	sf::Vector2f substractVector2 = { a.x - b.x, a.y - b.y };
+	return substractVector2;
+}
+
+sf::Vector2f DivideVector2f(sf::Vector2f a, float b)
+{
+	sf::Vector2f divideVector2 = { a.x / b, a.y / b };
+	return divideVector2;
+}
+
+float DotProduct(sf::Vector2f a, sf::Vector2f b)
+{
+	return b.x * a.x + b.y * a.y;
+}
+
+float GetNorme(sf::Vector2f a)
+{
+	return sqrt(a.x * a.x + a.y * a.y);
+}
+
+sf::Vector2f Normalize(sf::Vector2f v)
+{
+	return DivideVector2f(v, GetNorme(v));
+}
+
+float GetSignedAngleBetween(sf::Vector2f a, sf::Vector2f b)
+{
+	return atan2(a.x * b.y - a.y * b.x, a.x * b.x + a.y * b.y);
+}
+
+float GetAngleBetween(sf::Vector2f a, sf::Vector2f b)
+{
+	return fabs(GetSignedAngleBetween(a, b));
+}
+
+float GetAngle(sf::Vector2f a, sf::Vector2f b)
+{
+	return atan2(a.x * b.y - a.y * b.x, DotProduct(a, b));
+}
+
+sf::Vector2f Truncate(const sf::Vector2f& v, float max)
+{
+	sf::Vector2f truncated = sf::Vector2f(v.x, v.y);
+	if (sqrt(v.x * v.x + v.y * v.y) > max)
+	{
+		truncated = Normalize(truncated) * max;
+	}
+	return truncated;
 }
