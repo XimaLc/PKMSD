@@ -53,8 +53,9 @@ private:
 	std::string username;
 	std::string password;
 	bool isAuthenticated = false;
+	bool isRegister = false;
 	sf::Packet usernamePacket;
 	sf::Packet passwordPacket;
-	sf::Packet resultPacket;
+	sf::Packet receivePacket;
 };
 

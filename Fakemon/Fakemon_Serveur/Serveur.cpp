@@ -89,7 +89,29 @@ void Server::TCP()
         }
         else
         {
-            
+           /* if (clientSocket->receive(receivePacket) == sf::Socket::Done)
+            {
+                receivePacket >> newPlayer->username;
+                std::cerr << "receive username succesfull\n";
+            }
+            else
+                std::cerr << "Failed to receive username\n";
+
+            if (clientSocket->receive(receivePacket) == sf::Socket::Done)
+            {
+                receivePacket >> newPlayer->password;
+                std::cerr << "receive password succesfull\n";
+            }
+            else
+                std::cerr << "Failed to receive password\n";
+
+            newPlayer->isAuthenticated = accountManager.authenticate(newPlayer->username, newPlayer->password);
+
+            sendPacket << packetType::AUTHENTICATE << newPlayer->isAuthenticated;
+            if (clientSocket->send(sendPacket) == sf::Socket::Done)
+                std::cerr << "send authentication succesfull\n" << newPlayer->isAuthenticated << std::endl;
+            else
+                std::cerr << "Failed to send authentication result\n";*/
         }
 
         /*for (int i = 0; i < clients.size(); i++)

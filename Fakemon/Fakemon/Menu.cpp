@@ -121,12 +121,15 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			else
 				std::cerr << "Failed to send password\n";
 
-			// Receive authentication result
-			if (client.socket.receive(resultPacket) == sf::Socket::Done)
-				std::cerr << "receive authentication succesfull\n";
-			else
-				std::cerr << "Failed to receive authentication result\n";
-			resultPacket >> isAuthenticated;
+			if (client.socket.receive(receivePacket) == sf::Socket::Done)
+			{
+				int pType;
+				receivePacket >> pType;
+				if (pType == client.AUTHENTICATE)
+				{
+					receivePacket >> isAuthenticated;
+				}
+			}
 
 			std::cout << "-----------------------\n";
 
@@ -146,7 +149,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 			usernamePacket.clear();
 			passwordPacket.clear();
-			resultPacket.clear();
+			receivePacket.clear();
 			
 			timer = 0;
 		}
@@ -156,20 +159,20 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			timer = 0;
 		}
 	}
-	/*else if (login == REGISTER)
+	else if (login == REGISTER)
 	{
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(1550, 950));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(800, 750));
 
 		if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
+			/*if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
 			{
 				this->notif.setPosition(sf::Vector2f(860, 430));
 				this->notif.setString(std::string("Inscription reussie"));
 				activNotif = true;
 				login = LOGIN;
-				accountManager.saveToFile();
+				//accountManager.saveToFile();
 			}
 			else
 			{
@@ -177,6 +180,55 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 				this->notif.setString(std::string("Le nom d'utilisateur existe deja"));
 				activNotif = true;
 			}
+			timer = 0;*/
+
+			// Send username
+			username = boutons["PSEUDO_BOUTTON"]->getText();
+			usernamePacket << username;
+			if (client.socket.send(usernamePacket) == sf::Socket::Done)
+				std::cerr << "send username succesfull\n";
+			else
+				std::cerr << "Failed to send username\n";
+
+			// Send password
+			password = boutons["PASSWORD_BOUTTON"]->getText();
+			passwordPacket << password;
+			if (client.socket.send(passwordPacket) == sf::Socket::Done)
+				std::cerr << "send password succesfull\n";
+			else
+				std::cerr << "Failed to send password\n";
+
+			if (client.socket.receive(receivePacket) == sf::Socket::Done)
+			{
+				int pType;
+				receivePacket >> pType;
+				if (pType == client.REGISTER)
+				{
+					receivePacket >> isRegister;
+				}
+			}
+
+			std::cout << "-----------------------\n";
+
+			if (isRegister)
+			{
+				std::cout << "Register reussie\n";
+				this->notif.setPosition(sf::Vector2f(860, 430));
+				this->notif.setString(std::string("Inscription reussie"));
+				activNotif = true;
+				login = LOGIN;
+			}
+			else
+			{
+				this->notif.setPosition(sf::Vector2f(790, 430));
+				this->notif.setString(std::string("Le nom d'utilisateur existe deja"));
+				activNotif = true;
+			}
+
+			usernamePacket.clear();
+			passwordPacket.clear();
+			receivePacket.clear();
+
 			timer = 0;
 		}
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
@@ -184,7 +236,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			login = LOGIN;
 			timer = 0;
 		}
-	}*/
+	}
 
 	if(verifAccount == true)
 	{
