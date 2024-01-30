@@ -58,7 +58,7 @@ void StateManager::updateCurrentState()
 				window.close();
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				window.close();
+				StateManager::getInstance()->switchToMenu();
 		}
 
 		currentState->updateScene(&window);
