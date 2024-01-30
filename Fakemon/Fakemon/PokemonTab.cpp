@@ -40,9 +40,6 @@ PokemonTab::PokemonTab(Pokemon _pokemon)
 	statsText.setString(statsString);
 	statsText.setFillColor(sf::Color::Black);
 	statsText.setCharacterSize(20);
-
-	
-
 }
 
 const bool PokemonTab::isPressed() const
@@ -93,15 +90,20 @@ void PokemonTab::update(const sf::Vector2f mousePos)
 
 void PokemonTab::draw(sf::RenderWindow* _window)
 {
-	pokemonSprite.setTexture(*pokemonTexture);
-	type1Sprite.setTexture(typeTexture);
-	type2Sprite.setTexture(typeTexture);
-	text.setFont(font);
-	statsText.setFont(font);
 	_window->draw(shape);
+
+	pokemonSprite.setTexture(*pokemonTexture);
 	_window->draw(pokemonSprite);
-	_window->draw(text);
-	_window->draw(statsText);
+	
+	type1Sprite.setTexture(typeTexture);
 	_window->draw(type1Sprite);
+
+	type2Sprite.setTexture(typeTexture);
 	_window->draw(type2Sprite);
+	
+	statsText.setFont(font);
+	_window->draw(statsText);
+
+	text.setFont(font);
+	_window->draw(text);
 }

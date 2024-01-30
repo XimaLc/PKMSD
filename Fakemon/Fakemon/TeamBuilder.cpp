@@ -2,9 +2,12 @@
 
 TeamBuilder::TeamBuilder()
 {
+	listType = POKEMONS;
+
 	editTeam = false;
 	currentTeamIndex = 0;
-	start = 1;
+	pkmStart = 1;
+	moveStart = 1;
 	amount = 10;
 	this->boutons["gauche"] = new Button("../Files/Textures/gauche.png", 10, 1025, 44.5, 44.5);
 	this->boutons["droite"] = new Button("../Files/Textures/droite.png", 700, 1025, 44.5, 44.5);
@@ -17,7 +20,7 @@ TeamBuilder::TeamBuilder()
 	int x{0};
 
 	loadPokemon();
-
+	
 	x = 0;
 	for (auto i : team.getPokemons())
 	{
@@ -29,22 +32,36 @@ TeamBuilder::TeamBuilder()
 	}
 }
 
-TeamBuilder::~TeamBuilder()
-{
-}
+TeamBuilder::~TeamBuilder() {}
 
 void TeamBuilder::loadPokemon()
 {
-	pokemons = DB::getSelectablePokemons(start, amount);
+	pokemons = DB::getSelectablePokemons(pkmStart, amount);
 
 	PokemonTab tmp;
-	tabs.clear();
+	pokemonTabs.clear();
 	int x{ 0 };
 	for (auto i : pokemons)
 	{
 		tmp = PokemonTab(i);
 		tmp.setPosition({ 25.f, x * 100.f });
-		tabs.push_back(tmp);
+		pokemonTabs.push_back(tmp);
+		x++;
+	}
+}
+
+void TeamBuilder::loadMove(Pokemon pokemon)
+{
+	moves = DB::getMoves(pokemon.getMovePool(), moveStart, amount);
+
+	MoveTab tmp;
+	moveTabs.clear();
+	int x{ 0 };
+	for (auto i : moves)
+	{
+		tmp = MoveTab(i);
+		tmp.setPosition({ 25.f, x * 100.f });
+		moveTabs.push_back(tmp);
 		x++;
 	}
 }
@@ -55,13 +72,25 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 
 	for (auto& it : this->boutons)
 		it.second->update(mousePos);
-
-	for (auto& it : this->tabs)
+	
+	if (listType == POKEMONS)
 	{
-		it.update(mousePos);
-		if (it.isPressed())
+		for (auto& it : this->pokemonTabs)
 		{
-			team.addPokemon(it.getPokemon(), currentTeamIndex);
+			it.update(mousePos);
+			if (it.isPressed())
+			{
+				team.addPokemon(it.getPokemon(), currentTeamIndex);
+			}
+		}
+	}
+	else if (listType == MOVES)
+	{
+		for (auto& it : this->moveTabs)
+		{
+			it.update(mousePos);
+			if (it.isPressed())
+				team.addMove(it.getMove(), currentMoveIndex, currentTeamIndex);
 		}
 	}
 
@@ -70,6 +99,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 	{
 		if (it.isPressed())
 		{
+			listType = POKEMONS;
 			currentTeamIndex = it.getTeamIndex();
 			pb.changePokemon(&team.getPokemons()[x]);
 		}
@@ -84,39 +114,70 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 	pb.update(mousePos);
 	if (pb.isMoveSlotPressed())
 	{
-		std::cout << "PRESSED" << std::endl;
+		currentMoveIndex = pb.getPressedSlot();
+		listType = MOVES;
+		moveStart = 1;
+		loadMove(team.getPokemons()[currentTeamIndex]);
 	}
+
 	if (boutons["droite"]->isPressed())
 	{
-		start += amount;
-		if (start > 151) 
-			start = 1;
-		
-		loadPokemon();
+		if (listType == POKEMONS)
+		{
+			pkmStart += amount;
+			if (pkmStart > 151) 
+				pkmStart = 1;
+			
+			loadPokemon();
+		}
+		else if (listType == MOVES)
+		{
+			moveStart += amount;
+			if (moveStart >= 22)
+				moveStart = 1;
+
+			loadMove(team.getPokemons()[currentTeamIndex]);
+		}
 	}
 	
 	if (boutons["gauche"]->isPressed())
 	{
-		start -= amount;
-		if (start <= 0)
-			start = 142;
+		if (listType == POKEMONS)
+		{
+			pkmStart -= amount;
+			if (pkmStart <= 0)
+				pkmStart = 142;
 
-		loadPokemon();
+			loadPokemon();
+		}
+		else if (listType == MOVES)
+		{
+			moveStart -= amount;
+			if (moveStart < 1)
+				moveStart = 21;
+
+			loadMove(team.getPokemons()[currentTeamIndex]);
+		}
 	}
 }
 
 void TeamBuilder::draw(sf::RenderWindow* _window)
 {
 	_window->draw(shape);
-
-	for (auto i : tabs)
-		i.draw(_window);
+	
+	if(listType == POKEMONS)
+		for (auto i : pokemonTabs)
+			i.draw(_window);
+	
+	if(listType == MOVES)
+		for (auto i : moveTabs)
+			i.draw(_window);
 
 	for (auto i : boutons)
 		i.second->render(_window);
-
+	
 	for (auto i : slots)
 		i.draw(_window);
-
+	
 	pb.draw(_window);
 }

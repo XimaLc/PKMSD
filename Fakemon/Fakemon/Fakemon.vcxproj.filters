@@ -107,13 +107,16 @@
     <ClCompile Include="DB.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="MoveSlot.cpp">
       <Filter>Fichiers sources\Objets</Filter>
     <ClCompile Include="Client.cpp">
       <Filter>Fichiers sources\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Move.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveTab.cpp">
+      <Filter>Fichiers sources\Objets</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,13 +185,16 @@
     <ClInclude Include="DB.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Move.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="MoveSlot.h">
       <Filter>Fichiers d%27en-tête\Objets</Filter>
     <ClInclude Include="Client.h">
       <Filter>Fichiers d%27en-tête\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveTab.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>Fichiers d%27en-tête\Objets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
