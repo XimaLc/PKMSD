@@ -100,57 +100,59 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
-			{
-				std::cerr << "Failed to connect to server\n";
-			}
+			verifAccount = true;
 
-			// Send username / password
-			username = boutons["PSEUDO_BOUTTON"]->getText();
-			password = boutons["PASSWORD_BOUTTON"]->getText();
-			sendPacket << client.LOGIN << username << password;
-			
-			if (client.socket.send(sendPacket) == sf::Socket::Done)
-				std::cerr << "send username / password succesfull\n";
-			else
-				std::cerr << "Failed to send username / password\n";
+		//	if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
+		//	{
+		//		std::cerr << "Failed to connect to server\n";
+		//	}
 
-			if (client.socket.receive(receivePacket) == sf::Socket::Done)
-			{
-				int pType;
-				receivePacket >> pType;
-				if (pType == client.LOGIN)
-				{
-					receivePacket >> isAuthenticated;
-				}
-			}
+		//	// Send username / password
+		//	username = boutons["PSEUDO_BOUTTON"]->getText();
+		//	password = boutons["PASSWORD_BOUTTON"]->getText();
+		//	sendPacket << client.LOGIN << username << password;
+		//	
+		//	if (client.socket.send(sendPacket) == sf::Socket::Done)
+		//		std::cerr << "send username / password succesfull\n";
+		//	else
+		//		std::cerr << "Failed to send username / password\n";
 
-			std::cout << "-----------------------\n";
+		//	if (client.socket.receive(receivePacket) == sf::Socket::Done)
+		//	{
+		//		int pType;
+		//		receivePacket >> pType;
+		//		if (pType == client.LOGIN)
+		//		{
+		//			receivePacket >> isAuthenticated;
+		//		}
+		//	}
 
-			if (isAuthenticated)
-			{
-				std::cout << "Connexion reussie\n";
-				verifAccount = true;
-			}
-			else
-			{
-				std::cout << "Connexion echouer\n";
-				this->notif.setPosition(sf::Vector2f(890, 430));
-				this->notif.setString(std::string("ID unknow"));
-				activNotif = true;
-				client.socket.disconnect();
-			}
+		//	std::cout << "-----------------------\n";
 
-			sendPacket.clear();
-			receivePacket.clear();
-			
-			timer = 0;
+		//	if (isAuthenticated)
+		//	{
+		//		std::cout << "Connexion reussie\n";
+		//		verifAccount = true;
+		//	}
+		//	else
+		//	{
+		//		std::cout << "Connexion echouer\n";
+		//		this->notif.setPosition(sf::Vector2f(890, 430));
+		//		this->notif.setString(std::string("ID unknow"));
+		//		activNotif = true;
+		//		client.socket.disconnect();
+		//	}
+
+		//	sendPacket.clear();
+		//	receivePacket.clear();
+		//	
+		//	timer = 0;
 		}
-		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
-		{
-			login = REGISTER;
-			timer = 0;
-		}
+		//else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
+		//{
+		//	login = REGISTER;
+		//	timer = 0;
+		//}
 	}
 	else if (login == REGISTER)
 	{
