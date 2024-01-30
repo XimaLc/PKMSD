@@ -11,6 +11,8 @@ private:
 public:
 	Team();
 
+	void addMove(Move _move, int moveIndex, int teamIndex);
+
 	inline void addPokemon(Pokemon _p, int i) { team[i] = _p; }
 	inline std::vector<Pokemon> getPokemons() { return team; }
 };
