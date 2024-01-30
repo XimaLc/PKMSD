@@ -22,6 +22,13 @@ public:
 	inline void setPower(int _power) { power = _power; }
 	inline void setAccuracy(int _accuracy) { accuracy = _accuracy; }
 
+	inline std::string getName() { return name; }
+	inline int getType() { return type; }
+	inline int getCategory() { return category; }
+	inline int getPP() { return pp; }
+	inline int getPower() { return power; }
+	inline int getAccuracy() { return accuracy; }
+
 	Move();
 	Move(int _id, std::string _name, int _type, int _category, int _pp, int _power, int _accuracy);
 };
