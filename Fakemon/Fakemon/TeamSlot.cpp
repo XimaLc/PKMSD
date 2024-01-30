@@ -6,16 +6,15 @@ TeamSlot::TeamSlot()
 	slotShape.setSize({ 140.f,140.f });
 
 	sprite.setScale({ 0.15, 0.15 });
+
+	texture = nullptr;
 }
 
 void TeamSlot::setPokemon(Pokemon _p)
-{
+{	
 	if (pokemon.getPath() != "")
 		texture = DB::getTexture(pokemon.getPath());
-	else
-		texture = nullptr;
 
-	
 	pokemon = _p;
 }
 
