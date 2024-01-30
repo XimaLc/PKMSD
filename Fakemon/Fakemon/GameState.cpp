@@ -4,7 +4,7 @@ int GameState::state;
 
 GameState::GameState()
 {
-	state = menu;
+	state = safariMode;
 }
 
 void GameState::updateScene(sf::RenderWindow* _window)
