@@ -1,4 +1,5 @@
 #include "Overworld.h"
+#include "GameState.h"
 
 Overworld::Overworld()
 {
@@ -34,8 +35,8 @@ void Overworld::update(sf::RenderWindow* _window)
 
 	player.update(_window, &viewOverworld, obstacles);
 
-	if (GetDistance(player.getPos(), pnjShape.getPosition()) <= 50.f && Key(Enter))
-		
+	if (GetDistance(player.getPos(), pnjShape.getPosition()) <= 100.f && Key(Enter))
+		GameState::setState(menu);
 
 	if (spawnTimer > 2.f && wildPokemons.size() < 10)
 	{
