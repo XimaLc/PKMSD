@@ -54,7 +54,7 @@ private:
 	std::string password;
 	bool isAuthenticated = false;
 	bool isRegister = false;
-	sf::Packet usernamePacket;
+	sf::Packet sendPacket;
 	sf::Packet passwordPacket;
 	sf::Packet receivePacket;
 };

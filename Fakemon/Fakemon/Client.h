@@ -15,6 +15,8 @@ public:
         PSEUDO,
         PASSWORD,
         AUTHENTICATE,
+        CLIENT_DISCONNECTED,
+        LOGIN,
         REGISTER
     };
 };

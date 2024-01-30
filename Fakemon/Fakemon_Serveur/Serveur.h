@@ -34,6 +34,7 @@ private:
         std::string password;
         float timeout;
         bool isAuthenticated = false;
+        bool isRegister = false;
     };
     std::vector <std::unique_ptr< Player >> Players;
 
@@ -48,7 +49,9 @@ private:
         PSEUDO,
         PASSWORD,
         AUTHENTICATE,
-        CLIENT_DISCONNECTED
+        CLIENT_DISCONNECTED,
+        LOGIN,
+        REGISTER
     };
 };
 
