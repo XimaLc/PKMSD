@@ -169,44 +169,6 @@ Move DB::getMoveById(int _id)
 	}
 }
 
-std::vector<Move> DB::getMoves(int _startId, int _amount)
-{
-	std::vector<Move> res;
-
-	std::string name;
-	int id, type, category, pp, power, accuracy;
-
-	std::string string;
-	std::istringstream iss;
-
-	std::ifstream file("../Files/DB/Moves.tsv", std::ios::in);
-	if (file.is_open())
-	{
-		while (!file.eof())
-		{
-			getline(file, string);
-			iss.clear();
-			if (string.find("//") == std::string::npos)
-			{
-				iss.str(string);
-				iss >> id >> name >> type >> category >> pp >> power >> accuracy;
-				if (id >= _startId && res.size() < _amount)
-				{
-					Move move(id, removeUnderscore(name), type, category, pp, power, accuracy);
-					res.push_back(move);
-				}
-				if (res.size() == _amount)
-				{
-					file.close();
-					return res;
-				}
-			}
-		}
-		file.close();
-		return res;
-	}
-}
-
 std::vector<Move> DB::getMovePool(std::vector<int> _movePool)
 {
 	std::vector<Move> res;
@@ -239,6 +201,44 @@ std::vector<Move> DB::getMovePool(std::vector<int> _movePool)
 					return res;
 				}
 				
+			}
+		}
+		file.close();
+		return res;
+	}
+}
+
+std::vector<Move> DB::getMoves(std::vector<int> _movePool, int _startId, int _amount)
+{
+	std::vector<Move> res;
+
+	std::string name;
+	int id, type, category, pp, power, accuracy;
+
+	std::string string;
+	std::istringstream iss;
+
+	std::ifstream file("../Files/DB/Moves.tsv", std::ios::in);
+	if (file.is_open())
+	{
+		while (!file.eof())
+		{
+			getline(file, string);
+			iss.clear();
+			if (string.find("//") == std::string::npos)
+			{
+				iss.str(string);
+				iss >> id >> name >> type >> category >> pp >> power >> accuracy;
+				if (id >= _startId && std::find(_movePool.begin(), _movePool.end(), id) != _movePool.end())
+				{
+					Move move(id, removeUnderscore(name), type, category, pp, power, accuracy);
+					res.push_back(move);
+				}
+				if (res.size() == _amount)
+				{
+					file.close();
+					return res;
+				}
 			}
 		}
 		file.close();

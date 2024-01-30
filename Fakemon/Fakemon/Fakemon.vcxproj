@@ -143,6 +143,7 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="MoveSlot.cpp" />
+    <ClCompile Include="MoveTab.cpp" />
     <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Overworld.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="MoveSlot.h" />
+    <ClInclude Include="MoveTab.h" />
     <ClInclude Include="OptionState.h" />
     <ClInclude Include="Overworld.h" />
     <ClInclude Include="Player.h" />

@@ -30,6 +30,9 @@ public:
 	inline std::vector<MoveSlot>* getMoveSlots() { return &moveSlots; };
 
 	bool isMoveSlotPressed();
+	int getPressedSlot();
+
+	void setMoveSlots();
 
 	void update(const sf::Vector2f mousePos);
 	void changePokemon(Pokemon* _p);

@@ -20,12 +20,15 @@ private:
 	sf::Color color;
 public:
 	MoveSlot();
+	MoveSlot(Move _move);
 
 	const bool isPressed() const;
 
 	inline void setMove(Move _move) { move = _move; }
 	inline void setIndex(int i) { index = i; }
 	
+	inline int getIndex() { return index; }
+
 	void update(const sf::Vector2f mousePos);
 	void setPosition(int x, int y);
 	void draw(sf::RenderWindow* window);
