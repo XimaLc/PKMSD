@@ -14,12 +14,16 @@ private:
 	sf::Sprite spr;
 	sf::Texture txt;
 	sf::RectangleShape collisionDetector;
+	vector<sf::Vector2f> pathFollowing;
+	int pathFollowingIndex;
 	int steering;
 
 public:
 	PokemonSafari();
 	PokemonSafari(Pokemon _pokemon);
 	~PokemonSafari();
+
+	float despawnTimer;
 
 	inline sf::Vector2f getPos() { return pos; }
 	inline sf::Vector2f getVelocity() { return velocity; }
@@ -32,6 +36,8 @@ public:
 	inline sf::Texture* getTxt() { return &txt; }
 	inline sf::RectangleShape* getCollisionDetector() { return &collisionDetector; }
 	inline int getSteering() { return steering; }
+	inline vector<sf::Vector2f> getPathFollowing() { return pathFollowing; }
+	inline int getPathFollowingIndex() { return pathFollowingIndex; }
 
 	inline void setPos(sf::Vector2f _pos) { pos = _pos; }
 	inline void setVelocity(sf::Vector2f _velocity) { velocity = _velocity; }
@@ -42,6 +48,7 @@ public:
 	inline void setVitMax(float _f) { vit_max = _f; }
 	inline void setSpr(sf::Sprite _spr) { spr = _spr; }
 	inline void setTxt(sf::Texture _txt) { txt = _txt; }
+	inline void setPathFollowingIndex(int _pathFollowingIndex) { pathFollowingIndex = _pathFollowingIndex; }
 
 	void update(sf::Vector2f _steering);
 	void draw(sf::RenderWindow* _window);

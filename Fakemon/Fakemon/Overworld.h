@@ -13,9 +13,11 @@ private:
 	sf::Texture obstacleTxt;
 	sf::View viewOverworld;
 	Player player;
-	vector<PokemonSafari> wildPokemons;
+	list<PokemonSafari> wildPokemons;
 	vector<Obstacle> obstacles;
 	float spawnTimer;
+	sf::Sprite pnjShape;
+	sf::Texture pnjText;
 public:
 	Overworld();
 	~Overworld();
