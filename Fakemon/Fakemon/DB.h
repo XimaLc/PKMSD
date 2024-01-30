@@ -1,6 +1,7 @@
 #pragma once
 #include <fstream>
 #include <sstream>
+#include <SFML/graphics.hpp>
 
 #include "Pokemon.h"
 
@@ -9,8 +10,10 @@ enum Types { Steel = 1, Fighting, Dragon, Water, Electric, Fairy, Fire, Ice, Bug
 class DB
 {
 private:
-
+	static std::map<std::string, sf::Texture> pokemonTextures;
 public:
+	DB();
+
 	static std::string removeUnderscore(std::string _str);
 	static std::vector<int> stringToVectorInt(std::string str);
 
@@ -18,5 +21,13 @@ public:
 	static Pokemon getPokemonById(int _id);
 	static std::vector<Pokemon> getPokemons(int _startId, int _amount);
 	static std::vector<Pokemon> getSelectablePokemons(int _startId, int _amount);
+
+	static Move getMoveById(int _id);
+	static std::vector<Move> getMoves(int _startId, int _amount);
+	static std::vector<Move> getMovePool(std::vector<int> _movePool);
+
+	static void loadTextures();
+
+	static sf::Texture* getTexture(std::string path) { return &pokemonTextures[path]; }
 };
 
