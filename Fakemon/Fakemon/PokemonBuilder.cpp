@@ -70,7 +70,8 @@ void PokemonBuilder::setMoveSlots()
 	MoveSlot tmpMs;
 	for (auto i : pokemon->getMoves())
 	{
-		tmpMs = MoveSlot(i);
+		//tmpMs = MoveSlot(pokemon->getMoves()[x]);
+		tmpMs = MoveSlot();
 		tmpMs.setIndex(x);
 		tmpMs.setPosition(1300, 350 + (x * 125));
 		moveSlots.push_back(tmpMs);
