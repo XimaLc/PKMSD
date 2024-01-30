@@ -1,6 +1,6 @@
-#include "AccountManager.h"
+#include "AcountManager.h"
 
-bool AccountManager::registerAccount(const std::string& username, const std::string& password)
+bool AcountManager::registerAccount(const std::string& username, const std::string& password)
 {
     if (accounts.find(username) == accounts.end())
     {
@@ -12,7 +12,7 @@ bool AccountManager::registerAccount(const std::string& username, const std::str
     return false;
 }
 
-bool AccountManager::authenticate(const std::string& username, const std::string& password)
+bool AcountManager::authenticate(const std::string& username, const std::string& password)
 {
     auto it = accounts.find(username);
     if (it != accounts.end() && it->second.hashedPassword == std::hash<std::string>{}(password))
@@ -22,7 +22,7 @@ bool AccountManager::authenticate(const std::string& username, const std::string
     return false;
 }
 
-void AccountManager::saveToFile()
+void AcountManager::saveToFile()
 {
     std::ofstream file("account.dat", std::ios::out | std::ios::binary);
     if (file.is_open())
@@ -31,24 +31,26 @@ void AccountManager::saveToFile()
             file << pair.second.username << " " << pair.second.hashedPassword << "\n";
         file.close();
     }
-    else 
+    else
         std::cerr << "Error load account file for save\n";
 }
 
-void AccountManager::loadFromFile()
+void AcountManager::loadFromFile()
 {
     std::ifstream file("account.dat", std::ios::in | std::ios::binary);
-    if (file.is_open()) 
+    if (file.is_open())
     {
         accounts.clear();
         std::string username;
         size_t hashedPassword;
-        while (file >> username >> hashedPassword) 
+        while (file >> username >> hashedPassword)
         {
             Account account{ username, hashedPassword };
             accounts[username] = account;
         }
         file.close();
+
+        std::cout << "data load...\n\n";
     }
     else
         std::cerr << "Error load account filefor load\n";

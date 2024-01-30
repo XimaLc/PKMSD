@@ -156,7 +156,7 @@ void Button::handleTextInput()
 		color.a = 100;
 		this->shape.setFillColor(color);
 
-		if (timer2 >= 0.1)
+		if (timer2 >= 0.05)
 		{
 			sf::Keyboard::Key pressedKey = sf::Keyboard::Unknown;
 

@@ -4,7 +4,7 @@
 #include <string>
 #include <unordered_map>
 
-class AccountManager 
+class AcountManager
 {
 private:
     struct Account { std::string username; size_t hashedPassword; };
