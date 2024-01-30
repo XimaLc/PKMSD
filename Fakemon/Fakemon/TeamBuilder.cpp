@@ -152,7 +152,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		}
 		else if (listType == MOVES)
 		{
-			moveStart += amount;
+			moveStart -= amount;
 			if (moveStart < 1)
 				moveStart = 21;
 
