@@ -1,7 +1,8 @@
 #include "MenuState.h"
 
-MenuState::MenuState() : menu()
+MenuState::MenuState(Client& _client) : menu(_client)
 {
+	
 }
 
 void MenuState::updateScene(sf::RenderWindow* _window)

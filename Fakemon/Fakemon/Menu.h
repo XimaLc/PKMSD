@@ -1,14 +1,15 @@
 #pragma once
 #include "StateManager.h"
-#include "AccountManager.h"
 #include "tools.h"
+
+#include "Client.h"
 
 enum STATE_LOGIN { LOGIN, REGISTER };
 
 class Menu
 {
 public:
-	Menu();
+	Menu(Client& _client);
 	void updateMenu(sf::RenderWindow* _window);
 	void drawMenu(sf::RenderWindow* _window);
 
@@ -35,7 +36,6 @@ public:
 	bool activNotif = false;
 	float timeNotif = 0;
 
-	AccountManager accountManager;
 
 	STATE_LOGIN login;
 
@@ -46,5 +46,16 @@ public:
 
 private:
 	static sf::Font fonts;
+	Client& client;
+
+
+	
+	std::string username;
+	std::string password;
+	bool isAuthenticated = false;
+	bool isRegister = false;
+	sf::Packet sendPacket;
+	sf::Packet passwordPacket;
+	sf::Packet receivePacket;
 };
 

@@ -2,20 +2,22 @@
 #include "GameState.h"
 #include "MenuState.h"
 #include "OptionState.h"
-
 #include "tools.h"
 
 StateManager* StateManager::m_instance = nullptr;
 
-
-StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Close), currentState(new MenuState())
+StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Default), currentState(new MenuState(client))
 {
 }
 
 StateManager* StateManager::getInstance()
 {
+
+
 	if (m_instance == nullptr)
+	{
 		m_instance = new StateManager();
+	}
 
 	return m_instance;
 }
@@ -25,7 +27,7 @@ void StateManager::switchToMenu()
 	if (currentState != nullptr)
 		delete currentState;
 
-	currentState = new MenuState();
+	currentState = new MenuState(client);
 }
 
 void StateManager::switchToGame()

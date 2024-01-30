@@ -5,7 +5,7 @@
 class MenuState : public State
 {
 public:
-	MenuState();
+	MenuState(Client& _client);
 	~MenuState() {}
 
 	void updateScene(sf::RenderWindow* _window)override;
