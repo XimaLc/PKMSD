@@ -1,9 +1,9 @@
 #include "Menu.h"
-#include "StateManager.h"
+#include "Client.h"
 
 sf::Font Menu::fonts;
 
-Menu::Menu()
+Menu::Menu(Client& _client) : client(_client)
 {
 	this->boutons["PSEUDO_BOUTTON"] = new Button("../Files/Textures/button.png", 750, 470, 400, 80, "PSEUDO", 30, true);
 	this->boutons["PASSWORD_BOUTTON"] = new Button("../Files/Textures/button.png", 750, 600, 400, 80, "PASSWORD", 30, true);
@@ -54,7 +54,6 @@ Menu::Menu()
 	}
 	transitionSprite.setTextureRect(sf::IntRect(0,0,320,180));
 
-	accountManager.loadFromFile();
 	login = LOGIN;
 	timer = 0;
 }
@@ -62,7 +61,6 @@ Menu::Menu()
 void Menu::updateMenu(sf::RenderWindow* _window)
 {
 	timer += GetDeltaTime();
-	
 
 	fogSpr.setPosition(sf::Vector2f(fogSpr.getPosition().x + 200 * GetDeltaTime(), fogSpr.getPosition().y));
 	fogSpr2.setPosition(sf::Vector2f(fogSpr2.getPosition().x + 200 * GetDeltaTime(), fogSpr2.getPosition().y));
@@ -96,32 +94,60 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 	if(login == LOGIN)
 	{
-		accountManager.loadFromFile();
-
-		
 
 		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
 		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (accountManager.authenticate(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
+			if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
+			{
+				std::cerr << "Failed to connect to server\n";
+			}
+
+			// Send username / password
+			username = boutons["PSEUDO_BOUTTON"]->getText();
+			password = boutons["PASSWORD_BOUTTON"]->getText();
+			sendPacket << client.LOGIN << username << password;
+			
+			if (client.socket.send(sendPacket) == sf::Socket::Done)
+				std::cerr << "send username / password succesfull\n";
+			else
+				std::cerr << "Failed to send username / password\n";
+
+			if (client.socket.receive(receivePacket) == sf::Socket::Done)
+			{
+				int pType;
+				receivePacket >> pType;
+				if (pType == client.LOGIN)
+				{
+					receivePacket >> isAuthenticated;
+				}
+			}
+
+			std::cout << "-----------------------\n";
+
+			if (isAuthenticated)
 			{
 				std::cout << "Connexion reussie\n";
 				verifAccount = true;
 			}
 			else
 			{
+				std::cout << "Connexion echouer\n";
 				this->notif.setPosition(sf::Vector2f(890, 430));
 				this->notif.setString(std::string("ID unknow"));
 				activNotif = true;
+				client.socket.disconnect();
 			}
+
+			sendPacket.clear();
+			receivePacket.clear();
+			
 			timer = 0;
 		}
 		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			
-
 			login = REGISTER;
 			timer = 0;
 		}
@@ -133,21 +159,54 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 		if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (accountManager.registerAccount(boutons["PSEUDO_BOUTTON"]->getText(), boutons["PASSWORD_BOUTTON"]->getText()))
+			if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
 			{
+				std::cerr << "Failed to connect to server\n";
+			}
+
+			// Send username
+			username = boutons["PSEUDO_BOUTTON"]->getText();
+			password = boutons["PASSWORD_BOUTTON"]->getText();
+			sendPacket << client.REGISTER << username << password;
+
+			if (client.socket.send(sendPacket) == sf::Socket::Done)
+				std::cerr << "send username / password succesfull\n";
+			else
+				std::cerr << "Failed to send username / password\n";
+
+			if (client.socket.receive(receivePacket) == sf::Socket::Done)
+			{
+				int pType;
+				receivePacket >> pType;
+				if (pType == client.REGISTER)
+				{
+					receivePacket >> isRegister;
+				}
+			}
+
+			std::cout << "-----------------------\n";
+			sendPacket.clear();
+			receivePacket.clear();
+			timer = 0;
+
+			if (isRegister)
+			{
+				std::cout << "Register reussie\n";
 				this->notif.setPosition(sf::Vector2f(860, 430));
 				this->notif.setString(std::string("Inscription reussie"));
 				activNotif = true;
+				client.socket.disconnect();
 				login = LOGIN;
-				accountManager.saveToFile();
 			}
 			else
 			{
 				this->notif.setPosition(sf::Vector2f(790, 430));
 				this->notif.setString(std::string("Le nom d'utilisateur existe deja"));
 				activNotif = true;
+				client.socket.disconnect();
 			}
-			timer = 0;
+
+			
 		}
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
@@ -181,6 +240,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 			frameY = 0;
 			frameX = 0;
 			verifAccount = false;
+			isAuthenticated = false;
 			StateManager::getInstance()->switchToGame();
 		}
 	}

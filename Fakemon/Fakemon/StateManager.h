@@ -2,6 +2,7 @@
 #include "SFML/Graphics.hpp"
 #include "Button.h"
 #include "tools.h"
+#include "Client.h"
 
 #define stateManager StateManager::getInstance()
 
@@ -21,7 +22,6 @@ class StateManager
 {
 public:
 	static StateManager* m_instance;
-	StateManager();
 	State* currentState; 
 
 	static StateManager* getInstance();
@@ -36,6 +36,10 @@ public:
 	sf::RenderWindow window;
 
 	sf::Event event;
+
+private:
+	StateManager();
+	Client client;
 	
 };
 
