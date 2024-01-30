@@ -141,6 +141,7 @@
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Move.cpp" />
     <ClCompile Include="MoveSlot.cpp" />
+    <ClCompile Include="MoveTab.cpp" />
     <ClCompile Include="OptionState.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="MoveSlot.h" />
+    <ClInclude Include="MoveTab.h" />
     <ClInclude Include="OptionState.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pokemon.h" />
