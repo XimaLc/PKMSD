@@ -1,5 +1,5 @@
 #include "Safari.h"
-
+#include "GameState.h"
 int Safari::stateSafari;
 
 Safari::Safari()
@@ -20,6 +20,9 @@ void Safari::update(sf::RenderWindow* _window)
 		capture.update(_window);
 	else if (stateSafari == shopS)
 		shop.update(_window);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		GameState::setState(menu);
 }
 
 void Safari::draw(sf::RenderWindow* _window)

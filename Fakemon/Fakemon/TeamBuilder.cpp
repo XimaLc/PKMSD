@@ -1,4 +1,5 @@
 #include "TeamBuilder.h"
+#include "GameState.h"
 
 TeamBuilder::TeamBuilder()
 {
@@ -68,6 +69,10 @@ void TeamBuilder::loadMove(Pokemon pokemon)
 
 void TeamBuilder::update(sf::RenderWindow* _window)
 {
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::M))
+		GameState::setState(menu);
+
 	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*_window).x), static_cast<float>(sf::Mouse::getPosition(*_window).y));
 
 	for (auto& it : this->boutons)
