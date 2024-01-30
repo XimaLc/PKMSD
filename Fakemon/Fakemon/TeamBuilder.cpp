@@ -32,9 +32,7 @@ TeamBuilder::TeamBuilder()
 	}
 }
 
-TeamBuilder::~TeamBuilder()
-{
-}
+TeamBuilder::~TeamBuilder() {}
 
 void TeamBuilder::loadPokemon()
 {
@@ -61,7 +59,7 @@ void TeamBuilder::loadMove(Pokemon pokemon)
 	int x{ 0 };
 	for (auto i : moves)
 	{
-		tmp = MoveTab(i);
+		tmp = MoveTab();
 		tmp.setPosition({ 25.f, x * 100.f });
 		moveTabs.push_back(tmp);
 		x++;
@@ -166,6 +164,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 void TeamBuilder::draw(sf::RenderWindow* _window)
 {
 	_window->draw(shape);
+
 	if(listType == POKEMONS)
 		for (auto i : pokemonTabs)
 			i.draw(_window);
