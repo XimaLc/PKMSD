@@ -20,7 +20,7 @@ TeamBuilder::TeamBuilder()
 	int x{0};
 
 	loadPokemon();
-
+	
 	x = 0;
 	for (auto i : team.getPokemons())
 	{
@@ -59,7 +59,7 @@ void TeamBuilder::loadMove(Pokemon pokemon)
 	int x{ 0 };
 	for (auto i : moves)
 	{
-		tmp = MoveTab();
+		tmp = MoveTab(pokemon.getMoves()[currentTeamIndex]);
 		tmp.setPosition({ 25.f, x * 100.f });
 		moveTabs.push_back(tmp);
 		x++;
@@ -164,7 +164,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 void TeamBuilder::draw(sf::RenderWindow* _window)
 {
 	_window->draw(shape);
-
+	
 	if(listType == POKEMONS)
 		for (auto i : pokemonTabs)
 			i.draw(_window);
@@ -175,9 +175,9 @@ void TeamBuilder::draw(sf::RenderWindow* _window)
 
 	for (auto i : boutons)
 		i.second->render(_window);
-
+	
 	for (auto i : slots)
 		i.draw(_window);
-
+	
 	pb.draw(_window);
 }

@@ -2,6 +2,7 @@
 
 MoveTab::MoveTab()
 {
+
 }
 
 MoveTab::MoveTab(Move _move)
