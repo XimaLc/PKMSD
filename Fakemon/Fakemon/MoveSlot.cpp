@@ -9,6 +9,17 @@ MoveSlot::MoveSlot()
 	state = moveslotIDLE;
 }
 
+MoveSlot::MoveSlot(Move _move)
+{
+	move = _move;
+
+	color = sf::Color::Red;
+	moveShape.setFillColor(color);
+	moveShape.setSize({ 550,100 });
+
+	state = moveslotIDLE;
+}
+
 const bool MoveSlot::isPressed() const
 {
 	if (state == moveslotPRESSED)
