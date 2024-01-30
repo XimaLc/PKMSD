@@ -94,17 +94,13 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 	if(login == LOGIN)
 	{
-		if(sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-		{
-			verifAccount = true;
-		}
 		//boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
 		//boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
 			verifAccount = true;
-		}
+		
 		//	if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
 		//	{
 		//		std::cerr << "Failed to connect to server\n";
@@ -150,8 +146,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		//	receivePacket.clear();
 		//	
 		//	timer = 0;
-		/*}
-		else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
+		}
+		/*else if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
 			login = REGISTER;
 			timer = 0;
