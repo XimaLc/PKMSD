@@ -58,7 +58,7 @@ void MoveTab::update(const sf::Vector2f mousePos)
 {
 	timer += GetDeltaTime();
 
-	if (this->shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && timer >= 0.1)
+	if (this->shape.getGlobalBounds().contains(mousePos) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		color.a = 100;
 		this->shape.setFillColor(color);

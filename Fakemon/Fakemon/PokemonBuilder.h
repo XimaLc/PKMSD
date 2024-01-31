@@ -27,6 +27,8 @@ private:
 public:
 	PokemonBuilder();
 
+	void setMove(Move move, int _index);
+
 	inline std::vector<MoveSlot>* getMoveSlots() { return &moveSlots; };
 
 	bool isMoveSlotPressed();

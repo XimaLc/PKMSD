@@ -14,3 +14,8 @@ void Team::addMove(Move _move, int moveIndex, int teamIndex)
 {
 	team[teamIndex].setMove(_move, moveIndex);
 }
+
+void Team::save()
+{
+
+}
