@@ -66,8 +66,9 @@ void Server::TCP()
                 }
                 else if (pType == packetType::REGISTER)
                 {
-                    newPlayer->isRegister = accountManager.registerAccount( accountManager.lastId++ , newPlayer->username, newPlayer->password);
-
+                    int playerId = accountManager.registerAccount(newPlayer->username, newPlayer->password);
+                    newPlayer->isRegister = (playerId != -1);
+                        
                     sendPacket << packetType::REGISTER << newPlayer->isRegister;
                     if (clientSocket->send(sendPacket) == sf::Socket::Done)
                         std::cerr << "send register succesfull\n" << newPlayer->isRegister << std::endl;
