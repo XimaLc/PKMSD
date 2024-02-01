@@ -1,5 +1,6 @@
 #include "Overworld.h"
 #include "GameState.h"
+#include "Safari.h"
 
 Overworld::Overworld()
 {
@@ -10,6 +11,7 @@ Overworld::Overworld()
 	viewOverworld.setSize({ 1920.f, 1080.f });
 	viewOverworld.setCenter({ 0.f, 0.f });
 	spawnTimer = 0.f;
+	hitPokemon = false;
 	pnjShape.setPosition({ -28.f, -240.f });
 	pnjText.loadFromFile(TexturePath"pnj.png");
 	pnjShape.setScale({ 3.f, 3.f });
@@ -31,94 +33,105 @@ Overworld::~Overworld()
 
 void Overworld::update(sf::RenderWindow* _window)
 {
-	spawnTimer += GetDeltaTime();
-
-	player.update(_window, &viewOverworld, obstacles);
-
-	if (GetDistance(player.getPos(), pnjShape.getPosition()) <= 100.f && Key(Enter))
-		GameState::setState(menu);
-
-	if (spawnTimer > 2.f && wildPokemons.size() < 10)
+	if (!hitPokemon)
 	{
-		spawnTimer = 0.f;
-		wildPokemons.push_back(DB::getPokemonById(iRand(1, 148)));
-	}
+		spawnTimer += GetDeltaTime();
 
-	bool despawn = false;
-	for (auto& it : wildPokemons)
-	{
-		it.despawnTimer += GetDeltaTime();
-		if (it.despawnTimer >= 180.f)
-			despawn = true;
+		player.update(_window, &viewOverworld, obstacles);
 
-		if (it.getSteering() == 1)
+		if (GetDistance(player.getPos(), pnjShape.getPosition()) <= 100.f && Key(Enter))
+			GameState::setState(menu);
+
+		if (spawnTimer > 2.f && wildPokemons.size() < 10)
 		{
-			if (GetDistance(player.getPos(), it.getPos()) <= 400.f)
+			spawnTimer = 0.f;
+			wildPokemons.push_back(DB::getPokemonById(iRand(1, 148)));
+		}
+
+		bool despawn = false;
+		for (auto& it : wildPokemons)
+		{
+			it.despawnTimer += GetDeltaTime();
+			if (it.despawnTimer >= 180.f)
+				despawn = true;
+
+			if (it.getSteering() == 1)
 			{
-				it.update(seek(&it, player.getPos()));
+				if (GetDistance(player.getPos(), it.getPos()) <= 400.f)
+				{
+					it.update(seek(&it, player.getPos()));
+					it.update(obstacleAvoidance(&it, obstacles));
+					it.update(wander(&it));
+				}
+			}
+			else if (it.getSteering() == 2)
+			{
+				if (GetDistance(player.getPos(), it.getPos()) <= 400.f)
+				{
+					it.update(flee(&it, player.getPos()));
+					it.update(obstacleAvoidance(&it, obstacles));
+					it.update(wander(&it));
+				}
+			}
+			else if (it.getSteering() == 3)
+			{
+				it.update(seek(&it, it.getPathFollowing()[it.getPathFollowingIndex()]));
+				if (GetDistance(it.getPos(), it.getPathFollowing()[it.getPathFollowingIndex()]) < 10.f)
+					it.setPathFollowingIndex(it.getPathFollowingIndex() + 1);
+				if (it.getPathFollowingIndex() == 4)
+					it.setPathFollowingIndex(0);
 				it.update(obstacleAvoidance(&it, obstacles));
-				it.update(wander(&it));
+			}
+
+			if (GetDistance(player.getPos(), it.getPos()) <= 75.f)
+			{
+				hitPokemon = true;
+				capture = Capture(it);
 			}
 		}
-		else if (it.getSteering() == 2)
+
+		if (despawn)
 		{
-			if (GetDistance(player.getPos(), it.getPos()) <= 400.f)
-			{
-				it.update(flee(&it, player.getPos()));
-				it.update(obstacleAvoidance(&it, obstacles));
-				it.update(wander(&it));
-			}
+			wildPokemons.pop_front();
+			despawn = false;
 		}
-		else if (it.getSteering() == 3)
-		{
-			it.update(seek(&it, it.getPathFollowing()[it.getPathFollowingIndex()]));
-			if (GetDistance(it.getPos(), it.getPathFollowing()[it.getPathFollowingIndex()]) < 10.f)
-				it.setPathFollowingIndex(it.getPathFollowingIndex() + 1);
-			if (it.getPathFollowingIndex() == 4)
-				it.setPathFollowingIndex(0);
-			it.update(obstacleAvoidance(&it, obstacles));
-		}
-		/*it.update(seek(&it, player.getPos()));
-		it.update(obstacleAvoidance(&it, obstacles));
-		it.update(wander(&it));
-		for (auto it2 : wildPokemons)
-		{
-			if (GetDistance(it.getPos(), it2.getPos()) <= 75.f && it.getPos() != it2.getPos())
-				it.update(flee(&it, it2.getPos()));
-		}*/
-		
 	}
-	
-	if (despawn)
+	else
 	{
-		wildPokemons.pop_front();
-		despawn = false;
+		capture.update(_window);
 	}
 }
 
 void Overworld::draw(sf::RenderWindow* _window)
 {
-	_window->setView(viewOverworld);
-
-	_window->draw(fondSpr);
-
-	for (auto tree : obstacles)
+	if (!hitPokemon)
 	{
-		tree.draw(_window, obstacleTxt);
-	}
+		_window->setView(viewOverworld);
 
-	for (auto i : wildPokemons)
-		i.draw(_window);
+		_window->draw(fondSpr);
 
-	player.draw(_window);
-	_window->draw(pnjShape);
-
-	for (auto tree : obstacles)
-	{
-		if (tree.getPos().y + tree.getSpr().getGlobalBounds().height / 2 > player.getPos().y)
+		for (auto tree : obstacles)
+		{
 			tree.draw(_window, obstacleTxt);
-	}
+		}
 
+		for (auto i : wildPokemons)
+			i.draw(_window);
+
+		player.draw(_window);
+		_window->draw(pnjShape);
+
+		for (auto tree : obstacles)
+		{
+			if (tree.getPos().y + tree.getSpr().getGlobalBounds().height / 2 > player.getPos().y)
+				tree.draw(_window, obstacleTxt);
+		}
+	}
+	else
+	{
+		_window->setView(_window->getDefaultView());
+		capture.draw(_window);
+	}
 }
 
 sf::Vector2f Overworld::seek(PokemonSafari* agent, sf::Vector2f _targetPos)

@@ -4,6 +4,7 @@
 #include "PokemonSafari.h"
 #include "DB.h"
 #include "Obstacle.h"
+#include "Capture.h"
 
 class Overworld
 {
@@ -18,6 +19,8 @@ private:
 	float spawnTimer;
 	sf::Sprite pnjShape;
 	sf::Texture pnjText;
+	bool hitPokemon;
+	Capture capture;
 public:
 	Overworld();
 	~Overworld();
