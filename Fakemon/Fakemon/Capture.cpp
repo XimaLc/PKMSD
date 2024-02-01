@@ -29,6 +29,19 @@ Capture::Capture(PokemonSafari _poke)
 
 	pokemonEnemy.setPos({ 1380.f, 380.f });
 	pokemonEnemy.getSpr()->setScale({ 0.5f, 0.5f });
+
+	font.loadFromFile(FontsPath"Pokemon.ttf");
+
+	pkmName.setPosition(280.f, 150.f);
+	pkmName.setCharacterSize(50);
+	pkmName.setFillColor(sf::Color::Black);
+	pkmName.setString(pokemonEnemy.getName());
+
+	buttons.reserve(4);
+	buttons[0] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Ball", 30);
+	buttons[1] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Rock", 30);
+	buttons[2] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Mud", 30);
+	buttons[3] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Run", 30);
 }
 
 Capture::~Capture()
@@ -53,4 +66,6 @@ void Capture::draw(sf::RenderWindow* _window)
 	actionBarSpr.setTexture(actionBarTxt);
 	_window->draw(actionBarSpr);
 	pokemonEnemy.draw(_window);
+	pkmName.setFont(font);
+	_window->draw(pkmName);
 }

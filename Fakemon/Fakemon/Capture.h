@@ -1,12 +1,15 @@
 #pragma once
 #include "StateManager.h"
 #include "PokemonSafari.h"
+#include "Button.h"
 
 
 class Capture
 {
 private:
-	PokemonSafari pokemonEnemy;
+	PokemonSafari pokemonEnemy; 
+	sf::Font font;
+	sf::Text pkmName;
 	Sprite fondSpr;
 	Texture fondTxt;
 	Sprite trainerSpr;
@@ -18,6 +21,7 @@ private:
 	Texture actionBarTxt;
 	float catchChance;
 	float fleeChance;
+	vector<Button*> buttons;
 public:
 	Capture();
 	Capture(PokemonSafari _poke);
