@@ -1,4 +1,5 @@
 #include "Team.h"
+#include "DB.h"
 
 Team::Team()
 {
@@ -17,5 +18,5 @@ void Team::addMove(Move _move, int moveIndex, int teamIndex)
 
 void Team::save()
 {
-
+	DB::saveTeam(*this);
 }

@@ -1,200 +1,60 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Fichiers sources">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Fichiers de ressources">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\State">
-      <UniqueIdentifier>{88147002-cbc8-4b1a-b930-9a7dee839e94}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\State">
-      <UniqueIdentifier>{97f95f0e-6d81-437a-9de8-6421f39959b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Game">
-      <UniqueIdentifier>{e34ab80b-585b-4032-9778-1d39aaaf5c71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Game">
-      <UniqueIdentifier>{ce55ca33-64f7-4a5f-81ff-ea72b6972825}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Objets">
-      <UniqueIdentifier>{57512303-cc04-4527-ab88-cb02cd33f0ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Objets">
-      <UniqueIdentifier>{14041df3-ed39-4d78-9aa2-1c09084d38fd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Network">
-      <UniqueIdentifier>{2d3427da-8889-4304-86c3-fa4edd366f4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Network">
-      <UniqueIdentifier>{28f29e6d-032e-47e1-bab0-e30e25ec1f96}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Capture.cpp" />
+    <ClCompile Include="Client.cpp" />
+    <ClCompile Include="DB.cpp" />
+    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Move.cpp" />
+    <ClCompile Include="MoveSlot.cpp" />
+    <ClCompile Include="MoveTab.cpp" />
+    <ClCompile Include="OptionState.cpp" />
+    <ClCompile Include="Overworld.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="PokemonSafari.cpp" />
+    <ClCompile Include="PokemonBuilder.cpp" />
+    <ClCompile Include="PokemonTab.cpp" />
+    <ClCompile Include="Safari.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="Showdown.cpp" />
+    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="StateManager.cpp" />
+    <ClCompile Include="Team.cpp" />
+    <ClCompile Include="TeamBuilder.cpp" />
+    <ClCompile Include="TeamSlot.cpp" />
+    <ClCompile Include="tools.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="GameState.cpp">
-      <Filter>Fichiers sources\State</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuState.cpp">
-      <Filter>Fichiers sources\State</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionState.cpp">
-      <Filter>Fichiers sources\State</Filter>
-    </ClCompile>
-    <ClCompile Include="StateManager.cpp">
-      <Filter>Fichiers sources\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="tools.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="Showdown.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="TeamBuilder.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Pokemon.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="Safari.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonTab.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="Shop.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Overworld.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Capture.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonSafari.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
-      <Filter>Fichiers sources\Game</Filter>
-    <ClCompile Include="Team.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="TeamSlot.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="PokemonBuilder.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="DB.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveSlot.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    <ClCompile Include="Client.cpp">
-      <Filter>Fichiers sources\Network</Filter>
-    </ClCompile>
-    <ClCompile Include="Move.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveTab.cpp">
-      <Filter>Fichiers sources\Objets</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GameState.h">
-      <Filter>Fichiers d%27en-tête\State</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuState.h">
-      <Filter>Fichiers d%27en-tête\State</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionState.h">
-      <Filter>Fichiers d%27en-tête\State</Filter>
-    </ClInclude>
-    <ClInclude Include="StateManager.h">
-      <Filter>Fichiers d%27en-tête\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="tools.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="TeamBuilder.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Showdown.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Safari.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="Pokemon.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonTab.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="Shop.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Overworld.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Capture.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonSafari.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
-    <ClInclude Include="Team.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="TeamSlot.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="PokemonBuilder.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="DB.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveSlot.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    <ClInclude Include="Client.h">
-      <Filter>Fichiers d%27en-tête\Network</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveTab.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
-    <ClInclude Include="Move.h">
-      <Filter>Fichiers d%27en-tête\Objets</Filter>
-    </ClInclude>
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="Capture.h" />
+    <ClInclude Include="Client.h" />
+    <ClInclude Include="DB.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="Menu.h" />
+    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Move.h" />
+    <ClInclude Include="MoveSlot.h" />
+    <ClInclude Include="MoveTab.h" />
+    <ClInclude Include="OptionState.h" />
+    <ClInclude Include="Overworld.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Pokemon.h" />
+    <ClInclude Include="PokemonSafari.h" />
+    <ClInclude Include="PokemonBuilder.h" />
+    <ClInclude Include="PokemonTab.h" />
+    <ClInclude Include="Safari.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="Showdown.h" />
+    <ClInclude Include="StateManager.h" />
+    <ClInclude Include="Team.h" />
+    <ClInclude Include="TeamBuilder.h" />
+    <ClInclude Include="TeamSlot.h" />
+    <ClInclude Include="tools.h" />
   </ItemGroup>
 </Project>

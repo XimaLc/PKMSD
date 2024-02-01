@@ -98,8 +98,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		{
 			verifAccount = true;
 		}
-		//boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
-		//boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
+		boutons["LOGIN_BOUTTON"]->setPosition(sf::Vector2f(850, 750));
+		boutons["REGISTER_BOUTTON"]->setPosition(sf::Vector2f(1500, 950));
 
 		if (boutons["LOGIN_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{

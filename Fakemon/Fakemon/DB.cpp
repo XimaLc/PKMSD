@@ -246,6 +246,39 @@ std::vector<Move> DB::getMoves(std::vector<int> _movePool, int _startId, int _am
 	}
 }
 
+void DB::saveTeam(Team team)
+{
+	int id = 0;
+	const char* n = "\n";
+
+	//nlohmann::json j;
+	std::string j =
+		"{\"pokemons\":{\"pokemon1\":{\"id\":";
+	j += team.getPokemons()[0].getId();
+	j += ", \"moves\": {\"id1\":";
+	j += team.getPokemons()[0].getMoves()[0].getId();
+	j += ", \"id2\":";
+	j += team.getPokemons()[0].getMoves()[1].getId();
+	j += ", \"id3\":";
+	j += team.getPokemons()[0].getMoves()[2].getId();
+	j += ",\"id4\":";
+	j += team.getPokemons()[0].getMoves()[3].getId();
+	j += ",}}},{\"pokemon2\":{\"id\":"
+	j += team.getPokemons()[1].getId();
+	j += ",\"moves\": {\"\"id2\":";
+	//	 0,\"id3\": 0,\"id4\": 0,}}},{\"pokemon3\":{\"id\": 0,\"moves\": {\"id1\": 0,\"id2\": 0,\"id3\": 0,\"id4\": 0,}}},{\"pokemon4\":{\"id\": 0,\"moves\": {\"id1\": 0,\"id2\": 0,\"id3\": 0,\"id4\": 0,}}},{\"pokemon5\":{\"id\": 0,\"moves\": {\"id1\": 0,\"id2\": 0,\"id3\": 0,\"id4\": 0,}}},{\"pokemon6\":{\"id\": 0,\"moves\": {\"id1\": 0,\"id2\": 0,\"id3\": 0,\"id4\": 0,}}}}"
+	
+	std::ofstream file("team.dat", std::ios::out | std::ios::binary);
+	if (file.is_open())
+	{
+		file << j;
+		file.close();
+	}
+	else
+		std::cerr << "Error load account file for save\n";
+}
+
+
 void DB::loadTextures()
 {
 	std::string name, path, movePool;
