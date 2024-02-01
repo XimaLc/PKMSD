@@ -11,10 +11,8 @@ private:
 
     std::unordered_map<std::string, Account> accounts;
 
-    
-
 public:
-    bool registerAccount(int id, const std::string& username, const std::string& password);
+    bool registerAccount(const std::string& username, const std::string& password);
     bool authenticate(const std::string& username, const std::string& password);
 
     void saveToFile();

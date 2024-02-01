@@ -1,15 +1,16 @@
 #include "AcountManager.h"
 
-bool AcountManager::registerAccount(int id, const std::string& username, const std::string& password)
+bool AcountManager::registerAccount(const std::string& username, const std::string& password)
 {
     if (accounts.find(username) == accounts.end())
     {
+        int id = lastId++;
         Account newAccount = { id ,username, std::hash<std::string>{}(password) };
         accounts[username] = newAccount;
         saveToFile();
-        return true;
+        return id;
     }
-    return false;
+    return -1;
 }
 
 bool AcountManager::authenticate(const std::string& username, const std::string& password)
