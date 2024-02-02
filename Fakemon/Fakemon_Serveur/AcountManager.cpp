@@ -1,10 +1,10 @@
 #include "AcountManager.h"
 
-bool AcountManager::registerAccount(const std::string& username, const std::string& password)
+bool AcountManager::registerAccount(int id, const std::string& username, const std::string& password)
 {
     if (accounts.find(username) == accounts.end())
     {
-        Account newAccount = { username, std::hash<std::string>{}(password) };
+        Account newAccount = { id ,username, std::hash<std::string>{}(password) };
         accounts[username] = newAccount;
         saveToFile();
         return true;
@@ -28,7 +28,7 @@ void AcountManager::saveToFile()
     if (file.is_open())
     {
         for (const auto& pair : accounts)
-            file << pair.second.username << " " << pair.second.hashedPassword << "\n";
+            file << pair.second.id << " " << pair.second.username << " " << pair.second.hashedPassword << "\n";
         file.close();
     }
     else
@@ -41,12 +41,14 @@ void AcountManager::loadFromFile()
     if (file.is_open())
     {
         accounts.clear();
+        int id;
         std::string username;
         size_t hashedPassword;
-        while (file >> username >> hashedPassword)
+        while (file >> id >> username >> hashedPassword)
         {
-            Account account{ username, hashedPassword };
+            Account account{ id, username, hashedPassword };
             accounts[username] = account;
+            lastId++;
         }
         file.close();
 

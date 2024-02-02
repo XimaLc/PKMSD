@@ -38,7 +38,6 @@ void Server::TCP()
             selector.add(*clientSocket);
 
             auto newPlayer = std::make_unique<Player>();
-            newPlayer->id = clientsNbr;
 
             if (clientSocket->receive(receivePacket) == sf::Socket::Done)
             {
@@ -67,7 +66,7 @@ void Server::TCP()
                 }
                 else if (pType == packetType::REGISTER)
                 {
-                    newPlayer->isRegister = accountManager.registerAccount(newPlayer->username, newPlayer->password);
+                    newPlayer->isRegister = accountManager.registerAccount( accountManager.lastId++ , newPlayer->username, newPlayer->password);
 
                     sendPacket << packetType::REGISTER << newPlayer->isRegister;
                     if (clientSocket->send(sendPacket) == sf::Socket::Done)
