@@ -25,6 +25,8 @@ public:
 	inline void setMove(Move move, int i) { moves[i] = move; }
 	void setTypes(int _type1, int _type2);
 
+	void setMoveId(int index, int id);
+
 	inline int getId() { return id; }
 	inline std::string getPath() { return path; }
 	inline std::string getName() { return name; }

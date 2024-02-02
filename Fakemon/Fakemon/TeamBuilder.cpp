@@ -3,8 +3,6 @@
 
 TeamBuilder::TeamBuilder()
 {
-
-
 	listType = POKEMONS;
 
 	editTeam = false;
@@ -15,6 +13,7 @@ TeamBuilder::TeamBuilder()
 	this->boutons["gauche"] = new Button("../Files/Textures/gauche.png", 10, 1025, 44.5, 44.5);
 	this->boutons["droite"] = new Button("../Files/Textures/droite.png", 975, 1025, 44.5, 44.5);
 	this->boutons["save"] = new Button("../Files/Textures/button.png", 1700, 1010, 200, 60, "Save", 30);
+	this->boutons["load"] = new Button("../Files/Textures/button.png", 1470, 1010, 200, 60, "Load", 30);
 
 
 
@@ -91,6 +90,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 			if (it.isPressed())
 			{
 				team.addPokemon(it.getPokemon(), currentTeamIndex);
+				pb.setPokemon(it.getPokemon());
 			}
 		}
 	}
@@ -178,6 +178,16 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 	if (boutons["save"]->isPressed())
 	{
 		team.save();
+	}
+	if (boutons["load"]->isPressed())
+	{
+		team.load();
+		int x{ 0 };
+		for (auto it : slots)
+		{
+			it.setPokemon(team.getPokemons()[x]);
+			x++;
+		}
 	}
 }
 

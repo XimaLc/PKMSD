@@ -92,6 +92,54 @@ void PokemonBuilder::update(const sf::Vector2f mousePos)
 	}
 }
 
+void PokemonBuilder::setPokemon(Pokemon _p)
+{
+	pokemon = &_p;
+
+	if (pokemon->getName() != "")
+	{
+		pkmName.setString(pokemon->getName());
+
+		pkmTexture = DB::getTexture(pokemon->getPath());
+
+		type1Sprite.setTextureRect({ 0, 44 * (pokemon->getType1() - 1), 200,44 });
+		type2Sprite.setTextureRect({ 0, 44 * (pokemon->getType2() - 1), 200,44 });
+
+		statsTexts["hp"].setString("PV : " + std::to_string(pokemon->getStat("hp")));
+		statsTexts["atk"].setString("ATK : " + std::to_string(pokemon->getStat("atk")));
+		statsTexts["def"].setString("DEF : " + std::to_string(pokemon->getStat("def")));
+		statsTexts["spA"].setString("Spe ATK : " + std::to_string(pokemon->getStat("spA")));
+		statsTexts["spD"].setString("Spe DEF : " + std::to_string(pokemon->getStat("spD")));
+		statsTexts["spd"].setString("Spd : " + std::to_string(pokemon->getStat("spd")));
+
+		movePool = DB::getMovePool(pokemon->getMovePool());
+
+		moveSlots[0].setMove(pokemon->getMoves()[0]);
+		moveSlots[1].setMove(pokemon->getMoves()[1]);
+		moveSlots[2].setMove(pokemon->getMoves()[2]);
+		moveSlots[3].setMove(pokemon->getMoves()[3]);
+	}
+	else
+	{
+		pkmTexture = nullptr;
+		type1Sprite.setTextureRect({ 0, 44 * (20 - 1), 200,44 });
+		type2Sprite.setTextureRect({ 0, 44 * (20 - 1), 200,44 });
+
+		pkmName.setString("");
+		statsTexts["hp"].setString("");
+		statsTexts["atk"].setString("");
+		statsTexts["def"].setString("");
+		statsTexts["spA"].setString("");
+		statsTexts["spD"].setString("");
+		statsTexts["spd"].setString("");
+
+		moveSlots[0].clearMove();
+		moveSlots[1].clearMove();
+		moveSlots[2].clearMove();
+		moveSlots[3].clearMove();
+	}
+}
+
 void PokemonBuilder::changePokemon(Pokemon* _p)
 {
 	pokemon = _p;

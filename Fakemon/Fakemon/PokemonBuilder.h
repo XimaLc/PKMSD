@@ -37,6 +37,7 @@ public:
 	void setMoveSlots();
 
 	void update(const sf::Vector2f mousePos);
+	void setPokemon(Pokemon _p);
 	void changePokemon(Pokemon* _p);
 	void draw(sf::RenderWindow * _window);
 };
