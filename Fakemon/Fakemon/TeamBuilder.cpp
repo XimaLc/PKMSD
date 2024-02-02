@@ -11,7 +11,11 @@ TeamBuilder::TeamBuilder()
 	moveStart = 1;
 	amount = 10;
 	this->boutons["gauche"] = new Button("../Files/Textures/gauche.png", 10, 1025, 44.5, 44.5);
-	this->boutons["droite"] = new Button("../Files/Textures/droite.png", 700, 1025, 44.5, 44.5);
+	this->boutons["droite"] = new Button("../Files/Textures/droite.png", 975, 1025, 44.5, 44.5);
+	this->boutons["save"] = new Button("../Files/Textures/button.png", 1700, 1010, 200, 60, "Save", 30);
+	this->boutons["load"] = new Button("../Files/Textures/button.png", 1470, 1010, 200, 60, "Load", 30);
+
+
 
 	shape.setFillColor(sf::Color(211, 211, 211));
 	shape.setSize({ 1920, 1080 });
@@ -20,8 +24,6 @@ TeamBuilder::TeamBuilder()
 	TeamSlot tmpTS;
 	int x{0};
 
-	loadPokemon();
-	
 	x = 0;
 	for (auto i : team.getPokemons())
 	{
@@ -31,6 +33,8 @@ TeamBuilder::TeamBuilder()
 		slots.push_back(tmpTS);
 		x++;
 	}
+
+	loadPokemon();
 }
 
 TeamBuilder::~TeamBuilder() {}
@@ -86,6 +90,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 			if (it.isPressed())
 			{
 				team.addPokemon(it.getPokemon(), currentTeamIndex);
+				pb.setPokemon(it.getPokemon());
 			}
 		}
 	}
@@ -95,7 +100,12 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 		{
 			it.update(mousePos);
 			if (it.isPressed())
+			{
 				team.addMove(it.getMove(), currentMoveIndex, currentTeamIndex);
+				pb.setMove(it.getMove(), currentMoveIndex);
+			}
+			
+				
 		}
 	}
 
@@ -109,7 +119,7 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 			pb.changePokemon(&team.getPokemons()[x]);
 		}
 
-		pb.changePokemon(&team.getPokemons()[currentTeamIndex]);
+		//pb.changePokemon(&team.getPokemons()[currentTeamIndex]);
 		it.setPokemon(team.getPokemons()[x]);
 
 		it.update(mousePos);
@@ -162,6 +172,21 @@ void TeamBuilder::update(sf::RenderWindow* _window)
 				moveStart = 21;
 
 			loadMove(team.getPokemons()[currentTeamIndex]);
+		}
+	}
+
+	if (boutons["save"]->isPressed())
+	{
+		team.save();
+	}
+	if (boutons["load"]->isPressed())
+	{
+		team.load();
+		int x{ 0 };
+		for (auto it : slots)
+		{
+			it.setPokemon(team.getPokemons()[x]);
+			x++;
 		}
 	}
 }
