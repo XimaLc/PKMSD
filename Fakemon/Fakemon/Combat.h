@@ -18,16 +18,22 @@ private:
 
 	sf::Texture pokeBarTexture;
 	sf::Sprite pokeBarSprite;
+	sf::Sprite pokeBarSprite2;
 	
 	sf::Texture trainerBackTexture;
 	sf::Sprite trainerBackSprite;
 
 	sf::IntRect trainerBackRect;
 
+	sf::Text pokemonName;
+	sf::Text pokemonName2;
+
+	sf::Text pokemonHp;
+	sf::Text pokemonHp2;
+
+	std::vector<int> actualHp;
 public:
 	Combat();
-
-	inline void loadTeam() { team.load(); }
 
 	void update(sf::RenderWindow * _window);
 	void draw(sf::RenderWindow * _window);
