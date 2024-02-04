@@ -21,7 +21,7 @@ private:
 	Texture actionBarTxt;
 	float catchChance;
 	float fleeChance;
-	vector<Button*> buttons;
+	std::map<std::string, Button*> buttons;
 public:
 	Capture();
 	Capture(PokemonSafari _poke);

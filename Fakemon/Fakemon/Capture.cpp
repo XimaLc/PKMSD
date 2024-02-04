@@ -37,11 +37,10 @@ Capture::Capture(PokemonSafari _poke)
 	pkmName.setFillColor(sf::Color::Black);
 	pkmName.setString(pokemonEnemy.getName());
 
-	buttons.reserve(4);
-	buttons[0] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Ball", 30);
-	buttons[1] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Rock", 30);
-	buttons[2] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Mud", 30);
-	buttons[3] = new Button("../Files/Textures/button.png", 250, 280, 400, 80, "Run", 30);
+	buttons["BALL"] = new Button("../Files/Textures/button.png", 1500, 930, 185, 60, "Ball", 30);
+	buttons["ROCK"] = new Button("../Files/Textures/button.png", 1685, 930, 185, 60, "Rock", 30);
+	buttons["MUD"] = new Button("../Files/Textures/button.png", 1500, 990, 185, 60, "Mud", 30);
+	buttons["RUN"] = new Button("../Files/Textures/button.png", 1685, 990, 185, 60, "Run", 30);
 }
 
 Capture::~Capture()
@@ -51,7 +50,10 @@ Capture::~Capture()
 
 void Capture::update(sf::RenderWindow* _window)
 {
-	
+	sf::Vector2f mousePos(static_cast<float>(sf::Mouse::getPosition(*_window).x), static_cast<float>(sf::Mouse::getPosition(*_window).y));
+
+	for (auto& it : this->buttons)
+		it.second->update(mousePos);
 }
 
 void Capture::draw(sf::RenderWindow* _window)
@@ -68,4 +70,7 @@ void Capture::draw(sf::RenderWindow* _window)
 	pokemonEnemy.draw(_window);
 	pkmName.setFont(font);
 	_window->draw(pkmName);
+
+	for (auto& it : this->buttons)
+		it.second->render(_window);
 }
