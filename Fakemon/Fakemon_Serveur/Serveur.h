@@ -5,13 +5,13 @@
 #include <thread>
 #include <vector>
 
-
-
 class Server 
 {
 public:
     void Init();
     void Update();
+
+    void Matchmaking();
     
     void TCP();
 
@@ -26,6 +26,19 @@ private:
     int tcp_port;
     bool server_started;
 
+    struct Pokemon
+    {
+        std::string move1;
+        std::string move2;
+        std::string move3;
+        std::string move4;
+    };
+
+    struct Team
+    {
+        std::vector<Pokemon> pokemons;
+    };
+
     struct Player
     {
         sf::IpAddress ip;
@@ -35,6 +48,8 @@ private:
         float timeout;
         bool isAuthenticated = false;
         bool isRegister = false;
+
+        Team team;
     };
     std::vector <std::unique_ptr< Player >> Players;
 
@@ -51,7 +66,22 @@ private:
         AUTHENTICATE,
         CLIENT_DISCONNECTED,
         LOGIN,
-        REGISTER
+        REGISTER,
+        POKEMON_ID,
+        MOVE_ID,
+        MATCHMAKING
     };
 };
 
+
+class Room
+{
+public:
+    Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket);
+
+    void HandlePackets();
+
+private:
+    std::unique_ptr<sf::TcpSocket> player1;
+    std::unique_ptr<sf::TcpSocket> player2;
+};

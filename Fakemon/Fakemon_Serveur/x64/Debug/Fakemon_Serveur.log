@@ -1,0 +1,12 @@
+﻿  tools.cpp
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon\tools.cpp(21,68): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon\tools.cpp(44,23): warning C4244: 'return' : conversion de 'double' en 'float', perte possible de données
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon\tools.cpp(49,24): warning C4244: '=' : conversion de 'float' en 'sf::Uint8', perte possible de données
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon\tools.cpp(50,24): warning C4244: '=' : conversion de 'float' en 'sf::Uint8', perte possible de données
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon\tools.cpp(51,24): warning C4244: '=' : conversion de 'float' en 'sf::Uint8', perte possible de données
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon\tools.cpp(52,24): warning C4244: '=' : conversion de 'float' en 'sf::Uint8', perte possible de données
+  AcountManager.cpp
+  Serveur.cpp
+  Source.cpp
+  Génération de code en cours...
+  Fakemon_Serveur.vcxproj -> C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\x64\Debug\Fakemon_Serveur.exe
