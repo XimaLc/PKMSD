@@ -82,6 +82,9 @@
     <ClCompile Include="Shop.cpp">
       <Filter>Fichiers sources\Safari</Filter>
     </ClCompile>
+    <ClCompile Include="Combat.cpp">
+      <Filter>Fichiers sources\Showdown</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h">
@@ -161,6 +164,9 @@
     </ClInclude>
     <ClInclude Include="tools.h">
       <Filter>Fichiers d%27en-tête\Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="Combat.h">
+      <Filter>Fichiers d%27en-tête\Showdown</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
