@@ -35,7 +35,7 @@ void StateManager::switchToGame()
 	if (currentState != nullptr)
 		delete currentState;
 
-	currentState = new GameState();
+	currentState = new GameState(client);
 }
 
 void StateManager::switchToOption()

@@ -24,7 +24,7 @@ private:
 	sf::Sprite trainerBackSprite;
 
 	sf::IntRect trainerBackRect;
-
+	
 	sf::Text pokemonName;
 	sf::Text pokemonName2;
 
@@ -32,8 +32,12 @@ private:
 	sf::Text pokemonHp2;
 
 	std::vector<int> actualHp;
+
+	Client& client;
+	sf::Packet sendPacket;
+	sf::Packet receivePacket;
 public:
-	Combat();
+	Combat(Client& _client);
 
 	void update(sf::RenderWindow * _window);
 	void draw(sf::RenderWindow * _window);

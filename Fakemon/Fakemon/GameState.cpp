@@ -2,7 +2,7 @@
 
 int GameState::state; 
 
-GameState::GameState()
+GameState::GameState(Client& _client) : cb(_client)
 {
 	state = menu;
 }
