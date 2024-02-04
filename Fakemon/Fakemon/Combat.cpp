@@ -1,9 +1,7 @@
 #include "Combat.h"
 
-Combat::Combat()
+Combat::Combat(Client& _client) : client(_client)
 {
-	//sendPacket << client.LOGIN << username << password;
-
 	font.loadFromFile("../Files/Fonts/Pokemon.ttf");
 
 	backgroundTexture.loadFromFile("../Files/Textures/BattleBackgrounds.png");
@@ -25,6 +23,12 @@ Combat::Combat()
 
 void Combat::update(sf::RenderWindow* _window)
 {
+	sendPacket << client.MATCHMAKING;
+
+	if (client.socket.send(sendPacket) == sf::Socket::Done)
+		std::cerr << "send connection\n";
+	else
+		std::cerr << "Failed to send connection\n";
 }
 
 void Combat::draw(sf::RenderWindow* _window)

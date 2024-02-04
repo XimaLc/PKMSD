@@ -24,8 +24,13 @@ private:
 
 	sf::IntRect trainerBackRect;
 
+
+	Client& client;
+	sf::Packet sendPacket;
+	sf::Packet receivePacket;
+
 public:
-	Combat();
+	Combat(Client& _client);
 
 	inline void loadTeam() { team.load(); }
 

@@ -15,7 +15,7 @@ private:
 	Combat cb;
 	static int state;
 public:
-	GameState();
+	GameState(Client& _client);
 	~GameState() {}
 
 	inline static void setState(int id) { state = id; }
