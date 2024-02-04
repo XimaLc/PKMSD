@@ -2,6 +2,7 @@
 #include "Showdown.h"
 #include "teamBuilder.h"
 #include "safari.h"
+#include "Combat.h"
 
 enum STATE {menu, teamBuilder, combat, safariMode};
 
@@ -11,6 +12,7 @@ private:
 	Showdown showdown;
 	TeamBuilder tb;
 	Safari safari;
+	Combat cb;
 	static int state;
 public:
 	GameState();
