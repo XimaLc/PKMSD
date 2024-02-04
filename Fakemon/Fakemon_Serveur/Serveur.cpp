@@ -20,38 +20,24 @@ void Server::Update()
 
 }
 
-bool Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
+void Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
 {
-    if (Players.size() >= 2)
+    sf::TcpSocket* playerSocket = clients.back().get();
+    clients.pop_back(); 
+
+    lobbyPlayers.push_back({ std::move(requestingPlayer), playerSocket });
+
+    if (lobbyPlayers.size() >= 2)
     {
-        int playerIndex1 = rand() % Players.size();
-        int playerIndex2 = rand() % Players.size();
+        std::unique_ptr<sf::TcpSocket> player1Socket = std::make_unique<sf::TcpSocket>(std::move(lobbyPlayers[0].socket));
+        std::unique_ptr<sf::TcpSocket> player2Socket = std::make_unique<sf::TcpSocket>(std::move(lobbyPlayers[1].socket));
 
-        while (playerIndex2 == playerIndex1)
-        {
-            playerIndex2 = rand() % Players.size();
-        }
-
-        std::unique_ptr<sf::TcpSocket> player1Socket = std::move(clients[playerIndex1]);
-        std::unique_ptr<sf::TcpSocket> player2Socket = std::move(clients[playerIndex2]);
-
-        // Créer une "room" avec les sockets des joueurs
         Room room(std::move(player1Socket), std::move(player2Socket));
 
-        // Retirer les joueurs de la liste principale
-        Players.erase(Players.begin() + playerIndex1);
-        Players.erase(Players.begin() + playerIndex2);
-
-        // Retirer les sockets correspondantes
-        clients.erase(clients.begin() + playerIndex1);
-        clients.erase(clients.begin() + playerIndex2);
-
-        // Démarrer la gestion des paquets dans la "room"
         room.HandlePackets();
-    }
-    else
-        return false;
 
+        lobbyPlayers.clear();
+    }
 }
 
 void Server::TCP()
@@ -62,13 +48,11 @@ void Server::TCP()
         Players[i]->timeout += GetDeltaTime();
     }
 
-    // Accepter les nouvelles connexions
     if (selector.wait())
     {
         restartClock();
         if (selector.isReady(listener))
         {
-            // Accepter un nouveau client
             auto clientSocket = std::make_unique<sf::TcpSocket>();
             listener.accept(*clientSocket);
             selector.add(*clientSocket);
@@ -87,12 +71,7 @@ void Server::TCP()
 
                     if (pType == packetType::MATCHMAKING)
                     {
-                        if (!Matchmaking(Players[j]))
-                            sendPacket << false;
-                        else
-                            sendPacket << true;
-
-                        clients[j]->send(sendPacket);
+                        Matchmaking(Players[j]);
                     }
                 }
             }
@@ -171,10 +150,10 @@ void Server::HandleClient(std::unique_ptr<sf::TcpSocket> clientSocket)
     }
 }
 
+
 Room::Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket)
     : player1(std::move(player1Socket)), player2(std::move(player2Socket))
 {
-    // Vous pouvez ajouter des initialisations supplémentaires si nécessaire
 }
 
 
@@ -182,26 +161,21 @@ void Room::HandlePackets()
 {
     sf::Packet packet;
     std::cout << "suuuuuu";
-    // Boucle de gestion des paquets pour la "room"
+
     while (true)
     {
         if (player1->receive(packet) == sf::Socket::Done)
         {
-            // Traitement du paquet du joueur 1 (vérification du packetType, etc.)
             int pType;
             packet >> pType;
-            // ... (Autres traitements en fonction du packetType)
         }
 
         if (player2->receive(packet) == sf::Socket::Done)
         {
-            // Traitement du paquet du joueur 2 (vérification du packetType, etc.)
             int pType;
             packet >> pType;
-            // ... (Autres traitements en fonction du packetType)
         }
 
-        // Effacer le contenu du paquet pour la prochaine itération
         packet.clear();
     }
 }

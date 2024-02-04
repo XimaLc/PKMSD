@@ -1,5 +1,27 @@
 ﻿  Serveur.cpp
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon_Serveur\Serveur.cpp(28,73): error C2665: 'std::vector<Server::LobbyPlayer,std::allocator<Server::LobbyPlayer>>::push_back' : aucune des 2 surcharges n'a pu convertir tous les types d'arguments
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(916,23): message : est peut-être 'void std::vector<Server::LobbyPlayer,std::allocator<Server::LobbyPlayer>>::push_back(_Ty &&)'
+          with
+          [
+              _Ty=Server::LobbyPlayer
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(912,23): message : ou       'void std::vector<Server::LobbyPlayer,std::allocator<Server::LobbyPlayer>>::push_back(const _Ty &)'
+          with
+          [
+              _Ty=Server::LobbyPlayer
+          ]
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon_Serveur\Serveur.cpp(28,17): message : 'void std::vector<Server::LobbyPlayer,std::allocator<Server::LobbyPlayer>>::push_back(const _Ty &)' : impossible de convertir l'argument 1 de 'initializer list' en 'const _Ty &'
+          with
+          [
+              _Ty=Server::LobbyPlayer
+          ]
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon_Serveur\Serveur.cpp(28,73): message : Raison : impossible de convertir de 'initializer list' en 'const _Ty'
+          with
+          [
+              _Ty=Server::LobbyPlayer
+          ]
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon_Serveur\Serveur.cpp(28,28): message : Initialisation d'agrégat non valide
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector(912,23): message : voir la déclaration de 'std::vector<Server::LobbyPlayer,std::allocator<Server::LobbyPlayer>>::push_back'
+C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon_Serveur\Serveur.cpp(28,73): message : lors de la tentative de mise en correspondance de la liste des arguments '(initializer list)'
   Source.cpp
   Génération de code en cours...
-C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\Fakemon_Serveur\Serveur.cpp(55): warning C4715: 'Server::Matchmaking' : les chemins de contrôle ne retournent pas tous une valeur
-  Fakemon_Serveur.vcxproj -> C:\Users\lucas\OneDrive\Documents\GitHub\projet_shooter\PKMSD\Fakemon\x64\Debug\Fakemon_Serveur.exe
