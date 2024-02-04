@@ -26,31 +26,114 @@ Combat::Combat(Client& _client) : client(_client)
 	trainerBackSprite.setPosition({ 200.f, 384.f });
 	trainerBackSprite.setTextureRect(trainerBackRect);
 
-	pokemonName.setFillColor(sf::Color::Black);
-
-	pokemonName2.setFillColor(sf::Color::Black);
-	pokemonName2.setPosition(1320.f, 725.f);
-
-	pokemonHp.setFillColor(sf::Color::Black);
-
-	pokemonHp2.setFillColor(sf::Color::Black);
-	pokemonHp2.setPosition(1450.f, 770.f);
-
 	for (auto i : team.getPokemons())
 		actualHp.push_back(i.getStat("hp"));
+	
+	pokemonName.setFillColor(sf::Color::Black);
+	pokemonName.setPosition(240.f, 130.f);
+	pokemonName.setString("---");
 
+	pokemonHp.setFillColor(sf::Color::Black);
+	pokemonHp.setPosition(440.f, 165.f);
+	pokemonHp.setString("- / -");
+	
+	pokemonName2.setFillColor(sf::Color::Black);
+	pokemonName2.setPosition(1330.f, 735.f);
 	pokemonName2.setString(team.getPokemons()[0].getName());
+
+	pokemonHp2.setFillColor(sf::Color::Black);
+	pokemonHp2.setPosition(1530.f, 770.f);
 	pokemonHp2.setString(std::to_string(actualHp[0]) + " / " + std::to_string(team.getPokemons()[0].getStat("hp")));
+	
+	pokemonTexture2 = DB::getTexture(team.getPokemons()[0].getPath());
+
+	pokemonSprite2.setPosition(200.f, 500.f);
+	pokemonSprite2.setScale({ 0.5, 0.5 });
+
+	pokemonText.setString("Pokemon");
+	pokemonText.setFillColor(sf::Color::Black);
+	pokemonText.setPosition(1600.f, 1000.f);
+
+	attaquerText.setString("Attaquer");
+	attaquerText.setFillColor(sf::Color::Black);
+	attaquerText.setPosition(1600.f, 925.f);
+
+
+	for (int i = 0; i < 4; i++)
+	{
+		sf::Text* text = new Text();
+		text->setString(team.getPokemons()[0].getMoves()[i].getName());
+		text->setFillColor(sf::Color::Black);
+		text->setPosition(100 + (i * 380), 970);
+		moves.push_back(*text);
+	}
+
+	isChoosingAction = true;
+	isChoosingMove = false;
+
+	currentMove = 0;
 }
 
 void Combat::update(sf::RenderWindow* _window)
 {
-	sendPacket << client.MATCHMAKING;
+	timer += GetDeltaTime();
 
-	if (client.socket.send(sendPacket) == sf::Socket::Done)
-		std::cerr << "send connection\n";
-	else
-		std::cerr << "Failed to send connection\n";
+	if (isChoosingAction)
+	{
+		if (actionChoice == ATTAQUER)
+		{
+			attaquerText.setString("> Attaquer");
+			pokemonText.setString("Pokemon");
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			{
+				isChoosingAction = false;
+				isChoosingMove = true;
+			}
+		}
+		else if (actionChoice == POKEMON)
+		{
+			attaquerText.setString("Attaquer");
+			pokemonText.setString("> Pokemon");
+		}
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+			actionChoice = POKEMON;
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+			actionChoice = ATTAQUER;
+	}
+	else if (isChoosingMove)
+	{ 
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && currentMove < 3 && timer > 0.5f)
+		{
+			currentMove++;
+			timer = 0;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && currentMove > 0 && timer > 0.5f)
+		{
+			currentMove--;
+			timer = 0;
+		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			if (i == currentMove)
+			{
+				moves[i].setString("> " + team.getPokemons()[0].getMoves()[i].getName());
+			}
+			else if (i != currentMove)
+			{
+				moves[i].setString(team.getPokemons()[0].getMoves()[i].getName());
+			}
+		}
+	}
+
+
+	//sendPacket << client.MATCHMAKING;
+	//
+	//if (client.socket.send(sendPacket) == sf::Socket::Done)
+	//	std::cerr << "send connection\n";
+	//else
+	//	std::cerr << "Failed to send connection\n";
 }
 
 void Combat::draw(sf::RenderWindow* _window)
@@ -64,12 +147,36 @@ void Combat::draw(sf::RenderWindow* _window)
 	pokeBarSprite2.setTexture(pokeBarTexture);
 	_window->draw(pokeBarSprite2);
 
+	pokemonSprite2.setTexture(*pokemonTexture2);
+	_window->draw(pokemonSprite2);
+
 	actionBarSprite.setTexture(actionBarTexture);
 	_window->draw(actionBarSprite);
 
 	pokemonName2.setFont(font);
 	_window->draw(pokemonName2);
-
+	
 	pokemonHp2.setFont(font);
 	_window->draw(pokemonHp2);
+	
+	pokemonName.setFont(font);
+	_window->draw(pokemonName);
+
+	pokemonHp.setFont(font);
+	_window->draw(pokemonHp);
+
+	attaquerText.setFont(font);
+	_window->draw(attaquerText);
+
+	pokemonText.setFont(font);
+	_window->draw(pokemonText);
+
+	if(isChoosingMove)
+	{
+		for (auto i : moves)
+		{
+			i.setFont(font);
+			_window->draw(i);
+		}
+	}
 }

@@ -1,7 +1,10 @@
 #pragma once
-#include "Team.h"
 #include "Client.h"
+#include "DB.h"
+
 #include <SFML/Graphics.hpp>
+enum Actions {ATTAQUER, POKEMON};
+
 class Combat
 {
 private:
@@ -23,6 +26,12 @@ private:
 	sf::Texture trainerBackTexture;
 	sf::Sprite trainerBackSprite;
 
+	sf::Texture* pokemonTexture;
+	sf::Sprite pokemonSprite;
+
+	sf::Texture* pokemonTexture2;
+	sf::Sprite pokemonSprite2;
+
 	sf::IntRect trainerBackRect;
 	
 	sf::Text pokemonName;
@@ -30,8 +39,21 @@ private:
 
 	sf::Text pokemonHp;
 	sf::Text pokemonHp2;
+	
+	sf::Text attaquerText;
+	sf::Text pokemonText;
+
+	int actionChoice;
 
 	std::vector<int> actualHp;
+
+	bool isChoosingAction;
+	bool isChoosingMove;
+
+	std::vector<sf::Text> moves;
+	int currentMove;
+
+	float timer;
 
 	Client& client;
 	sf::Packet sendPacket;
