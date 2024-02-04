@@ -49,9 +49,13 @@ private:
 
 	bool isChoosingAction;
 	bool isChoosingMove;
+	bool isChoosingPokemon;
 
 	std::vector<sf::Text> moves;
 	int currentMove;
+
+	std::vector<sf::Text> pokemons;
+	int currentPokemon;
 
 	float timer;
 
@@ -61,7 +65,7 @@ private:
 public:
 	Combat(Client& _client);
 
+	void switchPokemon(int index);
 	void update(sf::RenderWindow * _window);
 	void draw(sf::RenderWindow * _window);
 };
-

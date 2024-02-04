@@ -67,11 +67,45 @@ Combat::Combat(Client& _client) : client(_client)
 		text->setPosition(100 + (i * 380), 970);
 		moves.push_back(*text);
 	}
+	
+	for (int i = 0; i < 6; i++)
+	{
+		sf::Text* text = new Text();
+		text->setString(team.getPokemons()[i].getName());
+		text->setFillColor(sf::Color::Black);
+		if(i < 3)
+			text->setPosition(100 + (i * 380), 930);
+		else
+			text->setPosition(100 + ((i-3) * 380), 990);
+
+		pokemons.push_back(*text);
+	}
 
 	isChoosingAction = true;
 	isChoosingMove = false;
+	isChoosingPokemon = false;
 
 	currentMove = 0;
+}
+
+void Combat::switchPokemon(int index)
+{
+	pokemonName2.setString(team.getPokemons()[index].getName());
+	pokemonHp2.setString(std::to_string(actualHp[index]) + " / " + std::to_string(team.getPokemons()[index].getStat("hp")));
+	pokemonTexture2 = DB::getTexture(team.getPokemons()[index].getPath());
+	moves.clear();
+	for (int i = 0; i < 4; i++)
+	{
+		sf::Text* text = new Text();
+		text->setString(team.getPokemons()[index].getMoves()[i].getName());
+		text->setFillColor(sf::Color::Black);
+		text->setPosition(100 + (i * 380), 970);
+		moves.push_back(*text);
+	}
+
+	isChoosingAction = true;
+	isChoosingMove = false;
+	isChoosingPokemon = false;
 }
 
 void Combat::update(sf::RenderWindow* _window)
@@ -84,16 +118,25 @@ void Combat::update(sf::RenderWindow* _window)
 		{
 			attaquerText.setString("> Attaquer");
 			pokemonText.setString("Pokemon");
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && timer >= 0.5f)
 			{
 				isChoosingAction = false;
 				isChoosingMove = true;
+				isChoosingPokemon = false;
+				timer = 0;
 			}
 		}
 		else if (actionChoice == POKEMON)
 		{
 			attaquerText.setString("Attaquer");
 			pokemonText.setString("> Pokemon");
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && timer >= 0.5f)
+			{
+				isChoosingAction = false;
+				isChoosingMove = false;
+				isChoosingPokemon = true;
+				timer = 0;
+			}
 		}
 
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -113,6 +156,14 @@ void Combat::update(sf::RenderWindow* _window)
 			currentMove--;
 			timer = 0;
 		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && timer > 0.5f)
+		{
+			isChoosingAction = true;
+			isChoosingMove = false;
+			isChoosingPokemon = false;
+			currentMove = 0;
+			timer = 0;
+		}
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -123,6 +174,48 @@ void Combat::update(sf::RenderWindow* _window)
 			else if (i != currentMove)
 			{
 				moves[i].setString(team.getPokemons()[0].getMoves()[i].getName());
+			}
+		}
+
+		
+	}
+	else if (isChoosingPokemon)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) && currentPokemon < 6 && timer > 0.5f)
+		{
+			currentPokemon++;
+			timer = 0;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && currentPokemon > 0 && timer > 0.5f)
+		{
+			currentPokemon--;
+			timer = 0;
+		}
+		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && currentPokemon > 2 && timer > 0.5f)
+		{
+			currentPokemon -= 3;
+			timer = 0;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) && currentPokemon < 3 && timer > 0.5f)
+		{
+			currentPokemon += 3;
+			timer = 0;
+		}
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter) && timer > 0.5f)
+		{
+			switchPokemon(currentPokemon);
+			timer = 0;
+		}
+
+		for (int i = 0; i < 6; i++)
+		{
+			if (i == currentPokemon)
+			{
+				pokemons[i].setString("> " + team.getPokemons()[i].getName());
+			}
+			else if (i != currentPokemon)
+			{
+				pokemons[i].setString(team.getPokemons()[i].getName());
 			}
 		}
 	}
@@ -174,6 +267,14 @@ void Combat::draw(sf::RenderWindow* _window)
 	if(isChoosingMove)
 	{
 		for (auto i : moves)
+		{
+			i.setFont(font);
+			_window->draw(i);
+		}
+	}
+	else if(isChoosingPokemon)
+	{
+		for (auto i : pokemons)
 		{
 			i.setFont(font);
 			_window->draw(i);
