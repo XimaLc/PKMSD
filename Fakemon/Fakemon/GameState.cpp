@@ -2,7 +2,7 @@
 
 int GameState::state; 
 
-GameState::GameState()
+GameState::GameState(Client& _client) : cb(_client)
 {
 	state = menu;
 }
@@ -15,8 +15,8 @@ void GameState::updateScene(sf::RenderWindow* _window)
 		showdown.update(_window);
 	else if (state == teamBuilder)
 		tb.update(_window);
-	//else if (state == combat)
-	//	cb.update(_window);
+	else if (state == combat)
+		cb.update(_window);
 }
 
 void GameState::drawScene(sf::RenderWindow* _window)
@@ -27,6 +27,6 @@ void GameState::drawScene(sf::RenderWindow* _window)
 		showdown.draw(_window);
 	else if (state == teamBuilder)
 		tb.draw(_window);
-	//else if (state == combat)
-	//	cb.draw(_window);
+	else if (state == combat)
+		cb.draw(_window);
 }
