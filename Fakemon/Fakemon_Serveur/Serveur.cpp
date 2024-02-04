@@ -20,7 +20,7 @@ void Server::Update()
 
 }
 
-void Server::Matchmaking()
+bool Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
 {
     if (Players.size() >= 2)
     {
@@ -49,6 +49,9 @@ void Server::Matchmaking()
         // Démarrer la gestion des paquets dans la "room"
         room.HandlePackets();
     }
+    else
+        return false;
+
 }
 
 void Server::TCP()
@@ -70,66 +73,31 @@ void Server::TCP()
             listener.accept(*clientSocket);
             selector.add(*clientSocket);
 
-            auto newPlayer = std::make_unique<Player>();
-
-            // Recevoir les informations de connexion
-            if (clientSocket->receive(receivePacket) == sf::Socket::Done)
-            {
-                int pType;
-                receivePacket >> pType >> newPlayer->username >> newPlayer->password;
-
-                if (pType == packetType::LOGIN)
-                {
-                    newPlayer->isAuthenticated = accountManager.authenticate(newPlayer->username, newPlayer->password);
-
-                    sendPacket << packetType::LOGIN << newPlayer->isAuthenticated;
-                    if (clientSocket->send(sendPacket) == sf::Socket::Done)
-                        std::cerr << "send authentication succesfull\n" << newPlayer->isAuthenticated << std::endl;
-                    else
-                        std::cerr << "Failed to send authentication result\n";
-
-                    if (newPlayer->isAuthenticated)
-                    {
-                        Players.push_back(std::move(newPlayer));
-                        clients.push_back(std::move(clientSocket));
-                        clientsNbr++;
-
-                        if (pType == packetType::MATCHMAKING)
-                        {
-                            Matchmaking();
-                        }
-                    }
-                    else
-                        selector.remove(*clientSocket); 
-                    
-                }
-                else if (pType == packetType::REGISTER)
-                {
-                    newPlayer->isRegister = accountManager.registerAccount( accountManager.lastId++ , newPlayer->username, newPlayer->password);
-
-                    sendPacket << packetType::REGISTER << newPlayer->isRegister;
-                    if (clientSocket->send(sendPacket) == sf::Socket::Done)
-                        std::cerr << "send register succesfull\n" << newPlayer->isRegister << std::endl;
-                    else
-                        std::cerr << "Failed to send register result\n";
-
-                    selector.remove(*clientSocket);
-                }
-
-                sendPacket.clear();
-                receivePacket.clear();
-            }
-           /* for (int j = 0; j < Players.size(); j++)
-            {
-
-                if (Players[j]->id != newPlayer->id)
-                {
-
-                }
-            }*/
-
-           
+            std::thread(&Server::HandleClient, this, std::move(clientSocket)).detach();
         }
+
+        for (int j = 0; j < Players.size(); j++)
+        {
+            if (Players[j]->isAuthenticated)
+            {
+                if (clients[j]->receive(receivePacket) == sf::Socket::Done)
+                {
+                    int pType;
+                    receivePacket >> pType;
+
+                    if (pType == packetType::MATCHMAKING)
+                    {
+                        if (!Matchmaking(Players[j]))
+                            sendPacket << false;
+                        else
+                            sendPacket << true;
+
+                        clients[j]->send(sendPacket);
+                    }
+                }
+            }
+        }
+       
         
         /*for (int i = 0; i < clients.size(); i++)
         {   
@@ -155,6 +123,54 @@ void Server::TCP()
     }
 }
 
+void Server::HandleClient(std::unique_ptr<sf::TcpSocket> clientSocket)
+{
+    auto newPlayer = std::make_unique<Player>();
+
+    // Recevoir les informations de connexion
+    if (clientSocket->receive(receivePacket) == sf::Socket::Done)
+    {
+        int pType;
+        receivePacket >> pType >> newPlayer->username >> newPlayer->password;
+
+        if (pType == packetType::LOGIN)
+        {
+            newPlayer->isAuthenticated = accountManager.authenticate(newPlayer->username, newPlayer->password);
+
+            sendPacket << packetType::LOGIN << newPlayer->isAuthenticated;
+            if (clientSocket->send(sendPacket) == sf::Socket::Done)
+                std::cerr << "send authentication succesfull\n" << newPlayer->isAuthenticated << std::endl;
+            else
+                std::cerr << "Failed to send authentication result\n";
+
+            if (newPlayer->isAuthenticated)
+            {
+                Players.push_back(std::move(newPlayer));
+                clients.push_back(std::move(clientSocket));
+                clientsNbr++;
+
+            }
+            else
+                selector.remove(*clientSocket);
+        }
+        else if (pType == packetType::REGISTER)
+        {
+            newPlayer->isRegister = accountManager.registerAccount(accountManager.lastId++, newPlayer->username, newPlayer->password);
+
+            sendPacket << packetType::REGISTER << newPlayer->isRegister;
+            if (clientSocket->send(sendPacket) == sf::Socket::Done)
+                std::cerr << "send register succesfull\n" << newPlayer->isRegister << std::endl;
+            else
+                std::cerr << "Failed to send register result\n";
+
+            selector.remove(*clientSocket);
+        }
+
+        sendPacket.clear();
+        receivePacket.clear();
+    }
+}
+
 Room::Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket)
     : player1(std::move(player1Socket)), player2(std::move(player2Socket))
 {
@@ -165,7 +181,7 @@ Room::Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::Tcp
 void Room::HandlePackets()
 {
     sf::Packet packet;
-
+    std::cout << "suuuuuu";
     // Boucle de gestion des paquets pour la "room"
     while (true)
     {

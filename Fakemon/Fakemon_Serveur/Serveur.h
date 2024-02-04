@@ -7,13 +7,6 @@
 
 class Server 
 {
-public:
-    void Init();
-    void Update();
-
-    void Matchmaking();
-    
-    void TCP();
 
 private:
     sf::TcpListener listener;
@@ -67,10 +60,21 @@ private:
         CLIENT_DISCONNECTED,
         LOGIN,
         REGISTER,
+        MATCHMAKING,
         POKEMON_ID,
-        MOVE_ID,
-        MATCHMAKING
+        MOVE_ID
     };
+
+public:
+    void Init();
+    void Update();
+
+    bool Matchmaking(std::unique_ptr<Player>& requestingPlayer);
+
+    void TCP();
+
+    void HandleClient(std::unique_ptr<sf::TcpSocket> clientSocket);
+
 };
 
 
