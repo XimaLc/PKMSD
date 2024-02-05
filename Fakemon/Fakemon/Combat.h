@@ -62,6 +62,9 @@ private:
 	Client& client;
 	sf::Packet sendPacket;
 	sf::Packet receivePacket;
+
+	bool matchmaking = false;
+
 public:
 	Combat(Client& _client);
 
