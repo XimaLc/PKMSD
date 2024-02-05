@@ -48,12 +48,15 @@ void Overworld::update(sf::RenderWindow* _window)
 			wildPokemons.push_back(DB::getPokemonById(iRand(1, 148)));
 		}
 
+		list<PokemonSafari>::iterator it1 = wildPokemons.begin();
 		bool despawn = false;
 		for (auto& it : wildPokemons)
 		{
 			it.despawnTimer += GetDeltaTime();
 			if (it.despawnTimer >= 180.f)
 				despawn = true;
+			if (!despawn)
+				it1++;
 
 			if (it.getSteering() == 1)
 			{
@@ -92,13 +95,27 @@ void Overworld::update(sf::RenderWindow* _window)
 
 		if (despawn)
 		{
-			wildPokemons.pop_front();
+			wildPokemons.erase(it1);
 			despawn = false;
 		}
 	}
 	else
 	{
 		capture.update(_window);
+		if (capture.getFinished())
+		{
+			hitPokemon = false;
+			list<PokemonSafari>::iterator it1 = wildPokemons.begin();
+
+			for (auto it : wildPokemons)
+			{
+				if (it.getId() != capture.getPokemonEnemy().getId())
+					it1++;
+				else
+					break;
+			}
+			it1 = wildPokemons.erase(it1);
+		}
 	}
 }
 

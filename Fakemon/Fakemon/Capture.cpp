@@ -8,8 +8,12 @@ Capture::Capture()
 Capture::Capture(PokemonSafari _poke)
 {
 	pokemonEnemy = _poke;
-	catchChance = 50.f;
+	catchChance = 30.f;
 	fleeChance = 20.f;
+	catched = false;
+	fleed = false;
+	finished = false;
+	click = false;
 	fondTxt.loadFromFile(TexturePath"BattleBackgrounds.png");
 	fondSpr.setTexture(fondTxt);
 	fondSpr.setScale({ 8.f, 8.f });
@@ -37,6 +41,11 @@ Capture::Capture(PokemonSafari _poke)
 	pkmName.setFillColor(sf::Color::Black);
 	pkmName.setString(pokemonEnemy.getName());
 
+	actionText.setPosition(100.f, 950.f);
+	actionText.setCharacterSize(50);
+	actionText.setFillColor(sf::Color::Black);
+	actionText.setString("Un " + pokemonEnemy.getName() + " sauvage apparait !");
+
 	buttons["BALL"] = new Button("../Files/Textures/button.png", 1500, 930, 185, 60, "Ball", 30);
 	buttons["ROCK"] = new Button("../Files/Textures/button.png", 1685, 930, 185, 60, "Rock", 30);
 	buttons["MUD"] = new Button("../Files/Textures/button.png", 1500, 990, 185, 60, "Mud", 30);
@@ -54,6 +63,57 @@ void Capture::update(sf::RenderWindow* _window)
 
 	for (auto& it : this->buttons)
 		it.second->update(mousePos);
+
+	if ((fleed || catched) && !click && Mouse(Left))
+		finished = true;
+
+	if (!click && Mouse(Left))
+	{
+		actionText.setString("Le " + pokemonEnemy.getName() + " vous regarde.");
+		if (buttons["RUN"]->isPressed())
+		{
+			fleed = true;
+			actionText.setString("Vous prenez la fuite !");
+		}
+
+		if (buttons["BALL"]->isPressed())
+		{
+			if (fRand(0.f, 100.f) <= catchChance)
+			{
+				catched = true;
+				actionText.setString(pokemonEnemy.getName() + " a ete attrape !");
+			}
+			else
+			{
+				if (fRand(0.f, 100.f) <= fleeChance)
+				{
+					fleed = true;
+					actionText.setString(pokemonEnemy.getName() + " a pris la fuite !");
+				}
+				else
+					actionText.setString(pokemonEnemy.getName() + " est sorti de la ball !");
+			}
+		}
+
+		if (buttons["ROCK"]->isPressed())
+		{
+			catchChance += 20.f;
+			fleeChance += 20.f;
+			actionText.setString(pokemonEnemy.getName() + " est en colere !");
+		}
+
+		if (buttons["MUD"]->isPressed())
+		{
+			catchChance -= 10.f;
+			fleeChance -= 10.f;
+			actionText.setString(pokemonEnemy.getName() + " est couvert de boue !");
+		}
+	}
+
+	if (Mouse(Left))
+		click = true;
+	else
+		click = false;
 }
 
 void Capture::draw(sf::RenderWindow* _window)
@@ -70,6 +130,8 @@ void Capture::draw(sf::RenderWindow* _window)
 	pokemonEnemy.draw(_window);
 	pkmName.setFont(font);
 	_window->draw(pkmName);
+	actionText.setFont(font);
+	_window->draw(actionText);
 
 	for (auto& it : this->buttons)
 		it.second->render(_window);
