@@ -101,7 +101,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 		{
 			
 		
-			if (client.socket.connect("192.168.1.187", 8888) != sf::Socket::Done)
+			if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
 			{
 				std::cerr << "Failed to connect to server\n";
 			}
@@ -160,7 +160,7 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 		if (boutons["REGISTER_BOUTTON"]->isPressed() && timer >= 0.2f)
 		{
-			if (client.socket.connect("192.168.1.187", 8888) != sf::Socket::Done)
+			if (client.socket.connect("192.168.10.129", 8888) != sf::Socket::Done)
 			{
 				std::cerr << "Failed to connect to server\n";
 			}
