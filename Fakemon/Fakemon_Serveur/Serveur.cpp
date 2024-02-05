@@ -22,7 +22,7 @@ void Server::Update()
 
 void Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
 {
-    sf::TcpSocket* playerSocket = clients.back().get();
+    /*sf::TcpSocket* playerSocket = clients.back().get();
     clients.pop_back(); 
 
     lobbyPlayers.push_back({ std::move(requestingPlayer), playerSocket });
@@ -37,7 +37,7 @@ void Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
         room.HandlePackets();
 
         lobbyPlayers.clear();
-    }
+    }*/
 }
 
 void Server::TCP()
@@ -69,10 +69,10 @@ void Server::TCP()
                     int pType;
                     receivePacket >> pType;
 
-                    if (pType == packetType::MATCHMAKING)
+                    /*if (pType == packetType::MATCHMAKING)
                     {
                         Matchmaking(Players[j]);
-                    }
+                    }*/
                 }
             }
         }
