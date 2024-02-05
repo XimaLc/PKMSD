@@ -27,7 +27,7 @@ std::vector<int> DB::stringToVectorInt(std::string str)
 Pokemon DB::getPokemonById(int _id)
 {
 	std::string name, path, movePool;
-	int id, evolution_state, type1, type2;
+	int id, evolution_state, type1, type2, isSelectable;
 	std::map<std::string, int> stats;
 
 	std::string string;
@@ -43,7 +43,7 @@ Pokemon DB::getPokemonById(int _id)
 			if (string.find("//") == std::string::npos)
 			{
 				iss.str(string);
-				iss >> id >> path >> name >> type1 >> type2 >> evolution_state >> stats["hp"] >> stats["atk"] >> stats["def"] >> stats["spA"] >> stats["spD"] >> stats["spd"] >> stats["bst"] >> movePool;
+				iss >> id >> path >> name >> type1 >> type2 >> evolution_state >> stats["hp"] >> stats["atk"] >> stats["def"] >> stats["spA"] >> stats["spD"] >> stats["spd"] >> stats["bst"] >> isSelectable >> movePool;
 				if (id == _id)
 				{
 					Pokemon pokemon(id, path, removeUnderscore(name), type1, type2, evolution_state, stats, stringToVectorInt(movePool));
