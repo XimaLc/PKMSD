@@ -20,33 +20,33 @@ void Server::Update()
 
 }
 
-void Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
-{
-    /*sf::TcpSocket* playerSocket = clients.back().get();
-    clients.pop_back(); 
-
-    lobbyPlayers.push_back({ std::move(requestingPlayer), playerSocket });
-
-    if (lobbyPlayers.size() >= 2)
-    {
-        std::unique_ptr<sf::TcpSocket> player1Socket = std::make_unique<sf::TcpSocket>(std::move(lobbyPlayers[0].socket));
-        std::unique_ptr<sf::TcpSocket> player2Socket = std::make_unique<sf::TcpSocket>(std::move(lobbyPlayers[1].socket));
-
-        Room room(std::move(player1Socket), std::move(player2Socket));
-
-        room.HandlePackets();
-
-        lobbyPlayers.clear();
-    }*/
-}
+//void Server::Matchmaking(std::unique_ptr<Player>& requestingPlayer)
+//{
+//    sf::TcpSocket* playerSocket = clients.back().get();
+//    clients.pop_back(); 
+//
+//    lobbyPlayers.push_back({ std::move(requestingPlayer), playerSocket });
+//
+//    if (lobbyPlayers.size() >= 2)
+//    {
+//        std::unique_ptr<sf::TcpSocket> player1Socket = std::make_unique<sf::TcpSocket>(std::move(lobbyPlayers[0].socket));
+//        std::unique_ptr<sf::TcpSocket> player2Socket = std::make_unique<sf::TcpSocket>(std::move(lobbyPlayers[1].socket));
+//
+//        Room room(std::move(player1Socket), std::move(player2Socket));
+//
+//        room.HandlePackets();
+//
+//        lobbyPlayers.clear();
+//    }
+//}
 
 void Server::TCP()
 {
-    restartClock();
+   /* restartClock();
     for (int i = 0; i < Players.size(); i++)
     {
         Players[i]->timeout += GetDeltaTime();
-    }
+    }*/
 
     if (selector.wait())
     {
@@ -60,7 +60,7 @@ void Server::TCP()
             std::thread(&Server::HandleClient, this, std::move(clientSocket)).detach();
         }
 
-        for (int j = 0; j < Players.size(); j++)
+       /* for (int j = 0; j < Players.size(); j++)
         {
             if (Players[j]->isAuthenticated)
             {
@@ -69,16 +69,16 @@ void Server::TCP()
                     int pType;
                     receivePacket >> pType;
 
-                    /*if (pType == packetType::MATCHMAKING)
+                    if (pType == packetType::MATCHMAKING)
                     {
                         Matchmaking(Players[j]);
-                    }*/
+                    }
                 }
             }
-        }
+        }*/
        
         
-        /*for (int i = 0; i < clients.size(); i++)
+       /* for (int i = 0; i < clients.size(); i++)
         {   
             if (GetDeltaTime() < 1.0f)
                 Players[i]->timeout += GetDeltaTime();
@@ -151,31 +151,31 @@ void Server::HandleClient(std::unique_ptr<sf::TcpSocket> clientSocket)
 }
 
 
-Room::Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket)
-    : player1(std::move(player1Socket)), player2(std::move(player2Socket))
-{
-}
+//Room::Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket)
+//    : player1(std::move(player1Socket)), player2(std::move(player2Socket))
+//{
+//}
 
 
-void Room::HandlePackets()
-{
-    sf::Packet packet;
-    std::cout << "suuuuuu";
-
-    while (true)
-    {
-        if (player1->receive(packet) == sf::Socket::Done)
-        {
-            int pType;
-            packet >> pType;
-        }
-
-        if (player2->receive(packet) == sf::Socket::Done)
-        {
-            int pType;
-            packet >> pType;
-        }
-
-        packet.clear();
-    }
-}
+//void Room::HandlePackets()
+//{
+//    sf::Packet packet;
+//    std::cout << "suuuuuu";
+//
+//    while (true)
+//    {
+//        if (player1->receive(packet) == sf::Socket::Done)
+//        {
+//            int pType;
+//            packet >> pType;
+//        }
+//
+//        if (player2->receive(packet) == sf::Socket::Done)
+//        {
+//            int pType;
+//            packet >> pType;
+//        }
+//
+//        packet.clear();
+//    }
+//}
