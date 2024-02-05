@@ -23,12 +23,25 @@ Combat::Combat(Client& _client) : client(_client)
 
 void Combat::update(sf::RenderWindow* _window)
 {
-	sendPacket << client.MATCHMAKING;
+	if(!matchmaking)
+	{
+		bool suu;
+		sendPacket << client.MATCHMAKING;
 
-	if (client.socket.send(sendPacket) == sf::Socket::Done)
-		std::cerr << "send connection\n";
-	else
-		std::cerr << "Failed to send connection\n";
+		if (client.socket.send(sendPacket) == sf::Socket::Done)
+			std::cerr << "send connection\n";
+		else
+			std::cerr << "Failed to send connection\n";
+
+		if (client.socket.receive(receivePacket) == sf::Socket::Done)
+			receivePacket >> suu;
+
+		if (!suu)
+			std::cerr << "pas assez de joueur";
+		else
+			std::cerr << "letsgoooo";
+
+	}
 }
 
 void Combat::draw(sf::RenderWindow* _window)
