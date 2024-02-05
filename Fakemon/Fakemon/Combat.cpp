@@ -228,7 +228,7 @@ void Combat::update(sf::RenderWindow* _window)
 	//else
 	//	std::cerr << "Failed to send connection\n";
 
-	if(!matchmaking)
+	/*if(!matchmaking)
 	{
 		bool suu;
 		sendPacket << client.MATCHMAKING;
@@ -246,7 +246,7 @@ void Combat::update(sf::RenderWindow* _window)
 		else
 			std::cerr << "letsgoooo";
 
-	}
+	}*/
 }
 
 void Combat::draw(sf::RenderWindow* _window)
