@@ -35,6 +35,15 @@ PokemonSafari::PokemonSafari(Pokemon _pokemon)
 	collisionDetector.setFillColor({ 255, 0, 0, 50 });
 
 	steering = iRand(1, 4);
+	if (steering == 3)
+	{
+		pathFollowingIndex = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			pathFollowing.push_back(sf::Vector2f(fRand(pos.x - 500.f, pos.x + 500.f), fRand(pos.y - 500.f, pos.y + 500.f)));
+		}
+	}
+	despawnTimer = 0.f;
 }
 
 PokemonSafari::~PokemonSafari()

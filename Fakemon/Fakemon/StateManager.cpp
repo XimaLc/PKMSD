@@ -7,6 +7,7 @@
 StateManager* StateManager::m_instance = nullptr;
 
 StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Resize), currentState(new MenuState(client))
+
 {
 }
 

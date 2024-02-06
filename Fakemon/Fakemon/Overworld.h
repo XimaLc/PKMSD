@@ -4,6 +4,7 @@
 #include "PokemonSafari.h"
 #include "DB.h"
 #include "Obstacle.h"
+#include "Capture.h"
 
 class Overworld
 {
@@ -13,9 +14,13 @@ private:
 	sf::Texture obstacleTxt;
 	sf::View viewOverworld;
 	Player player;
-	vector<PokemonSafari> wildPokemons;
+	list<PokemonSafari> wildPokemons;
 	vector<Obstacle> obstacles;
 	float spawnTimer;
+	sf::Sprite pnjShape;
+	sf::Texture pnjText;
+	bool hitPokemon;
+	Capture capture;
 public:
 	Overworld();
 	~Overworld();

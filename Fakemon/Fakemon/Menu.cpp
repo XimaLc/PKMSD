@@ -249,6 +249,8 @@ void Menu::updateMenu(sf::RenderWindow* _window)
 
 void Menu::drawMenu(sf::RenderWindow * _window)
 {
+	_window->setView(_window->getDefaultView());
+
 	_window->draw(fondSpr);
 	_window->draw(fogSpr);
 	_window->draw(fogSpr2);
