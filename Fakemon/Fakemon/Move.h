@@ -22,6 +22,7 @@ public:
 	inline void setPower(int _power) { power = _power; }
 	inline void setAccuracy(int _accuracy) { accuracy = _accuracy; }
 
+	inline int getId() { return id; }
 	inline std::string getName() { return name; }
 	inline int getType() { return type; }
 	inline int getCategory() { return category; }

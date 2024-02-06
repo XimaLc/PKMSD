@@ -24,6 +24,9 @@ void Showdown::update(sf::RenderWindow* _window)
 	if (boutons["teamEdit"]->isPressed())
 		GameState::setState(teamBuilder);
 
+	if (boutons["fightRandom"]->isPressed())
+		GameState::setState(combat);
+
 	if(boutons["quit"]->isPressed())
 		GameState::setState(safariMode);
 }

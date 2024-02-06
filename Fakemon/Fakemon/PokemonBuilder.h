@@ -27,6 +27,8 @@ private:
 public:
 	PokemonBuilder();
 
+	void setMove(Move move, int _index);
+
 	inline std::vector<MoveSlot>* getMoveSlots() { return &moveSlots; };
 
 	bool isMoveSlotPressed();
@@ -35,6 +37,7 @@ public:
 	void setMoveSlots();
 
 	void update(const sf::Vector2f mousePos);
+	void setPokemon(Pokemon _p);
 	void changePokemon(Pokemon* _p);
 	void draw(sf::RenderWindow * _window);
 };

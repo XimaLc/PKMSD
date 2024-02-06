@@ -6,6 +6,11 @@ void Pokemon::setTypes(int _type1, int _type2)
 	type2 = _type2;
 }
 
+void Pokemon::setMoveId(int index, int id)
+{
+	moves[index].setId(id);
+}
+
 Pokemon::Pokemon() 
 {
 	moves.push_back(Move());

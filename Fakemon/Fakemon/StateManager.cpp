@@ -6,7 +6,8 @@
 
 StateManager* StateManager::m_instance = nullptr;
 
-StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Fullscreen), currentState(new MenuState(client))
+StateManager::StateManager() : window(sf::VideoMode(1920, 1080), "FAKEMON DE ZINZIN", Style::Resize), currentState(new MenuState(client))
+
 {
 }
 
@@ -35,7 +36,7 @@ void StateManager::switchToGame()
 	if (currentState != nullptr)
 		delete currentState;
 
-	currentState = new GameState();
+	currentState = new GameState(client);
 }
 
 void StateManager::switchToOption()
@@ -60,7 +61,7 @@ void StateManager::updateCurrentState()
 				window.close();
 
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
-				window.close();
+				switchToMenu();
 		}
 
 		currentState->updateScene(&window);
@@ -76,4 +77,3 @@ void StateManager::displayCurrentState()
 	
 
 }
-	

@@ -17,7 +17,7 @@ public:
         AUTHENTICATE,
         CLIENT_DISCONNECTED,
         LOGIN,
-        REGISTER
+        REGISTER,
+        MATCHMAKING
     };
 };
-

@@ -5,15 +5,11 @@
 #include <thread>
 #include <vector>
 
-
+#include <queue>
+#include <mutex>
 
 class Server 
 {
-public:
-    void Init();
-    void Update();
-    
-    void TCP();
 
 private:
     sf::TcpListener listener;
@@ -26,6 +22,19 @@ private:
     int tcp_port;
     bool server_started;
 
+    struct Pokemon
+    {
+        std::string move1;
+        std::string move2;
+        std::string move3;
+        std::string move4;
+    };
+
+    struct Team
+    {
+        std::vector<Pokemon> pokemons;
+    };
+
     struct Player
     {
         sf::IpAddress ip;
@@ -35,6 +44,8 @@ private:
         float timeout;
         bool isAuthenticated = false;
         bool isRegister = false;
+
+        Team team;
     };
     std::vector <std::unique_ptr< Player >> Players;
 
@@ -51,7 +62,41 @@ private:
         AUTHENTICATE,
         CLIENT_DISCONNECTED,
         LOGIN,
-        REGISTER
+        REGISTER,
+        MATCHMAKING,
+        POKEMON_ID,
+        MOVE_ID
     };
+
+   /* struct LobbyPlayer
+    {
+        std::unique_ptr<Player> player;
+        sf::TcpSocket socket;
+    };
+    std::vector<LobbyPlayer> lobbyPlayers;*/
+
+public:
+    void Init();
+    void Update();
+
+    /*void Matchmaking(std::unique_ptr<Player>& requestingPlayer);*/
+
+    void TCP();
+
+    void HandleClient(std::unique_ptr<sf::TcpSocket> clientSocket);
+
+
 };
 
+
+//class Room
+//{
+//public:
+//    Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket);
+//
+//    void HandlePackets();
+//
+//private:
+//    std::unique_ptr<sf::TcpSocket> player1;
+//    std::unique_ptr<sf::TcpSocket> player2;
+//};
