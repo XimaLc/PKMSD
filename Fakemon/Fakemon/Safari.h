@@ -4,13 +4,12 @@
 #include "Capture.h"
 #include "Shop.h"
 
-enum StateSafari {overworldS, captureS, shopS};
+enum StateSafari {overworldS, shopS};
 
 class Safari
 {
 private:
 	Overworld overworld;
-	Capture capture;
 	Shop shop;
 	static int stateSafari;
 public:

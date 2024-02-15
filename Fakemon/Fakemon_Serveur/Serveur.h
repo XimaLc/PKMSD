@@ -68,18 +68,18 @@ private:
         MOVE_ID
     };
 
-    struct LobbyPlayer
+   /* struct LobbyPlayer
     {
         std::unique_ptr<Player> player;
         sf::TcpSocket socket;
     };
-    std::vector<LobbyPlayer> lobbyPlayers;
+    std::vector<LobbyPlayer> lobbyPlayers;*/
 
 public:
     void Init();
     void Update();
 
-    void Matchmaking(std::unique_ptr<Player>& requestingPlayer);
+    /*void Matchmaking(std::unique_ptr<Player>& requestingPlayer);*/
 
     void TCP();
 
@@ -89,14 +89,14 @@ public:
 };
 
 
-class Room
-{
-public:
-    Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket);
-
-    void HandlePackets();
-
-private:
-    std::unique_ptr<sf::TcpSocket> player1;
-    std::unique_ptr<sf::TcpSocket> player2;
-};
+//class Room
+//{
+//public:
+//    Room(std::unique_ptr<sf::TcpSocket> player1Socket, std::unique_ptr<sf::TcpSocket> player2Socket);
+//
+//    void HandlePackets();
+//
+//private:
+//    std::unique_ptr<sf::TcpSocket> player1;
+//    std::unique_ptr<sf::TcpSocket> player2;
+//};

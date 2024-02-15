@@ -55,7 +55,9 @@ void Player::movePlayer(sf::View* _view, vector<Obstacle> _obs)
 	for (auto obs : _obs)
 	{
 		if (Rectangle_Collision({ spr.getGlobalBounds().left, spr.getGlobalBounds().top - (200.f * GetDeltaTime()),
-			spr.getGlobalBounds().width, 1 }, ObstacleRect))
+			spr.getGlobalBounds().width, 1 }, ObstacleRect) || 
+			Rectangle_Collision({ spr.getGlobalBounds().left, spr.getGlobalBounds().top - (200.f * GetDeltaTime()),
+			spr.getGlobalBounds().width, 1 }, { -28.f, -240.f, 42.f, 60.f}))
 			canMove = false;
 	}
 	if (Key(Z) && pos.y >= -945.f)
@@ -79,7 +81,9 @@ void Player::movePlayer(sf::View* _view, vector<Obstacle> _obs)
 	for (auto obs : _obs)
 	{
 		if (Rectangle_Collision({ spr.getGlobalBounds().left, spr.getGlobalBounds().top + spr.getGlobalBounds().height + (200.f * GetDeltaTime()),
-			spr.getGlobalBounds().width, 1 }, ObstacleRect))
+			spr.getGlobalBounds().width, 1 }, ObstacleRect) ||
+			Rectangle_Collision({ spr.getGlobalBounds().left, spr.getGlobalBounds().top + spr.getGlobalBounds().height + (200.f * GetDeltaTime()),
+			spr.getGlobalBounds().width, 1 }, { -28.f, -240.f, 42.f, 60.f }))
 			canMove = false;
 	}
 	if (Key(S) && pos.y <= 920.f)
@@ -103,7 +107,9 @@ void Player::movePlayer(sf::View* _view, vector<Obstacle> _obs)
 	for (auto obs : _obs)
 	{
 		if (Rectangle_Collision({ spr.getGlobalBounds().left - (200.f * GetDeltaTime()), spr.getGlobalBounds().top,
-			1, spr.getGlobalBounds().height }, ObstacleRect))
+			1, spr.getGlobalBounds().height }, ObstacleRect) ||
+			Rectangle_Collision({ spr.getGlobalBounds().left - (200.f * GetDeltaTime()), spr.getGlobalBounds().top,
+			1, spr.getGlobalBounds().height }, { -28.f, -240.f, 42.f, 60.f }))
 			canMove = false;
 	}
 	if (Key(Q) && pos.x >= -1810.f)
@@ -127,7 +133,9 @@ void Player::movePlayer(sf::View* _view, vector<Obstacle> _obs)
 	for (auto obs : _obs)
 	{
 		if (Rectangle_Collision({ spr.getGlobalBounds().left + spr.getGlobalBounds().width + (200.f * GetDeltaTime()), spr.getGlobalBounds().top,
-			1, spr.getGlobalBounds().height }, ObstacleRect))
+			1, spr.getGlobalBounds().height }, ObstacleRect) ||
+			Rectangle_Collision({ spr.getGlobalBounds().left + spr.getGlobalBounds().width + (200.f * GetDeltaTime()), spr.getGlobalBounds().top,
+			1, spr.getGlobalBounds().height }, { -28.f, -240.f, 42.f, 60.f }))
 			canMove = false;
 	}
 	if (Key(D) && pos.x <= 1810.f)
